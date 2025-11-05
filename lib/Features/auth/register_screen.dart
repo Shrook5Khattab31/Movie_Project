@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
+import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_form_field.dart';
 import '../../l10n/app_localizations.dart';
 import 'widget/already_and_donot_have_account.dart';
@@ -31,11 +33,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
+  bool showPassword = false;
+  bool showConfirmPassword = false;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    final language=AppLocalizations.of(context)!;
+    final language = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
@@ -47,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: 0.040 * width,
+              horizontal: 0.045 * width,
               vertical: 0.02 * height,
             ),
             child: Form(
@@ -58,12 +62,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   //todo avatar
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
-                      hintText: language.name,
-                      hintStyle: AppStyles.reg16White,
-                      controller: nameController,
-                      fillColor: AppColors.grayDarkColor,
-                      prefixIcon:Icon(Icons.person),
-                      prefixIconColor: AppColors.whiteColor,
+                    hintText: language.name,
+                    hintStyle: AppStyles.reg16White,
+                    controller: nameController,
+                    fillColor: AppColors.grayDarkColor,
+                    prefixIcon: Image.asset(AppImages.userIcon),
+                    prefixIconColor: AppColors.whiteColor,
                   ),
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
@@ -71,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hintStyle: AppStyles.reg16White,
                     controller: emailController,
                     fillColor: AppColors.grayDarkColor,
-                    prefixIcon:Icon(Icons.email),
+                    prefixIcon: Image.asset(AppImages.emailIcon),
                     prefixIconColor: AppColors.whiteColor,
                   ),
                   SizedBox(height: 0.03 * height),
@@ -80,11 +84,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hintStyle: AppStyles.reg16White,
                     controller: passwordController,
                     fillColor: AppColors.grayDarkColor,
-                    prefixIcon:Icon(Icons.lock),
+                    prefixIcon: Image.asset(AppImages.passwordIcon),
                     prefixIconColor: AppColors.whiteColor,
-                    isPassword: true,
-                    suffixIconColor: AppColors.whiteColor ,
-                    suffixIcon: Icon(Icons.visibility),
+                    isPassword: showPassword,
+                    suffixIconColor: AppColors.whiteColor,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        //todo show password
+                        setState(() {
+                          showPassword = !showPassword;
+                        });
+                      },
+                      icon: showIconPassword(showPassword),
+                    ),
                   ),
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
@@ -92,11 +104,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hintStyle: AppStyles.reg16White,
                     controller: confirmPasswordController,
                     fillColor: AppColors.grayDarkColor,
-                    prefixIcon:Icon(Icons.lock),
+                    prefixIcon: Image.asset(AppImages.passwordIcon),
                     prefixIconColor: AppColors.whiteColor,
-                    isPassword: true,
-                    suffixIconColor: AppColors.whiteColor ,
-                    suffixIcon: Icon(Icons.visibility),
+                    isPassword: showConfirmPassword,
+                    suffixIconColor: AppColors.whiteColor,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        //todo show confirm password
+                        setState(() {
+                          showConfirmPassword = !showConfirmPassword;
+                        });
+                      },
+                      icon: showIconPassword(showConfirmPassword),
+                    ),
                   ),
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
@@ -104,16 +124,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hintStyle: AppStyles.reg16White,
                     controller: phoneController,
                     fillColor: AppColors.grayDarkColor,
-                    prefixIcon:Icon(Icons.phone),
+                    prefixIcon: Icon(Icons.phone),
                     prefixIconColor: AppColors.whiteColor,
                   ),
                   SizedBox(height: 0.024 * height),
                   CustomElevatedButton(
-                      onPressed:  () {
-                        //todo logic signup
-                        },
-                      color:  AppColors.secondColor,
-                      child: Text(language.create_acc,style: AppStyles.reg20Black,),
+                    onPressed: () {
+                      //todo logic signup
+                    },
+                    color: AppColors.secondColor,
+                    child: Text(
+                      language.create_acc,
+                      style: AppStyles.reg20Black,
+                    ),
                   ),
                   SizedBox(height: 0.02 * height),
                   AlreadyAndDonotHaveAccount(
@@ -123,8 +146,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       //todo nav into login
                     },
                   ),
-                  SizedBox(height: 0.02 * height),
+                  SizedBox(height: 0.01 * height),
                   //todo change language toggle
+                  Align(
+                    alignment: Alignment.center,
+                    child: CustomToggleSwitch(),
+                  ),
                 ],
               ),
             ),
@@ -133,4 +160,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+}
+
+Widget showIconPassword(bool show) {
+  return Icon(show ? Icons.visibility_off_sharp : Icons.visibility);
 }
