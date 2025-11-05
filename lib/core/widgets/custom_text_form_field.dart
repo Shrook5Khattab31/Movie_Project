@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+import '../theme/appColors.dart';
+
+class CustomTextFormField extends StatelessWidget {
+  final String hintText;
+  final Color? prefixIconColor;
+  final Color? suffixIconColor;
+  final Color? fillColor;
+  final TextStyle? hintStyle;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final TextEditingController? controller;
+  final Function(String)? onChanged;
+  final bool isPassword;
+  final VoidCallback? onToggleVisibility;
+
+  const CustomTextFormField({
+    super.key,
+    required this.hintText,
+    required this.hintStyle,
+    this.fillColor,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.prefixIconColor,
+    this.suffixIconColor,
+    this.controller,
+    this.onChanged,
+    this.isPassword = false,
+    this.onToggleVisibility,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      obscureText: isPassword,
+      controller: controller,
+      onChanged: onChanged,
+      validator: (text){
+        return null;
+      },
+
+      style: hintStyle,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: fillColor??AppColors.grayDarkColor,
+        hintText: hintText,
+        hintStyle: hintStyle,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+        prefixIconColor: prefixIconColor??AppColors.whiteColor,
+        suffixIconColor: suffixIconColor??AppColors.whiteColor,
+
+        enabledBorder: buildBorderDecoration(),
+        focusedBorder: buildBorderDecoration(),
+        focusedErrorBorder: buildBorderDecoration(),
+        errorBorder: buildBorderDecoration(),
+      ),
+    );
+  }
+  OutlineInputBorder buildBorderDecoration(){
+    return OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15),
+        borderSide: BorderSide(
+            color: AppColors.grayDarkColor
+        )
+    );
+  }
+}
