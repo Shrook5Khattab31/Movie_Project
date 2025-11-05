@@ -13,6 +13,27 @@
   "create_acc": "Create Account",
   "already_have_acc": "Already Have Account",
   "verify_email": "Verify Email",
-  "register": "Register"
+  "register": "Register",
 
+  "find_next_favorite_movie": "Find Your Next\nFavorite Movie Here",
+  "access_huge_library": "Get access to a huge library of movies\nto suit all tastes. You will surely like it.",
+  "explore_now": "Explore Now",
+
+  "discover_movies": "Discover Movies",
+  "explore_vast_collection": "Explore a vast collection of movies in all\nqualities and genres. Find your next\nfavorite film with ease.",
+
+  "explore_all_genres": "Explore All Genres",
+  "discover_movies_every_genre": "Discover movies from every genre,\nin all available qualities. Find something new\nand exciting to watch every day.",
+
+  "create_watchlists": "Create Watchlists",
+  "save_movies_watchlist": "Save movies to your watchlist to keep\ntrack of what you want to watch next.\nEnjoy films in various qualities and genres.",
+
+  "rate_review_learn": "Rate, Review, and Learn",
+  "share_your_thoughts": "Share your thoughts on the movies\nyou've watched. Dive deep into\nfilm details and help others discover\ngreat movies with your reviews.",
+
+  "start_watching_now": "Start Watching Now",
+  "finish": "Finish",
+
+  "next": "Next",
+  "back": "Back"
 }
