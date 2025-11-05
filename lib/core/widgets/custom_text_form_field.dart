@@ -13,6 +13,7 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final bool isPassword;
   final VoidCallback? onToggleVisibility;
+  final TextInputType? keyboardType;
 
   const CustomTextFormField({
     super.key,
@@ -27,6 +28,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.isPassword = false,
     this.onToggleVisibility,
+    this.keyboardType,
   });
 
   @override
@@ -35,20 +37,20 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: isPassword,
       controller: controller,
       onChanged: onChanged,
-      validator: (text){
+      validator: (text) {
         return null;
       },
-
+      keyboardType: keyboardType ?? TextInputType.text,
       style: hintStyle,
       decoration: InputDecoration(
         filled: true,
-        fillColor: fillColor??AppColors.grayDarkColor,
+        fillColor: fillColor ?? AppColors.grayDarkColor,
         hintText: hintText,
         hintStyle: hintStyle,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        prefixIconColor: prefixIconColor??AppColors.whiteColor,
-        suffixIconColor: suffixIconColor??AppColors.whiteColor,
+        prefixIconColor: prefixIconColor ?? AppColors.whiteColor,
+        suffixIconColor: suffixIconColor ?? AppColors.whiteColor,
 
         enabledBorder: buildBorderDecoration(),
         focusedBorder: buildBorderDecoration(),
@@ -57,12 +59,11 @@ class CustomTextFormField extends StatelessWidget {
       ),
     );
   }
-  OutlineInputBorder buildBorderDecoration(){
+
+  OutlineInputBorder buildBorderDecoration() {
     return OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: BorderSide(
-            color: AppColors.grayDarkColor
-        )
+      borderRadius: BorderRadius.circular(15),
+      borderSide: BorderSide(color: AppColors.grayDarkColor),
     );
   }
 }

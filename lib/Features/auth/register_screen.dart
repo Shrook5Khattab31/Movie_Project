@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_project/Features/auth/widget/built_avatar_register.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
@@ -60,6 +61,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   //todo avatar
+                  BuiltAvatarRegister(),
+
+
+
+
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
                     hintText: language.name,
@@ -77,6 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fillColor: AppColors.grayDarkColor,
                     prefixIcon: Image.asset(AppImages.emailIcon),
                     prefixIconColor: AppColors.whiteColor,
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
@@ -86,6 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fillColor: AppColors.grayDarkColor,
                     prefixIcon: Image.asset(AppImages.passwordIcon),
                     prefixIconColor: AppColors.whiteColor,
+                    keyboardType: TextInputType.visiblePassword,
                     isPassword: showPassword,
                     suffixIconColor: AppColors.whiteColor,
                     suffixIcon: IconButton(
@@ -106,6 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fillColor: AppColors.grayDarkColor,
                     prefixIcon: Image.asset(AppImages.passwordIcon),
                     prefixIconColor: AppColors.whiteColor,
+                    keyboardType: TextInputType.visiblePassword,
                     isPassword: showConfirmPassword,
                     suffixIconColor: AppColors.whiteColor,
                     suffixIcon: IconButton(
@@ -126,6 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fillColor: AppColors.grayDarkColor,
                     prefixIcon: Icon(Icons.phone),
                     prefixIconColor: AppColors.whiteColor,
+                    keyboardType: TextInputType.phone,
                   ),
                   SizedBox(height: 0.024 * height),
                   CustomElevatedButton(
