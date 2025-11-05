@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'core/widgets/bottom_navigation_bar.dart';
+
 void main() {
   runApp(MovieApp());
 }
