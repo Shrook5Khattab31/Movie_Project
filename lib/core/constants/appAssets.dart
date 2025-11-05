@@ -12,7 +12,7 @@ class AppImages{
   static const String usa = 'assets/images/usa.png';
   static const String forgotPasswordImage = 'assets/images/forgot_password.png';
   static const String emptyList = 'assets/images/empty_popcorn.png';
-  static const String appLogo = 'assets/images/app_logo.png';
+  static const String appLogo = 'assets/images/splash.png';
   static const String emailIcon = 'assets/images/email_icon.png';
   static const String passwordIcon = 'assets/images/password_icon.png';
   static const String userIcon = 'assets/images/user_icon.png';
