@@ -37,9 +37,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     double width = MediaQuery.of(context).size.width;
     final language=AppLocalizations.of(context)!;
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         title: Text(language.register, style: AppStyles.reg16Yellow),
         centerTitle: true,
+        backgroundColor: AppColors.primaryColor,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -115,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   SizedBox(height: 0.02 * height),
                   AlreadyAndDonotHaveAccount(
-                    text: language.already_have_acc,
+                    text: '${language.already_have_acc} ?',
                     textButton: language.login,
                     onPressedButton: () {
                       //todo nav into login
