@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
 
-      initialRoute: AppRoutes.login, 
+      initialRoute: AppRoutes.login,
       routes: {
         AppRoutes.login: (context) => LoginScreen(),
         '/onboarding': (context) => const OnboardingOne(),
