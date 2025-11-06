@@ -1,68 +1,73 @@
 import 'package:flutter/material.dart';
-import 'package:movie_project/core/theme/appColors.dart';
-import 'package:movie_project/core/theme/appStyles.dart';
-import 'package:movie_project/core/widgets/custom_elevated_button.dart';
-
-
-import 'onboarding_two.dart'; // الصفحة التانية
+import '../../core/theme/appColors.dart';
+import '../../core/theme/appStyles.dart';
+import '../../core/constants/appAssets.dart';
+import '../../core/widgets/custom_elevated_button.dart';
+import '../../l10n/app_localizations.dart';
+import 'onboarding_two.dart';
 
 class OnboardingOne extends StatelessWidget {
   const OnboardingOne({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final lang = AppLocalizations.of(context)!;
+
     return Scaffold(
-      body: Stack(
+      backgroundColor: AppColors.primaryColor,
+      body: Column(
         children: [
-          // 🖼 خلفية الصورة تملأ الشاشة بالكامل
-          Positioned.fill(
+          Expanded(
+            flex: 6,
             child: Image.asset(
-              'assets/images/onboarding1.png',
+              AppImages.onboarding1,
+              width: double.infinity,
               fit: BoxFit.cover,
             ),
           ),
-
-          // 🖋 المحتوى فوق الصورة مع Gradient
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 60),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.center,
-                colors: [
-                  AppColors.primaryColor.withOpacity(0.85),
-                  Colors.transparent,
+          Expanded(
+            flex: 4,
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.06, vertical: screenHeight * 0.04),
+              color: AppColors.primaryColor,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    lang.find_next_favorite_movie,
+                    style: AppStyles.bold24White,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: screenHeight * 0.015),
+                  Text(
+                    lang.access_huge_library,
+                    style: AppStyles.reg16Yellow.copyWith(
+                      color: AppColors.grayLightColor,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: screenHeight * 0.04),
+                  SizedBox(
+                    width: double.infinity,
+                    child: CustomElevatedButton(
+                      text: lang.explore_now,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const OnboardingTwo()),
+                        );
+                      },
+                      backgroundColor: AppColors.secondColor,
+                      textColor: AppColors.primaryColor,
+                    ),
+                  ),
                 ],
               ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Find Your Next\nFavorite Movie Here',
-                  style: AppStyles.bold24White,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Get access to a huge library of movies\nto suit all tastes. You will surely like it.',
-                  style: AppStyles.reg16White,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 40),
-                CustomElevatedButton(
-                  text: "Explore Now",
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const OnboardingTwo(),
-                      ),
-                    );
-                  },
-                ),
-              ],
             ),
           ),
         ],

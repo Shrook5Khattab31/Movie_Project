@@ -1,83 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:movie_project/core/widgets/custom_elevated_button.dart';
-
+import '../../core/constants/appAssets.dart';
+import '../../core/theme/appColors.dart';
+import '../../core/theme/appStyles.dart';
+import '../../core/widgets/custom_elevated_button.dart';
+import '../../l10n/app_localizations.dart';
 import 'onboarding_two.dart';
-import 'onboarding_four.dart'; // ✅ استيراد الصفحة الرابعة
+import 'onboarding_four.dart';
 
 class OnboardingThree extends StatelessWidget {
   const OnboardingThree({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final lang = AppLocalizations.of(context)!;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Stack(
+      backgroundColor: AppColors.primaryColor,
+      body: Column(
         children: [
-          // 🖼 الخلفية
-          Positioned.fill(
+          Expanded(
+            flex: 6,
             child: Image.asset(
-              'assets/images/onboarding3.jpg',
+              AppImages.onboarding3,
+              width: double.infinity,
               fit: BoxFit.cover,
             ),
           ),
-
-          // 🔲 المستطيل الكبير
-          Positioned(
-            top: 611,
-            left: (MediaQuery.of(context).size.width - 430) / 2,
+          Expanded(
+            flex: 4,
             child: Container(
-              width: 430,
-              height: 321,
-              decoration: const BoxDecoration(
-                color: Color(0xFF121312),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 30),
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.06,
+                  vertical: screenHeight * 0.025),
+              color: AppColors.primaryColor,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    'Explore All Genres',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      height: 1.3,
-                    ),
+                  Text(
+                    lang.explore_all_genres,
+                    style: AppStyles.bold24White,
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Discover movies from every genre,\n in all available qualities. Find something new\n and exciting to watch every day.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      height: 1.4,
-                    ),
+                  SizedBox(height: screenHeight * 0.015),
+                  Text(
+                    lang.discover_movies_every_genre,
+                    style: AppStyles.reg16White,
                     textAlign: TextAlign.center,
                   ),
-
-                  const SizedBox(height: 30),
-
-                  // 🔘 زرار Next → يفتح OnboardingFour
-                  CustomElevatedButton(
-                    text: "Next",
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OnboardingFour(),
-                        ),
-                      );
-                    },
+                  SizedBox(height: screenHeight * 0.03),
+                  SizedBox(
+                    width: double.infinity,
+                    child: CustomElevatedButton(
+                      text: lang.next,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OnboardingFour(),
+                          ),
+                        );
+                      },
+                      backgroundColor: AppColors.secondColor,
+                      textColor: AppColors.primaryColor,
+                    ),
                   ),
-
-                  const SizedBox(height: 16),
-
-                  // ⬛ زرار Back
+                  SizedBox(height: screenHeight * 0.015),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -91,21 +82,17 @@ class OnboardingThree extends StatelessWidget {
                       width: double.infinity,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF121312),
+                        color: AppColors.primaryColor,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: const Color(0xFFF6BD00),
+                          color: AppColors.secondColor,
                           width: 2,
                         ),
                       ),
                       alignment: Alignment.center,
-                      child: const Text(
-                        'Back',
-                        style: TextStyle(
-                          color: Color(0xFFF6BD00),
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: Text(
+                        lang.back,
+                        style: AppStyles.bla14Yellow,
                       ),
                     ),
                   ),

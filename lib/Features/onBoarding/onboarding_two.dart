@@ -1,72 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:movie_project/core/widgets/custom_elevated_button.dart';
-
-import 'onboarding_three.dart'; // ✅ استيراد الصفحة التالتة
+import '../../core/constants/appAssets.dart';
+import '../../core/theme/appColors.dart';
+import '../../core/theme/appStyles.dart';
+import '../../core/widgets/custom_elevated_button.dart';
+import '../../l10n/app_localizations.dart';
+import 'onboarding_three.dart';
 
 class OnboardingTwo extends StatelessWidget {
   const OnboardingTwo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final lang = AppLocalizations.of(context)!;
+
     return Scaffold(
-      body: Stack(
+      backgroundColor: AppColors.primaryColor,
+      body: Column(
         children: [
-          // 🖼 الخلفية
-          Positioned.fill(
+          Expanded(
+            flex: 6,
             child: Image.asset(
-              'assets/images/onboarding2.jpg',
+              AppImages.onboarding2,
+              width: double.infinity,
               fit: BoxFit.cover,
             ),
           ),
-
-          // 🔲 المستطيل السفلي بالمحتوى
-          Align(
-            alignment: Alignment.bottomCenter,
+          Expanded(
+            flex: 3,
             child: Container(
-              width: 430,
-              height: 260,
-              decoration: const BoxDecoration(
-                color: Color(0xFF121312), // اللون الغامق
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 30),
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.06, vertical: screenHeight * 0.03),
+              color: AppColors.primaryColor,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    'Discover Movies',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      height: 1.3,
-                    ),
+                  Text(
+                    lang.discover_movies,
+                    style: AppStyles.bold24White,
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Explore a vast collection of movies in all\nqualities and genres. Find your next\nfavorite film with ease.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      height: 1.4,
-                    ),
+                  SizedBox(height: screenHeight * 0.015),
+                  Text(
+                    lang.explore_vast_collection,
+                    style: AppStyles.reg16White,
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 30),
-                  CustomElevatedButton(
-                    text: "Next",
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OnboardingThree(),
-                        ),
-                      );
-                    },
+                  SizedBox(height: screenHeight * 0.03),
+                  SizedBox(
+                    width: double.infinity,
+                    child: CustomElevatedButton(
+                      text: lang.next,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OnboardingThree()),
+                        );
+                      },
+                      backgroundColor: AppColors.secondColor,
+                      textColor: AppColors.primaryColor,
+                    ),
                   ),
                 ],
               ),
