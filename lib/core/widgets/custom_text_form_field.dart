@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_project/core/theme/appStyles.dart';
 import '../theme/appColors.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -17,7 +18,7 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
-    required this.hintStyle,
+    this.hintStyle,
     this.fillColor,
     this.prefixIcon,
     this.suffixIcon,
@@ -39,12 +40,12 @@ class CustomTextFormField extends StatelessWidget {
         return null;
       },
 
-      style: hintStyle,
+      style: hintStyle??AppStyles.reg16White,
       decoration: InputDecoration(
         filled: true,
         fillColor: fillColor??AppColors.grayDarkColor,
         hintText: hintText,
-        hintStyle: hintStyle,
+        hintStyle: hintStyle??AppStyles.reg16White,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         prefixIconColor: prefixIconColor??AppColors.whiteColor,

@@ -44,22 +44,19 @@ class ResetPassword extends StatelessWidget{
                 controller: passController,
                 prefixIcon:Image.asset( AppImages.passwordIcon),
                 suffixIcon: Icon(Icons.visibility_off),
-                hintText: AppLocalizations.of(context)!.old_password,
-                hintStyle: AppStyles.reg16White),
+                hintText: AppLocalizations.of(context)!.old_password,),
 
             CustomTextFormField(
                 controller: passController,
                 prefixIcon:Image.asset( AppImages.passwordIcon),
                 suffixIcon: Icon(Icons.visibility_off),
-                hintText: AppLocalizations.of(context)!.new_password,
-                hintStyle: AppStyles.reg16White),
+                hintText: AppLocalizations.of(context)!.new_password,),
 
             CustomTextFormField(
                 controller: passController,
                 prefixIcon:Image.asset( AppImages.passwordIcon),
                 suffixIcon: Icon(Icons.visibility_off),
-                hintText: AppLocalizations.of(context)!.rewrite_password,
-                hintStyle: AppStyles.reg16White),
+                hintText: AppLocalizations.of(context)!.rewrite_password,),
             SizedBox(
               width: double.infinity,
               child: CustomElevatedButton(

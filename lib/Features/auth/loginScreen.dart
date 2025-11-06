@@ -44,13 +44,11 @@ class _LoginScreenState extends State<LoginScreen> {
             CustomTextFormField(
                 controller: emailController,
                 prefixIcon: Icon(Icons.email_outlined),
-                hintText: AppLocalizations.of(context)!.email,
-                hintStyle: AppStyles.reg16White),
+                hintText: AppLocalizations.of(context)!.email,),
             CustomTextFormField(controller: passController,
               prefixIcon: Icon(Icons.lock),
               hintText: AppLocalizations.of(context)!.password,
-              suffixIcon: Icon(Icons.visibility_off),
-              hintStyle: AppStyles.reg16White,),
+              suffixIcon: Icon(Icons.visibility_off),),
             InkWell(
               onTap: () {
                 //todo go to forget pass screen
