@@ -89,6 +89,4 @@ class AppStyles {
     color: AppColors.secondColor,
     fontWeight: FontWeight.bold,
   );
-  static TextStyle bold14Yellow= GoogleFonts.roboto(color: AppColors.secondColor,
-      fontSize: 14, fontWeight: FontWeight.w700 );
 }

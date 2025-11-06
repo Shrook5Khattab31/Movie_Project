@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-
-import 'Features/auth/loginScreen.dart';
-import 'core/routing/routeNames.dart';
-import 'l10n/app_localizations.dart';
+import 'Features/OnBoarding/onboarding_one.dart'; // استدعاء صفحة OnboardingOne
 
 void main() {
-  runApp(MovieApp());
+  runApp(const MyApp());
 }
 
-class MovieApp extends StatelessWidget {
-  const MovieApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-        initialRoute: AppRoutes.login,
-        routes:{
-          AppRoutes.login: (context)=>  LoginScreen(),
-        }
+      debugShowCheckedModeBanner: false,
+      title: 'Movie App',
+      theme: ThemeData.dark(),
+      home: const OnboardingOne(), // بداية التطبيق من أول صفحة Onboarding
     );
   }
 }
