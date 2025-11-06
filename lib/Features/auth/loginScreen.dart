@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
@@ -38,8 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             //todo add logo photo
-            Image.asset("AppAssets.logo",
-              width: width * 0.3, height: height * 0.13,),
+            Image.asset("assets/images/app_logo.png",
+              width: width * 0.3, height: height * 0.13, fit: BoxFit.fill,),
             CustomTextFormField(
                 controller: emailController,
                 prefixIcon: Icon(Icons.email_outlined),
@@ -102,13 +103,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   spacing: width * 0.02,
                   children: [
                     //todo add google logo
-                    Image.asset("AppAssets.google_icon", width: width*0.06, height: height*0.03,),
+                    Image.asset("assets/images/google_icon.png", width: width*0.06, height: height*0.03,),
                     //Image.asset(AppAssets.google_icon, width: width*0.06, height: height*0.03,),
                     Text(AppLocalizations.of(context)!.login_with_google,
                       style: AppStyles.reg16Black,)
                   ],)
             ),
-            //Todo add the toggle button
+            CustomToggleSwitch()
           ],),
       ),
     );
