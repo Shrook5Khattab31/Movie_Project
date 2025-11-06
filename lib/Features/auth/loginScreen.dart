@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
@@ -117,6 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
               backgroundColor: AppColors.secondColor,
               textColor: AppColors.primaryColor,
             ),
+            CustomToggleSwitch()
           ],
         ),
       ),

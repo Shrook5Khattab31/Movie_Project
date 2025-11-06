@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'l10n/app_localizations.dart'; // تأكد أن المسار صحيح
+import 'l10n/app_localizations.dart';
 import 'Features/onBoarding/onboarding_one.dart';
+import 'Features/auth/loginScreen.dart';
+import 'core/routing/routeNames.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +19,6 @@ class MyApp extends StatelessWidget {
       title: 'Movie App',
       theme: ThemeData.dark(),
 
-      // ✅ إضافة الـ localization
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -26,7 +27,11 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
 
-      home: const OnboardingOne(),
+      initialRoute: AppRoutes.login, 
+      routes: {
+        AppRoutes.login: (context) => LoginScreen(),
+        '/onboarding': (context) => const OnboardingOne(),
+      },
     );
   }
 }
