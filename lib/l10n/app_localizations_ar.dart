@@ -52,4 +52,54 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get register => 'التسجيل';
+
+  @override
+  String get find_next_favorite_movie => 'اعثر على فيلمك المفضل التالي هنا';
+
+  @override
+  String get access_huge_library =>
+      'احصل على مكتبة ضخمة من الأفلام\nلتناسب جميع الأذواق. ستعجبك بالتأكيد.';
+
+  @override
+  String get explore_now => 'اكتشف الآن';
+
+  @override
+  String get discover_movies => 'اكتشف الأفلام';
+
+  @override
+  String get explore_vast_collection =>
+      'استعرض مجموعة ضخمة من الأفلام\nبجميع الجودات والأنواع. اعثر على فيلمك المفضل بسهولة.';
+
+  @override
+  String get explore_all_genres => 'استعرض جميع الأنواع';
+
+  @override
+  String get discover_movies_every_genre =>
+      'اكتشف أفلامًا من جميع الأنواع\nبجميع الجودات المتاحة. اعثر على شيء جديد\nوممتع للمشاهدة يوميًا.';
+
+  @override
+  String get create_watchlists => 'إنشاء قوائم المشاهدة';
+
+  @override
+  String get save_movies_watchlist =>
+      'احفظ الأفلام في قائمة المشاهدة لتتابع ما تريد مشاهدته لاحقًا.\nاستمتع بالأفلام بجودات وأنواع مختلفة.';
+
+  @override
+  String get rate_review_learn => 'قيم، راجع، وتعلم';
+
+  @override
+  String get share_your_thoughts =>
+      'شارك آرائك حول الأفلام التي شاهدتها.\nاستكشف تفاصيل الأفلام وساعد الآخرين على اكتشاف\nأفلام رائعة من خلال تقييماتك.';
+
+  @override
+  String get start_watching_now => 'ابدأ المشاهدة الآن';
+
+  @override
+  String get finish => 'إنهاء';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get back => 'رجوع';
 }
