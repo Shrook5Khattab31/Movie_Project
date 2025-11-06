@@ -64,7 +64,6 @@ class OnboardingOne extends StatelessWidget {
                         );
                       },
                       backgroundColor: AppColors.secondColor,
-                      textColor: AppColors.primaryColor,
                     ),
                   ),
                 ],

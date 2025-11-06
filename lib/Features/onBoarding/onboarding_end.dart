@@ -50,7 +50,6 @@ class OnboardingEnd extends StatelessWidget {
                       );
                     },
                     backgroundColor: AppColors.secondColor,
-                    textColor: AppColors.primaryColor,
                   ),
                   SizedBox(height: 12),
                   GestureDetector(
@@ -76,7 +75,7 @@ class OnboardingEnd extends StatelessWidget {
                       alignment: Alignment.center,
                       child: Text(
                         lang.back,
-                        style: AppStyles.bold14Yellow,
+                        style: AppStyles.semiBold20Yellow,
                       ),
                     ),
                   ),

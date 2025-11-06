@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:movie_project/Features/auth/resetPassword.dart';
 import 'l10n/app_localizations.dart';
 import 'Features/onBoarding/onboarding_one.dart';
 import 'Features/auth/loginScreen.dart';
@@ -27,10 +28,11 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
 
-      initialRoute: AppRoutes.login,
+      initialRoute: AppRoutes.onBoardingScreen,
       routes: {
+        AppRoutes.onBoardingScreen: (context) => OnboardingOne(),
         AppRoutes.login: (context) => LoginScreen(),
-        '/onboarding': (context) => const OnboardingOne(),
+        AppRoutes.resetPassScreen: (context) => ResetPassword(),
       },
     );
   }

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:movie_project/core/theme/appStyles.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final Color backgroundColor;
-  final Color textColor;
+  final TextStyle? textStyle;
 
   const CustomElevatedButton({
     super.key,
     required this.text,
     required this.onPressed,
     required this.backgroundColor,
-    required this.textColor,
+    this.textStyle,
   });
 
   @override
@@ -29,11 +30,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
-            color: textColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          style: textStyle??AppStyles.semiBold20Black,
         ),
       ),
     );

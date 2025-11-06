@@ -61,9 +61,10 @@ class ResetPassword extends StatelessWidget{
               width: double.infinity,
               child: CustomElevatedButton(
                   onPressed: () {},
-                  color: AppColors.secondColor,
-                  child: Text("${AppLocalizations.of(context)!.reset_password}",
-                  style: AppStyles.reg20Black,)),
+                  text: AppLocalizations.of(context)!.reset_password,
+                  backgroundColor: AppColors.secondColor,
+                  textStyle: AppStyles.reg20Black,
+              ),
             ),
             SizedBox(height: height*0.05,)
           ],

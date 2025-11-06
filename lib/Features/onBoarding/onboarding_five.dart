@@ -69,7 +69,6 @@ class OnboardingFive extends StatelessWidget {
                       );
                     },
                     backgroundColor: AppColors.secondColor,
-                    textColor: AppColors.primaryColor,
                   ),
                   SizedBox(height: screenHeight * 0.015),
                   GestureDetector(
@@ -95,7 +94,7 @@ class OnboardingFive extends StatelessWidget {
                       alignment: Alignment.center,
                       child: Text(
                         lang.back,
-                        style: AppStyles.bold14Yellow,
+                        style: AppStyles.semiBold20Yellow,
                       ),
                     ),
                   ),
