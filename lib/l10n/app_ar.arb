@@ -13,6 +13,11 @@
   "create_acc": "إنشاء حساب",
   "already_have_acc": "هل لديك حساب بالفعل؟",
   "verify_email": "تأكيد البريد الإلكتروني",
-  "register": "التسجيل"
+  "register": "التسجيل",
+  "reset_password":"اعاده ضبط كلمه المرور",
+    "old_password":"كلمه المرور القديمه",
+    "new_password":"كلمه المرور الحديثه",
+    "rewrite_password":"اعد كتابه كلمه المرور"
+
 
 }
