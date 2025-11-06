@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Features/Home/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_project/Features/auth/resetPassword.dart';
 import 'l10n/app_localizations.dart';
