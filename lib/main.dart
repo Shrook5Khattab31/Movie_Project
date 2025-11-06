@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'Features/Home/home_screen.dart';
 import 'Features/auth/loginScreen.dart';
 import 'core/routing/routeNames.dart';
 import 'l10n/app_localizations.dart';
@@ -15,10 +15,11 @@ class MovieApp extends StatelessWidget {
     return MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        initialRoute: AppRoutes.login,
+        initialRoute: AppRoutes.homeScreen,
         routes:{
           AppRoutes.login: (context)=>  LoginScreen(),
-        }
+          AppRoutes.homeScreen: (context)=>  HomeScreen(),
+    }
     );
   }
 }
