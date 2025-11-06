@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.onBoardingScreen: (context) => OnboardingOne(),
         AppRoutes.login: (context) => LoginScreen(),
         AppRoutes.resetPassScreen: (context) => ResetPassword(),
+        AppRoutes.homeScreen: (context) => HomeScreen(),
       },
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 
 import '../../core/theme/appColors.dart';
@@ -65,7 +66,9 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               width: double.infinity,
               child: CustomElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(context, AppRoutes.homeScreen, (context)=>false);
+                },
                 text: AppLocalizations.of(context)!.login,
                 backgroundColor: AppColors.secondColor,
                 textStyle: AppStyles.reg20Black,
