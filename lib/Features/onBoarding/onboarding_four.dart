@@ -18,20 +18,19 @@ class OnboardingFour extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            flex: 65,
+          Positioned.fill(
             child: Image.asset(
               AppImages.onboarding4,
-              width: double.infinity,
               fit: BoxFit.cover,
             ),
           ),
-          Expanded(
-            flex: 35,
+          Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
-              width: double.infinity,
+              width: 430,
+              height: screenHeight * 0.33,
               decoration: const BoxDecoration(
                 color: AppColors.primaryColor,
                 borderRadius: BorderRadius.only(
@@ -43,65 +42,64 @@ class OnboardingFour extends StatelessWidget {
                 horizontal: screenWidth * 0.06,
                 vertical: screenHeight * 0.02,
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      lang.create_watchlists,
-                      style: AppStyles.bold24White,
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: screenHeight * 0.015),
-                    Text(
-                      lang.save_movies_watchlist,
-                      style: AppStyles.reg16White.copyWith(color: AppColors.whiteColor),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: screenHeight * 0.03),
-                    SizedBox(height: screenHeight * 0.01),
-                    CustomElevatedButton(
-                      text: lang.next,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const OnboardingFive(),
-                          ),
-                        );
-                      },
-                      backgroundColor: AppColors.secondColor,
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const OnboardingThree(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryColor,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: AppColors.secondColor,
-                            width: 2,
-                          ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    lang.create_watchlists,
+                    style: AppStyles.bold24White,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: screenHeight * 0.015),
+                  Text(
+                    lang.save_movies_watchlist,
+                    style: AppStyles.reg16White,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: screenHeight * 0.03),
+                  CustomElevatedButton(
+                    text: lang.next,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OnboardingFive(),
                         ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          lang.back,
-                          style: AppStyles.semiBold20Yellow,
+                      );
+                    },
+                    backgroundColor: AppColors.secondColor,
+                    textStyle: AppStyles.semiBold20Black,
+                  ),
+                  SizedBox(height: screenHeight * 0.015),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OnboardingThree(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppColors.secondColor,
+                          width: 2,
                         ),
                       ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        lang.back,
+                        style: AppStyles.semiBold20Yellow,
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

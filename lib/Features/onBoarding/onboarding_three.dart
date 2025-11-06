@@ -18,20 +18,19 @@ class OnboardingThree extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            flex: 65,
+          Positioned.fill(
             child: Image.asset(
               AppImages.onboarding3,
-              width: double.infinity,
               fit: BoxFit.cover,
             ),
           ),
-          Expanded(
-            flex: 35,
+          Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
-              width: double.infinity,
+              width: 430,
+              height: screenHeight * 0.33,
               decoration: const BoxDecoration(
                 color: AppColors.primaryColor,
                 borderRadius: BorderRadius.only(
@@ -41,10 +40,11 @@ class OnboardingThree extends StatelessWidget {
               ),
               padding: EdgeInsets.symmetric(
                 horizontal: screenWidth * 0.06,
-                vertical: screenHeight * 0.025,
+                vertical: screenHeight * 0.02,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     lang.explore_all_genres,
@@ -69,6 +69,7 @@ class OnboardingThree extends StatelessWidget {
                       );
                     },
                     backgroundColor: AppColors.secondColor,
+                    textStyle: AppStyles.semiBold20Black,
                   ),
                   SizedBox(height: screenHeight * 0.015),
                   GestureDetector(

@@ -11,32 +11,39 @@ class OnboardingTwo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = AppLocalizations.of(context)!;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    final lang = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-            flex: 6,
+          Positioned.fill(
             child: Image.asset(
               AppImages.onboarding2,
-              width: double.infinity,
               fit: BoxFit.cover,
             ),
           ),
-          Expanded(
-            flex: 3,
+          Align(
+            alignment: Alignment.bottomCenter,
             child: Container(
-              width: double.infinity,
+              width: 430,
+              height: screenHeight * 0.33,
+              decoration: const BoxDecoration(
+                color: AppColors.primaryColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
+                ),
+              ),
               padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.06, vertical: screenHeight * 0.03),
-              color: AppColors.primaryColor,
+                horizontal: screenWidth * 0.06,
+                vertical: screenHeight * 0.02,
+              ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     lang.discover_movies,
@@ -49,20 +56,21 @@ class OnboardingTwo extends StatelessWidget {
                     style: AppStyles.reg16White,
                     textAlign: TextAlign.center,
                   ),
+
                   SizedBox(height: screenHeight * 0.03),
-                  SizedBox(
-                    width: double.infinity,
-                    child: CustomElevatedButton(
-                      text: lang.next,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const OnboardingThree()),
-                        );
-                      },
-                      backgroundColor: AppColors.secondColor,
-                    ),
+
+                  CustomElevatedButton(
+                    text: lang.next,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OnboardingThree(),
+                        ),
+                      );
+                    },
+                    backgroundColor: AppColors.secondColor,
+                    textStyle: AppStyles.semiBold20Black,
                   ),
                 ],
               ),
