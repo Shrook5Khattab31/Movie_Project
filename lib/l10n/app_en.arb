@@ -13,6 +13,11 @@
   "create_acc": "Create Account",
   "already_have_acc": "Already Have Account",
   "verify_email": "Verify Email",
-  "register": "Register"
+  "register": "Register",
+  "reset_password":"Reset Password",
+  "old_password":"Old password",
+  "new_password":"New password",
+  "rewrite_password":"Rewrite password"
+
 
 }

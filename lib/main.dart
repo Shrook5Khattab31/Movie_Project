@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 import 'Features/auth/loginScreen.dart';
 import 'core/routing/routeNames.dart';
 import 'l10n/app_localizations.dart';
@@ -17,8 +18,8 @@ class MovieApp extends StatelessWidget {
         supportedLocales: AppLocalizations.supportedLocales,
         initialRoute: AppRoutes.login,
         routes:{
-          AppRoutes.login: (context)=>  LoginScreen(),
+          AppRoutes.login: (context)=>  LoginScreen()
         }
     );
-  }
+    }
 }
