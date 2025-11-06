@@ -4,7 +4,7 @@ import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
 
-/// The translations for Arabic (ar).
+/// The translations for Arabic (`ar`).
 class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
@@ -52,6 +52,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get register => 'التسجيل';
+
+  @override
+  String get reset_password => 'اعاده ضبط كلمه المرور';
+
+  @override
+  String get old_password => 'كلمه المرور القديمه';
+
+  @override
+  String get new_password => 'كلمه المرور الحديثه';
+
+  @override
+  String get rewrite_password => 'اعد كتابه كلمه المرور';
 
   @override
   String get find_next_favorite_movie => 'اعثر على فيلمك المفضل التالي هنا';
@@ -102,16 +114,4 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get back => 'رجوع';
-
-  @override
-  String get reset_password => 'اعاده ضبط كلمه المرور';
-
-  @override
-  String get old_password => 'كلمه المرور القديمه';
-
-  @override
-  String get new_password => 'كلمه المرور الحديثه';
-
-  @override
-  String get rewrite_password => 'اعد كتابه كلمه المرور';
 }

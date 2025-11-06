@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {},
                 text: AppLocalizations.of(context)!.login,
                 backgroundColor: AppColors.secondColor,
-                textColor: AppColors.primaryColor,
+                textStyle: AppStyles.reg20Black,
               ),
             ),
             InkWell(
@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () {},
               text: AppLocalizations.of(context)!.login_with_google,
               backgroundColor: AppColors.secondColor,
-              textColor: AppColors.primaryColor,
+              textStyle: AppStyles.reg20Black,
             ),
             CustomToggleSwitch()
           ],

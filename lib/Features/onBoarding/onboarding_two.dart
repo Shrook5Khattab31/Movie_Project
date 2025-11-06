@@ -62,7 +62,6 @@ class OnboardingTwo extends StatelessWidget {
                         );
                       },
                       backgroundColor: AppColors.secondColor,
-                      textColor: AppColors.primaryColor,
                     ),
                   ),
                 ],
