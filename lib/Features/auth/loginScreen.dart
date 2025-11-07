@@ -36,7 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
-              AppImages.appLogo,
+              fit: BoxFit.fill,
+              "assets/images/app_logo.png",
               width: width * 0.3,
               height: height * 0.13,
             ),

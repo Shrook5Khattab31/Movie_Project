@@ -41,39 +41,39 @@ class OnboardingOne extends StatelessWidget {
                 horizontal: screenWidth * 0.06,
                 vertical: screenHeight * 0.02,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    lang.find_next_favorite_movie,
-                    style: AppStyles.bold24White,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
-
-                  Text(
-                    lang.access_huge_library,
-                    style: AppStyles.reg16Yellow.copyWith(
-                      color: AppColors.grayLightColor,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      lang.find_next_favorite_movie,
+                      style: AppStyles.bold24White,
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: screenHeight * 0.04),
-
-                  CustomElevatedButton(
-                    text: lang.explore_now,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const OnboardingTwo()),
-                      );
-                    },
-                    backgroundColor: AppColors.secondColor,
-                    textStyle: AppStyles.semiBold20Black,
-                  ),
-                ],
+                    SizedBox(height: screenHeight * 0.015),
+                    Text(
+                      lang.access_huge_library,
+                      style: AppStyles.reg16Yellow.copyWith(
+                        color: AppColors.grayLightColor,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.04),
+                    CustomElevatedButton(
+                      text: lang.explore_now,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OnboardingTwo()),
+                        );
+                      },
+                      backgroundColor: AppColors.secondColor,
+                      textStyle: AppStyles.semiBold20Black,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
