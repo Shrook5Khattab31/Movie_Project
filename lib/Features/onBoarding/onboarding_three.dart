@@ -42,64 +42,66 @@ class OnboardingThree extends StatelessWidget {
                 horizontal: screenWidth * 0.06,
                 vertical: screenHeight * 0.02,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    lang.explore_all_genres,
-                    style: AppStyles.bold24White,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
-                  Text(
-                    lang.discover_movies_every_genre,
-                    style: AppStyles.reg16White,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: screenHeight * 0.03),
-                  CustomElevatedButton(
-                    text: lang.next,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OnboardingFour(),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      lang.explore_all_genres,
+                      style: AppStyles.bold24White,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.015),
+                    Text(
+                      lang.discover_movies_every_genre,
+                      style: AppStyles.reg16White,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                    CustomElevatedButton(
+                      text: lang.next,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OnboardingFour(),
+                          ),
+                        );
+                      },
+                      backgroundColor: AppColors.secondColor,
+                      textStyle: AppStyles.semiBold20Black,
+                    ),
+                    SizedBox(height: screenHeight * 0.015),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OnboardingTwo(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColor,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: AppColors.secondColor,
+                            width: 2,
+                          ),
                         ),
-                      );
-                    },
-                    backgroundColor: AppColors.secondColor,
-                    textStyle: AppStyles.semiBold20Black,
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OnboardingTwo(),
+                        alignment: Alignment.center,
+                        child: Text(
+                          lang.back,
+                          style: AppStyles.semiBold20Yellow,
                         ),
-                      );
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: AppColors.secondColor,
-                          width: 2,
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        lang.back,
-                        style: AppStyles.semiBold20Yellow,
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
