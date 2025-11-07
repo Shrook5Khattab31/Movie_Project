@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
-
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
 import '../../core/widgets/custom_elevated_btn.dart';
@@ -75,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () => Navigator.pushNamed(context, AppRoutes.register),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
