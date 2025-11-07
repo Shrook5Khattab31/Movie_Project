@@ -212,6 +212,24 @@ abstract class AppLocalizations {
   /// **'Rewrite password'**
   String get rewrite_password;
 
+  /// No description provided for @pick_avatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Avatar'**
+  String get pick_avatar;
+
+  /// No description provided for @delete_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get delete_account;
+
+  /// No description provided for @update_data.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Data'**
+  String get update_data;
+
   /// No description provided for @find_next_favorite_movie.
   ///
   /// In en, this message translates to:

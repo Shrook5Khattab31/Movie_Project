@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
 
-      initialRoute: AppRoutes.updateProfileScreen,
+      initialRoute: AppRoutes.onBoardingScreen,
       routes: {
         AppRoutes.onBoardingScreen: (context) => OnboardingOne(),
         AppRoutes.login: (context) => LoginScreen(),

@@ -6,8 +6,14 @@ class AppImages{
   static const String onboarding5 = 'assets/images/onboarding5.png';
   static const String onboardingEnd = 'assets/images/onboarding_end.png';
   static const String avatar1 = 'assets/images/avatar1.png';
-  static const String avatar2 = 'assets/images/avatar1.png';
-  static const String avatar3 = 'assets/images/avatar1.png';
+  static const String avatar2 = 'assets/images/avatar2.png';
+  static const String avatar3 = 'assets/images/avater3.png';
+  static const String avatar4 = 'assets/images/avater4.png';
+  static const String avatar5 = 'assets/images/avater4.png';
+  static const String avatar6 = 'assets/images/avater6.png';
+  static const String avatar7 = 'assets/images/avater7.png';
+  static const String avatar8 = 'assets/images/avater8.png';
+  static const String avatar9 = 'assets/images/avater9.png';
   static const String egypt = 'assets/images/egypt.png';
   static const String usa = 'assets/images/usa.png';
   static const String forgotPasswordImage = 'assets/images/forgot_password.png';
