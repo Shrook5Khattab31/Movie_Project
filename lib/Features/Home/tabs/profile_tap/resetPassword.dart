@@ -33,41 +33,46 @@ class ResetPassword extends StatelessWidget{
             color: AppColors.secondColor,),
         ),
       ),
-      body: Padding(
-        padding:EdgeInsets.symmetric(horizontal: width*0.04),
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset(AppImages.forgotPasswordImage),
-            CustomTextFormField(
-                controller: passController,
-                prefixIcon:Image.asset( AppImages.passwordIcon),
-                suffixIcon: Icon(Icons.visibility_off),
-                hintText: AppLocalizations.of(context)!.old_password,),
-
-            CustomTextFormField(
-                controller: passController,
-                prefixIcon:Image.asset( AppImages.passwordIcon),
-                suffixIcon: Icon(Icons.visibility_off),
-                hintText: AppLocalizations.of(context)!.new_password,),
-
-            CustomTextFormField(
-                controller: passController,
-                prefixIcon:Image.asset( AppImages.passwordIcon),
-                suffixIcon: Icon(Icons.visibility_off),
-                hintText: AppLocalizations.of(context)!.rewrite_password,),
-            SizedBox(
-              width: double.infinity,
-              child: CustomElevatedButton(
-                  onPressed: () {},
-                  text: AppLocalizations.of(context)!.reset_password,
-                  backgroundColor: AppColors.secondColor,
-                  textStyle: AppStyles.reg20Black,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding:EdgeInsets.symmetric(horizontal: width*0.04),
+          child: Column(
+        
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(AppImages.forgotPasswordImage),
+              CustomTextFormField(
+                  controller: passController,
+                  prefixIcon:Image.asset( AppImages.passwordIcon),
+                  suffixIcon: Icon(Icons.visibility_off),
+                  hintText: AppLocalizations.of(context)!.old_password,
+                  hintStyle: AppStyles.reg16White),
+              SizedBox(height: height*0.02,),
+              CustomTextFormField(
+                  controller: passController,
+                  prefixIcon:Image.asset( AppImages.passwordIcon),
+                  suffixIcon: Icon(Icons.visibility_off),
+                  hintText: AppLocalizations.of(context)!.new_password,
+                  hintStyle: AppStyles.reg16White),
+              SizedBox(height: height*0.02,),
+              CustomTextFormField(
+                  controller: passController,
+                  prefixIcon:Image.asset( AppImages.passwordIcon),
+                  suffixIcon: Icon(Icons.visibility_off),
+                  hintText: AppLocalizations.of(context)!.rewrite_password,
+                  hintStyle: AppStyles.reg16White),
+              SizedBox(height: height*0.05,),
+              SizedBox(
+                width: double.infinity,
+                child: CustomElevatedButton(
+                    onPressed: () {},
+                    backgroundColor: AppColors.secondColor,
+                    text: AppLocalizations.of(context)!.reset_password,
+                    textStyle: AppStyles.reg20Black,)
               ),
-            ),
-            SizedBox(height: height*0.05,)
-          ],
+              SizedBox(height: height*0.05,)
+            ],
+          ),
         ),
       ),
     );
