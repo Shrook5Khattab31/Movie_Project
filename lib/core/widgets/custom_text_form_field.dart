@@ -14,6 +14,7 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final bool isPassword;
   final VoidCallback? onToggleVisibility;
+  final TextInputType? keyboardType;
 
   const CustomTextFormField({
     super.key,
@@ -28,6 +29,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.isPassword = false,
     this.onToggleVisibility,
+    this.keyboardType
   });
 
   @override
@@ -41,6 +43,7 @@ class CustomTextFormField extends StatelessWidget {
       },
 
       style: hintStyle??AppStyles.reg16White,
+      keyboardType: keyboardType ?? TextInputType.text,
       decoration: InputDecoration(
         filled: true,
         fillColor: fillColor??AppColors.grayDarkColor,
