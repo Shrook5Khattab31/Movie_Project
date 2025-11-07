@@ -27,7 +27,11 @@ class AppImages{
   static const String searchIcon = 'assets/images/search_icon.png';
   static const String browseIcon = 'assets/images/browse_icon.png';
   static const String profileIcon = 'assets/images/profile_icon.png';
-  static const String likeIcon = 'assets/icons/like_icon.png';
-  static const String bookmarkIcon = 'assets/icons/bookmark_icon.png';
-  static const String starIcon = 'assets/icons/star_icon.png';
+  static const String likeIcon = 'assets/images/like_icon.png';
+  static const String bookmarkIcon = 'assets/images/bookmark_icon.png';
+  static const String starIcon = 'assets/images/star_icon.png';
+  static const String exitIcon ='assets/images/exit_icon.png';
+  static const String watchIcon ='assets/images/watch_list.png';
+  static const String historyIcon ='assets/images/history_icon.png';
+
 }

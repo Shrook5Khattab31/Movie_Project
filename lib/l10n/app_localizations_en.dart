@@ -123,4 +123,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get back => 'Back';
+
+  @override
+  String get watch_list => 'Watch List  ';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get edit_profile => 'Edit Profile';
+
+  @override
+  String get exit => 'Exit';
 }
