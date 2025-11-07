@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  final String text;
+  final String? text;
   final VoidCallback onPressed;
   final Color backgroundColor;
   final TextStyle? textStyle;
   final bool? haveIcon;
-  final Image? icon;
+  final Widget? iconWidget;
   const CustomElevatedButton({
     super.key,
-    required this.text,
+     this.text,
     required this.onPressed,
     required this.backgroundColor,
     this.textStyle,
    this.haveIcon,
-    this.icon,
+    this.iconWidget
   });
 
   @override
@@ -33,18 +32,9 @@ class CustomElevatedButton extends StatelessWidget {
           ),
         ),
         child:(haveIcon ?? false)?
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(text,
-            style: textStyle??textStyle??AppStyles.semiBold20Black,
-            ),
-          const SizedBox(width: 8),
-          if (icon != null) icon!,
-          ],
-        ):
+        iconWidget!:
         Text(
-          text,
+          text??'',
           style: textStyle??AppStyles.semiBold20Black,
         ),
       ),
