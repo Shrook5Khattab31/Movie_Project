@@ -1,27 +1,38 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../theme/appColors.dart';
+import 'package:movie_project/core/theme/appStyles.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  VoidCallback onPressed;
-  Widget child;
-  Color color ;
-  CustomElevatedButton({super.key, required this.onPressed,
-    required this.child, required this.color});
+  final String text;
+  final VoidCallback onPressed;
+  final Color backgroundColor;
+  final TextStyle? textStyle;
+
+  const CustomElevatedButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    required this.backgroundColor,
+    this.textStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    return ElevatedButton(onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: height*0.02),
-          backgroundColor: color,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)
-              , side: BorderSide(color: AppColors.secondColor, width: 2) )
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Text(
+          text,
+          style: textStyle??AppStyles.semiBold20Black,
+        ),
       ),
-      child: child,
     );
   }
 }
