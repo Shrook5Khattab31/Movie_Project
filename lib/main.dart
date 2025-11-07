@@ -6,16 +6,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/resetPassword.dart';
 import 'l10n/app_localizations.dart';
 import 'Features/onBoarding/onboarding_one.dart';
+import 'package:movie_project/Features/auth/register_screen.dart';
 import 'Features/auth/loginScreen.dart';
 import 'core/routing/routeNames.dart';
+import 'l10n/app_localizations.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MovieApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class MovieApp extends StatelessWidget {
+  const MovieApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.homeScreen: (context) => HomeScreen(),
         AppRoutes.forgetPassScreen: (context)=> ForgetPasswordScreen(),
         AppRoutes.updateProfileScreen: (context)=> UpdateProfile(),
+        AppRoutes.register: (context)=>  RegisterScreen(),
       },
     );
   }
