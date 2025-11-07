@@ -60,7 +60,7 @@ class AppStyles {
     fontWeight: FontWeight.w400,
   );
   static final TextStyle reg16Black = GoogleFonts.almarai(
-    fontSize: 14,
+    fontSize: 16,
     color: AppColors.primaryColor,
     fontWeight: FontWeight.w400,
   );
