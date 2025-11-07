@@ -142,11 +142,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onPressed: () {
                       //todo logic signup
                     },
-                    color: AppColors.secondColor,
-                    child: Text(
-                      language.create_acc,
-                      style: AppStyles.reg20Black,
-                    ),
+                    backgroundColor: AppColors.secondColor,
+                    text: language.create_acc,
+                    textStyle: AppStyles.reg20Black,
                   ),
                   SizedBox(height: 0.02 * height),
                   AlreadyAndDonotHaveAccount(
