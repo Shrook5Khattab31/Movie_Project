@@ -86,15 +86,22 @@ class ProfileTabScreen extends StatelessWidget {
                           Expanded(
                             child: CustomElevatedButton(
                               haveIcon: true,
-                              icon: Image.asset(AppImages.exitIcon),
+                              iconWidget: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                   children: [
+                                    Text(AppLocalizations.of(context)!.exit,style: AppStyles.reg20White,),
+                                    SizedBox(width: width*0.01,),
+                                    Image.asset(AppImages.exitIcon)
+                                  ],
+                                ),
+                              ),
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     AppRoutes.login,
                                         (route) => false,);
                               },
                               backgroundColor: AppColors.redColor,
-                              text: AppLocalizations.of(context)!.exit,
-                              textStyle: AppStyles.reg20White,
                             ),
                           ),
                         ],
