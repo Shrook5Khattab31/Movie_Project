@@ -122,11 +122,14 @@ class ProfileTabScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: TabBarView(
-                  children: [
-                    Center(child: Image.asset(AppImages.emptyList)),
-                    Center(child: Image.asset(AppImages.emptyList)),
-                  ],
+                child: Container(
+                  color: AppColors.primaryColor,
+                  child: TabBarView(
+                    children: [
+                      Center(child: Image.asset(AppImages.emptyList)),
+                      Center(child: Image.asset(AppImages.emptyList)),
+                    ],
+                  ),
                 ),
               ),
             ],
