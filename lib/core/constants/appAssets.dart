@@ -9,7 +9,7 @@ class AppImages{
   static const String avatar2 = 'assets/images/avatar2.png';
   static const String avatar3 = 'assets/images/avater3.png';
   static const String avatar4 = 'assets/images/avater4.png';
-  static const String avatar5 = 'assets/images/avater4.png';
+  static const String avatar5 = 'assets/images/avater5.png';
   static const String avatar6 = 'assets/images/avater6.png';
   static const String avatar7 = 'assets/images/avater7.png';
   static const String avatar8 = 'assets/images/avater8.png';
