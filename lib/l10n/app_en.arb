@@ -40,5 +40,9 @@
   "finish": "Finish",
 
   "next": "Next",
-  "back": "Back"
+  "back": "Back",
+  "watch_list": "Watch List  ",
+  "history": "History",
+  "edit_profile": "Edit Profile",
+  "exit": "Exit"
 }

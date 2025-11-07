@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 

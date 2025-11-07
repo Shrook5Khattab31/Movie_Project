@@ -114,4 +114,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get back => 'رجوع';
+
+  @override
+  String get watch_list => 'قائمة الرغبات';
+
+  @override
+  String get history => 'السجل';
+
+  @override
+  String get edit_profile => 'تعديل الملف الشخصي';
+
+  @override
+  String get exit => 'خروج';
 }
