@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
+import 'package:movie_project/core/widgets/custom_text_button.dart';
 
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
@@ -52,15 +53,14 @@ class _LoginScreenState extends State<LoginScreen> {
               suffixIcon: const Icon(Icons.visibility_off),
               hintStyle: AppStyles.reg16White,
             ),
-            InkWell(
-              onTap: () {},
-              child: SizedBox(
-                width: double.infinity,
-                child: Text(
-                  "${AppLocalizations.of(context)!.forget_password} ?",
-                  style: AppStyles.reg14Yellow,
-                  textAlign: TextAlign.end,
-                ),
+            Align(
+              alignment: AlignmentGeometry.centerRight,
+              child: CustomTextButton(
+                text: "${AppLocalizations.of(context)!.forget_password} ?",
+                onPressed: (){
+                  Navigator.pushNamed(context, AppRoutes.forgetPassScreen);
+                },
+                styleText: AppStyles.reg14Yellow
               ),
             ),
             SizedBox(
