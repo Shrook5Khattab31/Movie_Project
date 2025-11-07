@@ -57,12 +57,9 @@ class OnboardingEnd extends StatelessWidget {
                     SizedBox(height: 12),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const OnboardingFive(),
-                          ),
-                        );
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                          builder: (context) => const OnboardingFive(),
+                        ), (context)=>false);
                       },
                       child: Container(
                         width: double.infinity,
