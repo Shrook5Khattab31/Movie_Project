@@ -20,6 +20,8 @@
   "new_password":"New password",
   "rewrite_password":"Rewrite password",
 
+  "update_profile":"Update Profile",
+
   "find_next_favorite_movie": "Find Your Next\nFavorite Movie Here",
   "access_huge_library": "Get access to a huge library of movies\nto suit all tastes. You will surely like it.",
   "explore_now": "Explore Now",

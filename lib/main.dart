@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_project/Features/Home/tabs/profile_tap/update_profile.dart';
 import 'package:movie_project/Features/auth/forgetPassword.dart';
 import 'Features/Home/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -30,13 +31,14 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
 
-      initialRoute: AppRoutes.onBoardingScreen,
+      initialRoute: AppRoutes.updateProfileScreen,
       routes: {
         AppRoutes.onBoardingScreen: (context) => OnboardingOne(),
         AppRoutes.login: (context) => LoginScreen(),
         AppRoutes.resetPassScreen: (context) => ResetPassword(),
         AppRoutes.homeScreen: (context) => HomeScreen(),
         AppRoutes.forgetPassScreen: (context)=> ForgetPasswordScreen(),
+        AppRoutes.updateProfileScreen: (context)=> UpdateProfile(),
       },
     );
   }
