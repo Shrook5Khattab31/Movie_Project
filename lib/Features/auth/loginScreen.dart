@@ -115,10 +115,19 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             CustomElevatedButton(
+              haveIcon: true,
               onPressed: () {},
               text: AppLocalizations.of(context)!.login_with_google,
               backgroundColor: AppColors.secondColor,
-              textStyle: AppStyles.reg20Black,
+              textStyle: AppStyles.reg16Black,
+              iconWidget:Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: width*0.02,
+                children: [
+                  Image.asset(AppImages.googleIcon, width: width*0.06, height: height*0.03,),
+                  Text(AppLocalizations.of(context)!.login_with_google, style: AppStyles.reg16Black)
+                ],)
+
             ),
             CustomToggleSwitch()
           ],
