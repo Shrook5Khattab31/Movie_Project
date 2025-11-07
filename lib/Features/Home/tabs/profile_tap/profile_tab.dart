@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
+import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
@@ -75,7 +76,9 @@ class ProfileTabScreen extends StatelessWidget {
                             child: CustomElevatedButton(
                               text: AppLocalizations.of(context)!.edit_profile,
                               textStyle: AppStyles.reg20Black,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(AppRoutes.updateProfileScreen);
+                              },
                               backgroundColor: AppColors.secondColor,
                             ),
                           ),
@@ -84,7 +87,11 @@ class ProfileTabScreen extends StatelessWidget {
                             child: CustomElevatedButton(
                               haveIcon: true,
                               icon: Image.asset(AppImages.exitIcon),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    AppRoutes.login,
+                                        (route) => false,);
+                              },
                               backgroundColor: AppColors.redColor,
                               text: AppLocalizations.of(context)!.exit,
                               textStyle: AppStyles.reg20White,
