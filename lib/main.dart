@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_project/Features/auth/resetPassword.dart';
 
 
 import 'Features/auth/loginScreen.dart';
@@ -16,10 +17,7 @@ class MovieApp extends StatelessWidget {
     return MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        initialRoute: AppRoutes.login,
-        routes:{
-          AppRoutes.login: (context)=>  LoginScreen()
-        }
+        home: ResetPassword(),
     );
     }
 }
