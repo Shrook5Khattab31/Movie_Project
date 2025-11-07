@@ -1,6 +1,8 @@
 class AppRoutes{
-  static String login = 'loginScreen';
-  static String resetPassScreen = 'resetPassScreen';
-  static String onBoardingScreen = 'onBoardingScreen';
-  static String homeScreen = 'homeScreen';
+  static const String login = 'loginScreen';
+  static const String resetPassScreen = 'resetPassScreen';
+  static const String onBoardingScreen = 'onBoardingScreen';
+  static const String homeScreen = 'homeScreen';
+  static const String forgetPassScreen= 'forgetPassScreen';
+  static const String updateProfileScreen= 'updateProfileScreen';
 }

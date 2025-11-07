@@ -66,6 +66,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rewrite_password => 'Rewrite password';
 
   @override
+  String get pick_avatar => 'Pick Avatar';
+
+  @override
+  String get delete_account => 'Delete Account';
+
+  @override
+  String get update_data => 'Update Data';
+
+  @override
   String get find_next_favorite_movie => 'Find Your Next\nFavorite Movie Here';
 
   @override

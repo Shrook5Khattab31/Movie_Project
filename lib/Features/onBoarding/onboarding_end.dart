@@ -25,62 +25,63 @@ class OnboardingEnd extends StatelessWidget {
             ),
           ),
           Container(
-            color: AppColors.primaryColor.withOpacity(0.7), 
+            color: AppColors.primaryColor.withOpacity(0.7),
           ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    lang.start_watching_now,
-                    style: AppStyles.bold24White,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: screenHeight * 0.03),
-                  CustomElevatedButton(
-                    text: lang.finish,
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                      );
-                    },
-                    backgroundColor: AppColors.secondColor,
-                  ),
-                  SizedBox(height: 12),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: screenHeight * 0.02),
+                    Text(
+                      lang.start_watching_now,
+                      style: AppStyles.bold24White,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                    CustomElevatedButton(
+                      text: lang.finish,
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      },
+                      backgroundColor: AppColors.secondColor,
+                    ),
+                    SizedBox(height: 12),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                           builder: (context) => const OnboardingFive(),
+                        ), (context)=>false);
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColor,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: AppColors.secondColor,
+                            width: 2,
+                          ),
                         ),
-                      );
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: AppColors.secondColor,
-                          width: 2,
+                        alignment: Alignment.center,
+                        child: Text(
+                          lang.back,
+                          style: AppStyles.semiBold20Yellow,
                         ),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        lang.back,
-                        style: AppStyles.semiBold20Yellow,
                       ),
                     ),
-                  ),
-                  SizedBox(height: screenHeight * 0.03),
-                ],
+                    SizedBox(height: screenHeight * 0.03),
+                  ],
+                ),
               ),
             ),
           ),

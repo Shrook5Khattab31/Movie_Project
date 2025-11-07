@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movie_project/Features/Home/tabs/profile_tap/update_profile.dart';
+import 'package:movie_project/Features/auth/forgetPassword.dart';
 import 'Features/Home/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:movie_project/Features/auth/resetPassword.dart';
+import 'package:movie_project/Features/Home/tabs/profile_tap/resetPassword.dart';
 import 'l10n/app_localizations.dart';
 import 'Features/onBoarding/onboarding_one.dart';
 import 'Features/auth/loginScreen.dart';
@@ -35,6 +37,8 @@ class MyApp extends StatelessWidget {
         AppRoutes.login: (context) => LoginScreen(),
         AppRoutes.resetPassScreen: (context) => ResetPassword(),
         AppRoutes.homeScreen: (context) => HomeScreen(),
+        AppRoutes.forgetPassScreen: (context)=> ForgetPasswordScreen(),
+        AppRoutes.updateProfileScreen: (context)=> UpdateProfile(),
       },
     );
   }
