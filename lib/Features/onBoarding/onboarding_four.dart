@@ -42,64 +42,66 @@ class OnboardingFour extends StatelessWidget {
                 horizontal: screenWidth * 0.06,
                 vertical: screenHeight * 0.02,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    lang.create_watchlists,
-                    style: AppStyles.bold24White,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
-                  Text(
-                    lang.save_movies_watchlist,
-                    style: AppStyles.reg16White,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: screenHeight * 0.03),
-                  CustomElevatedButton(
-                    text: lang.next,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OnboardingFive(),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      lang.create_watchlists,
+                      style: AppStyles.bold24White,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.015),
+                    Text(
+                      lang.save_movies_watchlist,
+                      style: AppStyles.reg16White,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                    CustomElevatedButton(
+                      text: lang.next,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OnboardingFive(),
+                          ),
+                        );
+                      },
+                      backgroundColor: AppColors.secondColor,
+                      textStyle: AppStyles.semiBold20Black,
+                    ),
+                    SizedBox(height: screenHeight * 0.015),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OnboardingThree(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColor,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: AppColors.secondColor,
+                            width: 2,
+                          ),
                         ),
-                      );
-                    },
-                    backgroundColor: AppColors.secondColor,
-                    textStyle: AppStyles.semiBold20Black,
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OnboardingThree(),
+                        alignment: Alignment.center,
+                        child: Text(
+                          lang.back,
+                          style: AppStyles.semiBold20Yellow,
                         ),
-                      );
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: AppColors.secondColor,
-                          width: 2,
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        lang.back,
-                        style: AppStyles.semiBold20Yellow,
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
