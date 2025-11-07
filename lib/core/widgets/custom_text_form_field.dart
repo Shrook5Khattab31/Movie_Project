@@ -29,6 +29,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.isPassword = false,
     this.onToggleVisibility,
+    this.keyboardType
   });
 
   @override
