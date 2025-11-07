@@ -187,6 +187,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Register'**
   String get register;
+
+  /// No description provided for @reset_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get reset_password;
+
+  /// No description provided for @old_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Old password'**
+  String get old_password;
+
+  /// No description provided for @new_password.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get new_password;
+
+  /// No description provided for @rewrite_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Rewrite password'**
+  String get rewrite_password;
+
+  /// No description provided for @pick_avatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Avatar'**
+  String get pick_avatar;
+
+  /// No description provided for @delete_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get delete_account;
+
+  /// No description provided for @update_data.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Data'**
+  String get update_data;
+
+  /// No description provided for @find_next_favorite_movie.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Your Next\nFavorite Movie Here'**
+  String get find_next_favorite_movie;
+
+  /// No description provided for @access_huge_library.
+  ///
+  /// In en, this message translates to:
+  /// **'Get access to a huge library of movies\nto suit all tastes. You will surely like it.'**
+  String get access_huge_library;
+
+  /// No description provided for @explore_now.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Now'**
+  String get explore_now;
+
+  /// No description provided for @discover_movies.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover Movies'**
+  String get discover_movies;
+
+  /// No description provided for @explore_vast_collection.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore a vast collection of movies in all\nqualities and genres. Find your next\nfavorite film with ease.'**
+  String get explore_vast_collection;
+
+  /// No description provided for @explore_all_genres.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore All Genres'**
+  String get explore_all_genres;
+
+  /// No description provided for @discover_movies_every_genre.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover movies from every genre,\nin all available qualities. Find something new\nand exciting to watch every day.'**
+  String get discover_movies_every_genre;
+
+  /// No description provided for @create_watchlists.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Watchlists'**
+  String get create_watchlists;
+
+  /// No description provided for @save_movies_watchlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Save movies to your watchlist to keep\ntrack of what you want to watch next.\nEnjoy films in various qualities and genres.'**
+  String get save_movies_watchlist;
+
+  /// No description provided for @rate_review_learn.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate, Review, and Learn'**
+  String get rate_review_learn;
+
+  /// No description provided for @share_your_thoughts.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your thoughts on the movies\nyou\'ve watched. Dive deep into\nfilm details and help others discover\ngreat movies with your reviews.'**
+  String get share_your_thoughts;
+
+  /// No description provided for @start_watching_now.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Watching Now'**
+  String get start_watching_now;
+
+  /// No description provided for @finish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finish;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @watch_list.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch List  '**
+  String get watch_list;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @edit_profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get edit_profile;
+
+  /// No description provided for @exit.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit'**
+  String get exit;
 }
 
 class _AppLocalizationsDelegate

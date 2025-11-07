@@ -7,7 +7,13 @@ class AppImages{
   static const String onboardingEnd = 'assets/images/onboarding_end.png';
   static const String avatar1 = 'assets/images/avatar1.png';
   static const String avatar2 = 'assets/images/avatar2.png';
-  static const String avatar3 = 'assets/images/avatar3.png';
+  static const String avatar3 = 'assets/images/avater3.png';
+  static const String avatar4 = 'assets/images/avater4.png';
+  static const String avatar5 = 'assets/images/avater5.png';
+  static const String avatar6 = 'assets/images/avater6.png';
+  static const String avatar7 = 'assets/images/avater7.png';
+  static const String avatar8 = 'assets/images/avater8.png';
+  static const String avatar9 = 'assets/images/avater9.png';
   static const String egypt = 'assets/images/egypt.png';
   static const String usa = 'assets/images/usa.png';
   static const String forgotPasswordImage = 'assets/images/forgot_password.png';
@@ -21,7 +27,11 @@ class AppImages{
   static const String searchIcon = 'assets/images/search_icon.png';
   static const String browseIcon = 'assets/images/browse_icon.png';
   static const String profileIcon = 'assets/images/profile_icon.png';
-  static const String likeIcon = 'assets/icons/like_icon.png';
-  static const String bookmarkIcon = 'assets/icons/bookmark_icon.png';
-  static const String starIcon = 'assets/icons/star_icon.png';
+  static const String likeIcon = 'assets/images/like_icon.png';
+  static const String bookmarkIcon = 'assets/images/bookmark_icon.png';
+  static const String starIcon = 'assets/images/star_icon.png';
+  static const String exitIcon ='assets/images/exit_icon.png';
+  static const String watchIcon ='assets/images/watch_list.png';
+  static const String historyIcon ='assets/images/history_icon.png';
+
 }

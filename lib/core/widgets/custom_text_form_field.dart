@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_project/core/theme/appStyles.dart';
 import '../theme/appColors.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -18,7 +19,7 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
-    required this.hintStyle,
+    this.hintStyle,
     this.fillColor,
     this.prefixIcon,
     this.suffixIcon,
@@ -28,7 +29,6 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.isPassword = false,
     this.onToggleVisibility,
-    this.keyboardType,
   });
 
   @override
@@ -37,20 +37,21 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: isPassword,
       controller: controller,
       onChanged: onChanged,
-      validator: (text) {
+      validator: (text){
         return null;
       },
+
+      style: hintStyle??AppStyles.reg16White,
       keyboardType: keyboardType ?? TextInputType.text,
-      style: hintStyle,
       decoration: InputDecoration(
         filled: true,
-        fillColor: fillColor ?? AppColors.grayDarkColor,
+        fillColor: fillColor??AppColors.grayDarkColor,
         hintText: hintText,
-        hintStyle: hintStyle,
+        hintStyle: hintStyle??AppStyles.reg16White,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        prefixIconColor: prefixIconColor ?? AppColors.whiteColor,
-        suffixIconColor: suffixIconColor ?? AppColors.whiteColor,
+        prefixIconColor: prefixIconColor??AppColors.whiteColor,
+        suffixIconColor: suffixIconColor??AppColors.whiteColor,
 
         enabledBorder: buildBorderDecoration(),
         focusedBorder: buildBorderDecoration(),
@@ -59,11 +60,12 @@ class CustomTextFormField extends StatelessWidget {
       ),
     );
   }
-
-  OutlineInputBorder buildBorderDecoration() {
+  OutlineInputBorder buildBorderDecoration(){
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(15),
-      borderSide: BorderSide(color: AppColors.grayDarkColor),
+        borderRadius: BorderRadius.circular(15),
+        borderSide: BorderSide(
+            color: AppColors.grayDarkColor
+        )
     );
   }
 }

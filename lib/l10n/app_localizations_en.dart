@@ -52,4 +52,87 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get register => 'Register';
+
+  @override
+  String get reset_password => 'Reset Password';
+
+  @override
+  String get old_password => 'Old password';
+
+  @override
+  String get new_password => 'New password';
+
+  @override
+  String get rewrite_password => 'Rewrite password';
+
+  @override
+  String get pick_avatar => 'Pick Avatar';
+
+  @override
+  String get delete_account => 'Delete Account';
+
+  @override
+  String get update_data => 'Update Data';
+
+  @override
+  String get find_next_favorite_movie => 'Find Your Next\nFavorite Movie Here';
+
+  @override
+  String get access_huge_library =>
+      'Get access to a huge library of movies\nto suit all tastes. You will surely like it.';
+
+  @override
+  String get explore_now => 'Explore Now';
+
+  @override
+  String get discover_movies => 'Discover Movies';
+
+  @override
+  String get explore_vast_collection =>
+      'Explore a vast collection of movies in all\nqualities and genres. Find your next\nfavorite film with ease.';
+
+  @override
+  String get explore_all_genres => 'Explore All Genres';
+
+  @override
+  String get discover_movies_every_genre =>
+      'Discover movies from every genre,\nin all available qualities. Find something new\nand exciting to watch every day.';
+
+  @override
+  String get create_watchlists => 'Create Watchlists';
+
+  @override
+  String get save_movies_watchlist =>
+      'Save movies to your watchlist to keep\ntrack of what you want to watch next.\nEnjoy films in various qualities and genres.';
+
+  @override
+  String get rate_review_learn => 'Rate, Review, and Learn';
+
+  @override
+  String get share_your_thoughts =>
+      'Share your thoughts on the movies\nyou\'ve watched. Dive deep into\nfilm details and help others discover\ngreat movies with your reviews.';
+
+  @override
+  String get start_watching_now => 'Start Watching Now';
+
+  @override
+  String get finish => 'Finish';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get watch_list => 'Watch List  ';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get edit_profile => 'Edit Profile';
+
+  @override
+  String get exit => 'Exit';
 }
