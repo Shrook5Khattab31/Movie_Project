@@ -66,6 +66,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get rewrite_password => 'اعد كتابه كلمه المرور';
 
   @override
+  String get pick_avatar => 'اختيار صورة شخصية';
+
+  @override
+  String get delete_account => 'حذف الحساب';
+
+  @override
+  String get update_data => 'تحديث الملف الشخصي';
+
+  @override
   String get find_next_favorite_movie => 'اعثر على فيلمك المفضل التالي هنا';
 
   @override

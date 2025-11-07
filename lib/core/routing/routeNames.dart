@@ -4,4 +4,5 @@ class AppRoutes{
   static const String onBoardingScreen = 'onBoardingScreen';
   static const String homeScreen = 'homeScreen';
   static const String forgetPassScreen= 'forgetPassScreen';
+  static const String updateProfileScreen= 'updateProfileScreen';
 }

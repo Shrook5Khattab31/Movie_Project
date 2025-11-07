@@ -20,6 +20,10 @@
   "new_password":"New password",
   "rewrite_password":"Rewrite password",
 
+  "pick_avatar":"Pick Avatar",
+  "delete_account":"Delete Account",
+  "update_data":"Update Data",
+
   "find_next_favorite_movie": "Find Your Next\nFavorite Movie Here",
   "access_huge_library": "Get access to a huge library of movies\nto suit all tastes. You will surely like it.",
   "explore_now": "Explore Now",

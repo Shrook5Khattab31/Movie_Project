@@ -17,16 +17,14 @@ class ForgetPasswordScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
-        backgroundColor: AppColors.transparentColor,
+        backgroundColor: AppColors.primaryColor,
         title:Text(AppLocalizations.of(context)!.forget_password
           ,style: AppStyles.reg16Yellow,),
         centerTitle: true,
         leading: InkWell(
-          child: InkWell(
-            onTap: () => Navigator.pop(context),
-            child: Icon(Icons.arrow_back_sharp,
-              color: AppColors.secondColor,),
-          ),
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back_sharp,
+            color: AppColors.secondColor,),
         ),
       ),
       body: SingleChildScrollView(

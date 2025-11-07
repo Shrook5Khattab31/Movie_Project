@@ -20,6 +20,10 @@
    "new_password":"كلمه المرور الحديثه",
    "rewrite_password":"اعد كتابه كلمه المرور",
 
+    "pick_avatar": "اختيار صورة شخصية",
+    "delete_account": "حذف الحساب",
+    "update_data": "تحديث الملف الشخصي",
+
    "find_next_favorite_movie": "اعثر على فيلمك المفضل التالي هنا",
    "access_huge_library": "احصل على مكتبة ضخمة من الأفلام\nلتناسب جميع الأذواق. ستعجبك بالتأكيد.",
    "explore_now": "اكتشف الآن",
