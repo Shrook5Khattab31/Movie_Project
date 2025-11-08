@@ -159,6 +159,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     textButton: language.login,
                     onPressedButton: () {
                       //todo nav into login
+                      Navigator.pushReplacementNamed(context, AppRoutes.login);
                     },
                   ),
                   SizedBox(height: 0.01 * height),

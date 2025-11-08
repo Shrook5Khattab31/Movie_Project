@@ -16,8 +16,8 @@ class BuiltAvatarRegister extends StatelessWidget {
       options: CarouselOptions(
          enlargeCenterPage: true,
          aspectRatio: 15/6,
-         viewportFraction: 0.42,
-         height: height * 0.20,
+         viewportFraction: height*0.00054,
+         height: height * 0.18,
          enableInfiniteScroll: false,
          autoPlay: true,
       ),
