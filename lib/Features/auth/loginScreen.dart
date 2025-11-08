@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
-
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
 import '../../core/widgets/custom_elevated_btn.dart';
@@ -75,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () => Navigator.pushNamed(context, AppRoutes.register),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -116,10 +115,19 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             CustomElevatedButton(
+              haveIcon: true,
               onPressed: () {},
               text: AppLocalizations.of(context)!.login_with_google,
               backgroundColor: AppColors.secondColor,
-              textStyle: AppStyles.reg20Black,
+              textStyle: AppStyles.reg16Black,
+              iconWidget:Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: width*0.02,
+                children: [
+                  Image.asset(AppImages.googleIcon, width: width*0.06, height: height*0.03,),
+                  Text(AppLocalizations.of(context)!.login_with_google, style: AppStyles.reg16Black)
+                ],)
+
             ),
             CustomToggleSwitch()
           ],

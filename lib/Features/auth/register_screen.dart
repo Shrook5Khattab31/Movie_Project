@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_project/Features/auth/widget/built_avatar_register.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
+import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
@@ -47,6 +48,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         title: Text(language.register, style: AppStyles.reg16Yellow),
         centerTitle: true,
         backgroundColor: AppColors.primaryColor,
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back_sharp,
+            color: AppColors.secondColor,),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -141,6 +147,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   CustomElevatedButton(
                     onPressed: () {
                       //todo logic signup
+                      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.homeScreen, (context)=>false);
                     },
                     backgroundColor: AppColors.secondColor,
                     text: language.create_acc,
