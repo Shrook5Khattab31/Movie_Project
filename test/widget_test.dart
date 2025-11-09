@@ -11,7 +11,7 @@ import 'package:movie_project/main.dart';
 void main() {
   testWidgets('OnboardingOne loads correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MovieApp());
 
     // تأكد إن عنوان Onboarding موجود
     expect(find.textContaining('Find Your Next'), findsOneWidget);

@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
+import '../../core/utils/custom_dialog.dart';
 import '../../core/widgets/custom_elevated_btn.dart';
 import '../../core/widgets/custom_text_form_field.dart';
 import '../../l10n/app_localizations.dart';
@@ -116,7 +119,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             CustomElevatedButton(
               haveIcon: true,
-              onPressed: () {},
+              onPressed: () {
+                //todo login with google
+                loginGoogle();
+              },
               text: AppLocalizations.of(context)!.login_with_google,
               backgroundColor: AppColors.secondColor,
               textStyle: AppStyles.reg16Black,
@@ -134,5 +140,67 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+  void loginGoogle()async{
+    //todo show loading
+    CustomDialog.showLoading(
+      context: context,
+      background: AppColors.primaryColor,
+      text: AppLocalizations.of(context)!.loading,
+      style: AppStyles.bold20Yellow,
+    );
+    try {
+      final GoogleSignInAccount? googleUser =
+      await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        //todo hide loading
+        CustomDialog.hideLoading(context: context);
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+      await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      FirebaseAuth.instance.signInWithCredential(credential);
+      debugPrint('---------------------------------------');
+      debugPrint('UID: ${googleUser.id}');
+      debugPrint('Name: ${googleUser.displayName ?? ""}');
+      debugPrint('Email: ${googleUser.email}');
+      debugPrint('---------------------------------------');
+      //todo hide loading
+      CustomDialog.hideLoading(context: context);
+      //todo show message successfully
+      CustomDialog.showMessage(
+        context: context,
+        background: AppColors.primaryColor,
+        title: AppLocalizations.of(context)!.successfully,
+        styleTitle: AppStyles.bold20Yellow,
+        message: AppLocalizations.of(context)!.login_successfully,
+        styleMessage: AppStyles.reg16White,
+        posActionName: AppLocalizations.of(context)!.ok,
+        stylePosActionName:AppStyles.bold20Yellow,
+        posActionClick: () {
+         //todo nav into home
+        Navigator.pushNamedAndRemoveUntil(context, AppRoutes.homeScreen,(route) => false,);
+        },
+      );
+    } on Exception catch (e) {
+      //todo hide loading
+      CustomDialog.hideLoading(context: context);
+      //todo show message error
+      CustomDialog.showMessage(
+        context: context,
+        background: AppColors.primaryColor,
+        title: AppLocalizations.of(context)!.error,
+        styleTitle: AppStyles.bold20Yellow,
+        message: e.toString(),
+        styleMessage: AppStyles.reg16White,
+        posActionName: AppLocalizations.of(context)!.ok,
+        stylePosActionName:AppStyles.bold20Yellow,
+      );
+    }
   }
 }

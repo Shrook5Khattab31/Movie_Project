@@ -135,4 +135,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get exit => 'خروج';
+
+  @override
+  String get login_successfully => 'تم تسجيل الدخول بنجاح';
+
+  @override
+  String get successfully => 'بنجاح';
+
+  @override
+  String get ok => 'حسنًا';
+
+  @override
+  String get error => 'خطأ';
+
+  @override
+  String get loading => 'جارٍ التحميل';
 }
