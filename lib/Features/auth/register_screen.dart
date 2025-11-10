@@ -1,9 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_project/Features/auth/widget/built_avatar_register.dart';
+import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
+import 'package:movie_project/core/utils/custom_dialog.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_form_field.dart';
@@ -16,7 +19,7 @@ class RegisterScreen extends StatefulWidget {
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
-
+ApiService apiService=ApiService();
 class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -35,8 +38,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-  bool showPassword = false;
-  bool showConfirmPassword = false;
+  bool showPassword = true;
+  bool showConfirmPassword = true;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -165,9 +168,69 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   SizedBox(height: 0.024 * height),
                   CustomElevatedButton(
-                    onPressed: () {
-                      //todo logic signup
-                      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.homeScreen, (context)=>false);
+                    onPressed: () async {
+                      print('Sending data: ${nameController.text}, ${emailController.text}');
+                      if (formKey.currentState!.validate()) {
+                        CustomDialog.showMessage(
+                          context: context,
+                          background: AppColors.primaryColor,
+                          styleMessage: AppStyles.bold14Yellow,
+                          message: 'Waiting...',
+                        );
+
+                        try {
+                          int selectedAvatarId = 1;
+
+                          Response response = await apiService.registerUser(
+                            name: nameController.text,
+                            email: emailController.text,
+                            password: passwordController.text,
+                            confirmPassword: confirmPasswordController.text,
+                            phone: phoneController.text,
+                            avaterId: selectedAvatarId,
+                          );
+                          print('Response status: ${response.statusCode}');
+                          print('Response data: ${response.data}');
+
+                          CustomDialog.hideLoading(context: context);
+
+                          if ((response.data['message'] == "User created successfully" &&
+                              response.data['data'] != null) ) {
+                            CustomDialog.showMessage(
+                              context: context,
+                              background: AppColors.primaryColor,
+                              styleMessage: AppStyles.bold20Yellow,
+                              message: 'Register successfully ',
+                            );
+                            await Future.delayed(const Duration(seconds: 2));
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              AppRoutes.homeScreen,
+                                  (route) => false,
+                            );
+                          } else {
+                            String message = response.data['message'].toString();
+                            CustomDialog.showMessage(
+                              context: context,
+                              background: AppColors.primaryColor,
+                              styleMessage: AppStyles.bold14Yellow,
+                              message: message,
+                              title: "Error",
+                              posActionName: "ok",
+
+                            );
+                          }
+                        } catch (e) {
+                          CustomDialog.hideLoading(context: context);
+                          CustomDialog.showMessage(
+                            context: context,
+                            background: AppColors.primaryColor,
+                            styleMessage: AppStyles.bold14Yellow,
+                            message: 'Something went wrong ',
+                          );
+                        }
+                      }
+
                     },
                     backgroundColor: AppColors.secondColor,
                     text: language.create_acc,
