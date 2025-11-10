@@ -169,7 +169,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(height: 0.024 * height),
                   CustomElevatedButton(
                     onPressed: () async {
-                      print('Sending data: ${nameController.text}, ${emailController.text}');
                       if (formKey.currentState!.validate()) {
                         CustomDialog.showMessage(
                           context: context,
@@ -189,8 +188,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             phone: phoneController.text,
                             avaterId: selectedAvatarId,
                           );
-                          print('Response status: ${response.statusCode}');
-                          print('Response data: ${response.data}');
 
                           CustomDialog.hideLoading(context: context);
 
