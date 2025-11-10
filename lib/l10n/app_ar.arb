@@ -48,6 +48,13 @@
    "watch_list":"قائمة الرغبات",
    "history":"السجل",
    "edit_profile": "تعديل الملف الشخصي",
-   "exit": "خروج"
+   "exit": "خروج",
+
+   "login_successfully": "تم تسجيل الدخول بنجاح",
+   "successfully": "بنجاح",
+   "ok": "حسنًا",
+   "error": "خطأ",
+   "loading": "جارٍ التحميل"
+
 
 }

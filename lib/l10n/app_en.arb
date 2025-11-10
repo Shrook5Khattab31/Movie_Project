@@ -48,5 +48,13 @@
   "watch_list": "Watch List  ",
   "history": "History",
   "edit_profile": "Edit Profile",
-  "exit": "Exit"
+  "exit": "Exit",
+  
+  "login_successfully": "Login successfully",
+  "successfully": "Successfully",
+  "ok": "Ok",
+  "error": "Error",
+  "loading": "Loading"
+
+
 }
