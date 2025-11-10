@@ -68,10 +68,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   //todo avatar
                   BuiltAvatarRegister(),
-
-
-
-
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
                     hintText: language.name,
@@ -80,6 +76,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fillColor: AppColors.grayDarkColor,
                     prefixIcon: Image.asset(AppImages.userIcon),
                     prefixIconColor: AppColors.whiteColor,
+                    validatorFunc: (text) {
+                      if(text==null || text.trim().isEmpty){
+                        return"What's your name?";
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
@@ -90,6 +92,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     prefixIcon: Image.asset(AppImages.emailIcon),
                     prefixIconColor: AppColors.whiteColor,
                     keyboardType: TextInputType.emailAddress,
+                      validatorFunc:(text) {
+                        if(text==null || text.trim().isEmpty){
+                          return'Please Enter your Email';
+                        }
+                        final bool emailValid =
+                        RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(text);
+                        if(!emailValid){
+                          return 'Please Enter valid Email';
+                        }
+                        return null;
+                      }
                   ),
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
@@ -102,6 +116,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     keyboardType: TextInputType.visiblePassword,
                     isPassword: showPassword,
                     suffixIconColor: AppColors.whiteColor,
+                    validatorFunc:(text) {
+                      if(text==null || text.trim().isEmpty){
+                        return'Please Enter Password';
+                      }
+                      return null;
+                    },
                     suffixIcon: IconButton(
                       onPressed: () {
                         //todo show password
