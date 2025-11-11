@@ -48,4 +48,26 @@ class ApiService {
       rethrow;
     }
   }
+  Future<Response> updateProfile({
+    required String email,
+    required int avatarId,
+    required String token,
+})async{
+    try{
+      var response = await dio.patch(ApiEndPoints.updateProfile,
+      data: {
+        'email':email,
+        'avatarId':avatarId,
+      },
+      options: Options(
+          headers: {
+            'Authorization':'Bearer $token'
+          },
+        validateStatus: (status) => status!<500,
+      ));
+      return response;
+    }catch (e){
+      rethrow;
+    }
+  }
 }
