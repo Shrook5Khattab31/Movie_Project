@@ -60,7 +60,7 @@ class AppStyles {
     fontWeight: FontWeight.w400,
   );
   static final TextStyle reg16Black = GoogleFonts.almarai(
-    fontSize: 16,
+    fontSize: 14,
     color: AppColors.primaryColor,
     fontWeight: FontWeight.w400,
   );
@@ -89,6 +89,4 @@ class AppStyles {
     color: AppColors.secondColor,
     fontWeight: FontWeight.bold,
   );
-  static TextStyle bold14Yellow= GoogleFonts.roboto(color: AppColors.secondColor,
-      fontSize: 14, fontWeight: FontWeight.w700 );
 }
