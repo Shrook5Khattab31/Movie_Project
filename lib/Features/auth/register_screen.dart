@@ -202,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             await Future.delayed(const Duration(seconds: 2));
                             Navigator.pushNamedAndRemoveUntil(
                               context,
-                              AppRoutes.homeScreen,
+                              AppRoutes.login,
                                   (route) => false,
                             );
                           } else {
