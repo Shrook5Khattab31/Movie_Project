@@ -32,7 +32,7 @@ class CustomDialog {
 
   static void showMessage({
     required BuildContext context,
-    required Color background,
+     Color background = AppColors.primaryColor,
     required TextStyle? styleMessage,
     required String message,
     String? title,

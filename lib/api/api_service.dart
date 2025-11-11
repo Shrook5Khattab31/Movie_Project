@@ -6,16 +6,19 @@ class ApiService {
       baseUrl: ApiConstants.baseUrlAuth
   ));
 
-
-  void signIn({required String email, required String password}) async {
-    var response = await dio.post(ApiEndPoints.login,
-        data: {
-          'email': "mai@gmail.com",
-          'password': "123456780"
-        }
-    );
-    print(response.statusCode);
-    print(response.data.toString());
+  Future<Response> signIn({required String email, required String password}) async {
+    try {
+      var response = await dio.post(ApiEndPoints.login,
+          data: {
+            'email': email,
+            'password': password
+          }
+      );
+      return response;
+    }
+    on DioException catch(e){
+      rethrow;
+    }
   }
 
   Future<Response> registerUser({required String name,
