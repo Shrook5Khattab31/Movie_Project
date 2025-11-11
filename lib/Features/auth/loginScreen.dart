@@ -16,7 +16,8 @@ import '../../l10n/app_localizations.dart';
 import '../../core/constants/appAssets.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+   String? loginToken;
+  LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -173,6 +174,8 @@ class _LoginScreenState extends State<LoginScreen> {
       try{
         var response = await ApiService().signIn(email: emailController.text, password: passController.text);
         if(response.data['message'] == 'Success Login'){
+          widget.loginToken = response.data["data"];
+          print("token ${widget.loginToken}");
           CustomDialog.hideLoading(context: context);
           CustomDialog.showMessage(context: context,
               styleMessage: AppStyles.bold14Yellow, message: "Login Successfully",
