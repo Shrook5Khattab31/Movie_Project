@@ -1,6 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:movie_project/Features/auth/widget/already_and_donot_have_account.dart';
+import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
@@ -19,127 +22,209 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+
 class _LoginScreenState extends State<LoginScreen> {
+  var formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController(text: "mai@gmail.com");
+  TextEditingController passController = TextEditingController(text: "Mai@1994");
+  bool isVisible = false;
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passController = TextEditingController();
-
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset(
-              fit: BoxFit.fill,
-              "assets/images/app_logo.png",
-              width: width * 0.3,
-              height: height * 0.13,
-            ),
-            CustomTextFormField(
-              controller: emailController,
-              prefixIcon: const Icon(Icons.email_outlined),
-              hintText: AppLocalizations.of(context)!.email,
-              hintStyle: AppStyles.reg16White,
-            ),
-            CustomTextFormField(
-              controller: passController,
-              prefixIcon: const Icon(Icons.lock),
-              hintText: AppLocalizations.of(context)!.password,
-              suffixIcon: const Icon(Icons.visibility_off),
-              hintStyle: AppStyles.reg16White,
-            ),
-            Align(
-              alignment: AlignmentGeometry.centerRight,
-              child: CustomTextButton(
-                text: "${AppLocalizations.of(context)!.forget_password} ?",
-                onPressed: (){
-                  Navigator.pushNamed(context, AppRoutes.forgetPassScreen);
-                },
-                styleText: AppStyles.reg14Yellow
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(
+                fit: BoxFit.fill,
+                "assets/images/app_logo.png",
+                width: width * 0.3,
+                height: height * 0.13,
               ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: CustomElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(context, AppRoutes.homeScreen, (context)=>false);
+
+              CustomTextFormField(
+                validatorFunc: (text){
+                  if(text == null || text.trim().isEmpty){
+                    return "Please enter an Email";
+                  }
+                  // final bool emailValid =
+                  // RegExp(r'^[\w\.-]+@[\w\.-]+\.\w+$').hasMatch(text);
+                  // if (!emailValid) {
+                  //   return "Please enter a valid Email";
+                  // }
+                  return null;
                 },
-                text: AppLocalizations.of(context)!.login,
-                backgroundColor: AppColors.secondColor,
-                textStyle: AppStyles.reg20Black,
+                controller: emailController,
+                prefixIcon: const Icon(Icons.email_outlined),
+                hintText: AppLocalizations.of(context)!.email,
+                hintStyle: AppStyles.reg16White,
               ),
-            ),
-            InkWell(
-              onTap: () => Navigator.pushNamed(context, AppRoutes.register),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              CustomTextFormField(
+                validatorFunc: (text){
+                  if(text == null || text.trim().isEmpty){
+                    return "Please enter a valid Password";
+                  }
+                  // final regx = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
+                  // .hasMatch(text);
+                  // if(!regx){
+                  //   return "Password must be equal or more than 8 characters "
+                  //       "and contain Upper letters, lower lettrts, numbers and characters";
+                  // }
+                  return null;
+                },
+                isPassword: isVisible? false:true,
+                controller: passController,
+                keyboardType: TextInputType.visiblePassword,
+                prefixIcon: const Icon(Icons.lock),
+                hintText: AppLocalizations.of(context)!.password,
+                suffixIcon: IconButton(onPressed: (){
+                  //todo show pass
+                  setState(() {
+                    isVisible = !isVisible;
+                  });
+                }, icon: isVisible? Icon(Icons.visibility): Icon(Icons.visibility_off) ),
+                hintStyle: AppStyles.reg16White,
+              ),
+              Align(
+                alignment: AlignmentGeometry.centerRight,
+                child: CustomTextButton(
+                  text: "${AppLocalizations.of(context)!.forget_password} ?",
+                  onPressed: (){
+                    Navigator.pushNamed(context, AppRoutes.forgetPassScreen);
+                  },
+                  styleText: AppStyles.reg14Yellow
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: CustomElevatedButton(
+                  onPressed: () {
+                    login();
+                  },
+                  text: AppLocalizations.of(context)!.login,
+                  backgroundColor: AppColors.secondColor,
+                  textStyle: AppStyles.reg20Black,
+                ),
+              ),
+              AlreadyAndDonotHaveAccount(text: "${AppLocalizations.of(context)!.dont_have_acc} ?",
+                  textButton: AppLocalizations.of(context)!.create_one, onPressedButton: (){
+                    Navigator.pushNamed(context, AppRoutes.register);
+                  }),
+              Row(
                 children: [
-                  Text(
-                    "${AppLocalizations.of(context)!.dont_have_acc} ?",
-                    style: AppStyles.reg14White,
+                  Expanded(
+                    child: Divider(
+                      color: AppColors.secondColor,
+                      indent: width * 0.15,
+                      endIndent: width * 0.04,
+                      thickness: 2,
+                    ),
                   ),
-                  SizedBox(width: width * 0.02),
                   Text(
-                    AppLocalizations.of(context)!.create_one,
-                    style: AppStyles.bold14Yellow,
+                    AppLocalizations.of(context)!.or,
+                    style: AppStyles.reg15Yellow,
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: AppColors.secondColor,
+                      indent: width * 0.04,
+                      endIndent: width * 0.15,
+                      thickness: 2,
+                    ),
                   ),
                 ],
               ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Divider(
-                    color: AppColors.secondColor,
-                    indent: width * 0.15,
-                    endIndent: width * 0.04,
-                    thickness: 2,
-                  ),
-                ),
-                Text(
-                  AppLocalizations.of(context)!.or,
-                  style: AppStyles.reg15Yellow,
-                ),
-                Expanded(
-                  child: Divider(
-                    color: AppColors.secondColor,
-                    indent: width * 0.04,
-                    endIndent: width * 0.15,
-                    thickness: 2,
-                  ),
-                ),
-              ],
-            ),
-            CustomElevatedButton(
-              haveIcon: true,
-              onPressed: () {
-                //todo login with google
-                loginGoogle();
-              },
-              text: AppLocalizations.of(context)!.login_with_google,
-              backgroundColor: AppColors.secondColor,
-              textStyle: AppStyles.reg16Black,
-              iconWidget:Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: width*0.02,
-                children: [
-                  Image.asset(AppImages.googleIcon, width: width*0.06, height: height*0.03,),
-                  Text(AppLocalizations.of(context)!.login_with_google, style: AppStyles.reg16Black)
-                ],)
+              CustomElevatedButton(
+                haveIcon: true,
+                onPressed: () {
+                },
+                text: AppLocalizations.of(context)!.login_with_google,
+                backgroundColor: AppColors.secondColor,
+                textStyle: AppStyles.reg16Black,
+                iconWidget:Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: width*0.02,
+                  children: [
+                    Image.asset(AppImages.googleIcon, width: width*0.06, height: height*0.03,),
+                    Text(AppLocalizations.of(context)!.login_with_google, style: AppStyles.reg16Black)
+                  ],)
 
-            ),
-            CustomToggleSwitch()
-          ],
+              ),
+              CustomToggleSwitch()
+            ],
+          ),
         ),
       ),
     );
+  }
+  void login() async{
+    if (formKey.currentState?.validate() == true){
+      CustomDialog.showLoading(context: context, background: AppColors.primaryColor,
+          text: "Loading...", style: AppStyles.bold14Yellow);
+      try{
+        var response = await ApiService().signIn(email: emailController.text, password: passController.text);
+        if(response.data['message'] == 'Success Login'){
+          CustomDialog.hideLoading(context: context);
+          CustomDialog.showMessage(context: context,
+              styleMessage: AppStyles.bold14Yellow, message: "Login Successfully",
+          posActionName: "Go to home", posActionClick: (){
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AppRoutes.homeScreen,
+                      (route) => false,
+                );
+              }
+          );
+
+        }
+      }
+      on DioException catch(e){
+        CustomDialog.hideLoading(context: context);
+        if(e.type == DioExceptionType.connectionError ||
+            e.type == DioExceptionType.connectionTimeout ||
+            e.type == DioExceptionType.receiveTimeout){
+          CustomDialog.showMessage(context: context, background: AppColors.primaryColor,
+              styleMessage: AppStyles.bold14Yellow, message: "Network error, please try again!"
+          , posActionName: "Ok"
+          );
+        }
+        else if(e.response!.statusCode==400){
+          CustomDialog.showMessage(context: context, background: AppColors.primaryColor,
+              styleMessage: AppStyles.bold14Yellow, message: "User is not found!, please try again",
+          posActionName: "Ok"
+          );
+        }
+        else {
+          // Other server-side error
+          CustomDialog.showMessage(
+            context: context,
+            background: AppColors.primaryColor,
+            styleMessage: AppStyles.bold14Yellow,
+            message: e.response?.data['message'] ?? "Something went wrong!",
+            posActionName: "Ok",
+          );
+        }
+      }
+      catch (e) {
+        CustomDialog.hideLoading(context: context);
+        CustomDialog.showMessage(
+          context: context,
+          background: AppColors.primaryColor,
+          styleMessage: AppStyles.bold14Yellow,
+          message: "Unexpected error: $e",
+          posActionName: "Ok",
+        );
+      }
+    }
   }
   void loginGoogle()async{
     //todo show loading
