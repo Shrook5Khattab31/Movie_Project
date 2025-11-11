@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_project/core/theme/appStyles.dart';
 import '../theme/appColors.dart';
 
-typedef onValidator =  String? Function(String?)?;
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final Color? prefixIconColor;
@@ -15,13 +13,11 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final bool isPassword;
   final VoidCallback? onToggleVisibility;
-  final TextInputType? keyboardType;
-  final onValidator? validatorFunc;
 
   const CustomTextFormField({
     super.key,
     required this.hintText,
-    this.hintStyle,
+    required this.hintStyle,
     this.fillColor,
     this.prefixIcon,
     this.suffixIcon,
@@ -31,7 +27,6 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.isPassword = false,
     this.onToggleVisibility,
-    this.keyboardType, this.validatorFunc
   });
 
   @override
@@ -40,15 +35,16 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: isPassword,
       controller: controller,
       onChanged: onChanged,
-      validator: validatorFunc,
+      validator: (text){
+        return null;
+      },
 
-      style: hintStyle??AppStyles.reg16White,
-      keyboardType: keyboardType ?? TextInputType.text,
+      style: hintStyle,
       decoration: InputDecoration(
         filled: true,
         fillColor: fillColor??AppColors.grayDarkColor,
         hintText: hintText,
-        hintStyle: hintStyle??AppStyles.reg16White,
+        hintStyle: hintStyle,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         prefixIconColor: prefixIconColor??AppColors.whiteColor,
