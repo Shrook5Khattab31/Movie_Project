@@ -23,7 +23,6 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-
 class _LoginScreenState extends State<LoginScreen> {
   var formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController(text: "mai@gmail.com");
@@ -78,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   // .hasMatch(text);
                   // if(!regx){
                   //   return "Password must be equal or more than 8 characters "
-                  //       "and contain Upper letters, lower lettrts, numbers and characters";
+                  //       "and contain Upper letters, lower lettres, numbers and characters";
                   // }
                   return null;
                 },
@@ -184,6 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   context,
                   AppRoutes.homeScreen,
                       (route) => false,
+                  arguments: widget.loginToken
                 );
               }
           );
