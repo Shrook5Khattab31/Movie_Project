@@ -37,7 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     phoneController.dispose();
     super.dispose();
   }
-
+  int selectedAvatarId = 1;
   bool showPassword = true;
   bool showConfirmPassword = true;
   @override
@@ -70,7 +70,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   //todo avatar
-                  BuiltAvatarRegister(),
+                  BuiltAvatarRegister(
+                    onAvatarChanged: (index) {
+                    selectedAvatarId = index;
+                  },),
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
                     hintText: language.name,
@@ -178,8 +181,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         );
 
                         try {
-                          int selectedAvatarId = 1;
-
                           Response response = await apiService.registerUser(
                             name: nameController.text,
                             email: emailController.text,
