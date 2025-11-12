@@ -44,7 +44,7 @@ class MovieApp extends StatelessWidget {
         AppRoutes.resetPassScreen: (context) => ResetPassword(),
         AppRoutes.homeScreen: (context) => HomeScreen(),
         AppRoutes.forgetPassScreen: (context)=> ForgetPasswordScreen(),
-        AppRoutes.updateProfileScreen: (context)=> UpdateProfile(loginToken: '',),
+        AppRoutes.updateProfileScreen: (context)=> UpdateProfile(),
         AppRoutes.register: (context)=>  RegisterScreen(),
       },
     );

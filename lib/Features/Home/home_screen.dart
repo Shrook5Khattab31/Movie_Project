@@ -17,17 +17,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   int selectedIndex = 0;
 
-  List<Widget> tabsList = [
-    const HomeTabScreen(),
-    const SearchTabScreen(),
-    const BrowseTabScreen(),
-    const ProfileTabScreen(),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as String;
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    List<Widget> tabsList = [
+      const HomeTabScreen(),
+      const SearchTabScreen(),
+      const BrowseTabScreen(),
+      ProfileTabScreen(loginToken: args)
+    ];
 
     return Scaffold(
       body: Stack(

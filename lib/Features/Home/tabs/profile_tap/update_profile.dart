@@ -13,8 +13,7 @@ import 'package:dio/dio.dart';
 import '../../../auth/register_screen.dart';
 
 class UpdateProfile extends StatefulWidget {
-  final String loginToken;
-  const UpdateProfile({super.key,required this.loginToken});
+   UpdateProfile({super.key});
 
   @override
   State<UpdateProfile> createState() => _UpdateProfileState();
@@ -34,6 +33,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as String;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
@@ -123,9 +123,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       Response response = await apiService.updateProfile(
                         email: emailController.text,
                         avatarId: avatars.indexOf(selectedAvatar) + 1,
-                        token: widget.loginToken,
+                        //todo add token here
+                        token: args,
                       );
-                      print('token:${widget.loginToken}');
+                      //todo add token here
+                      print('token update: ${args}');
                       CustomDialog.hideLoading(context: context);
 
                       if (response.data['message'] == "Profile updated successfully") {
@@ -134,6 +136,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           background: AppColors.primaryColor,
                           styleMessage: AppStyles.bold20Yellow,
                           message: 'Profile updated successfully',
+                          posActionName: 'ok'
                         );
                       } else {
                         CustomDialog.showMessage(
