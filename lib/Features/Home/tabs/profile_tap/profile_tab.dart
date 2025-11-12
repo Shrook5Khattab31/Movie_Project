@@ -8,7 +8,8 @@ import 'package:movie_project/l10n/app_localizations.dart';
 import '../../../../core/widgets/custom_elevated_btn.dart';
 
 class ProfileTabScreen extends StatelessWidget {
-  const ProfileTabScreen({super.key});
+  String loginToken;
+  ProfileTabScreen({super.key, required this.loginToken});
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +78,9 @@ class ProfileTabScreen extends StatelessWidget {
                               text: AppLocalizations.of(context)!.edit_profile,
                               textStyle: AppStyles.reg20Black,
                               onPressed: () {
-                                Navigator.of(context).pushNamed(AppRoutes.updateProfileScreen);
+                                Navigator.of(context).pushNamed(AppRoutes.updateProfileScreen,
+                                arguments: loginToken
+                                );
                               },
                               backgroundColor: AppColors.secondColor,
                             ),
