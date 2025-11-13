@@ -13,7 +13,7 @@ import 'package:dio/dio.dart';
 import '../../../auth/register_screen.dart';
 
 class UpdateProfile extends StatefulWidget {
-   UpdateProfile({super.key});
+  UpdateProfile({super.key});
 
   @override
   State<UpdateProfile> createState() => _UpdateProfileState();
@@ -92,7 +92,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 alignment: Alignment.centerLeft,
                 child: CustomTextButton(
                   text: AppLocalizations.of(context)!.reset_password,
-                  onPressed: () => Navigator.pushNamed(context, AppRoutes.resetPassScreen),
+                  onPressed: () => Navigator.pushNamed(context, AppRoutes.resetPassScreen,
+                      arguments: args
+                  ),
                   styleText: AppStyles.reg20White,
                 ),
               ),
@@ -123,20 +125,18 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       Response response = await apiService.updateProfile(
                         email: emailController.text,
                         avatarId: avatars.indexOf(selectedAvatar) + 1,
-                        //todo add token here
                         token: args,
                       );
-                      //todo add token here
                       print('token update: ${args}');
                       CustomDialog.hideLoading(context: context);
 
                       if (response.data['message'] == "Profile updated successfully") {
                         CustomDialog.showMessage(
-                          context: context,
-                          background: AppColors.primaryColor,
-                          styleMessage: AppStyles.bold20Yellow,
-                          message: 'Profile updated successfully',
-                          posActionName: 'ok'
+                            context: context,
+                            background: AppColors.primaryColor,
+                            styleMessage: AppStyles.bold20Yellow,
+                            message: 'Profile updated successfully',
+                            posActionName: 'ok'
                         );
                       } else {
                         CustomDialog.showMessage(
