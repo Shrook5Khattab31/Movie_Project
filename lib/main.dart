@@ -4,19 +4,19 @@ import 'package:movie_project/Features/auth/forgetPassword.dart';
 import 'Features/Home/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/resetPassword.dart';
-// import 'firebase_options.dart'; // معلقين Firebase مؤقتاً
+// import 'firebase_options.dart'; ً
 import 'l10n/app_localizations.dart';
 import 'Features/onBoarding/onboarding_one.dart';
 import 'package:movie_project/Features/auth/register_screen.dart';
 import 'Features/auth/loginScreen.dart';
 import 'core/routing/routeNames.dart';
-// import 'package:firebase_core/firebase_core.dart'; // معلقين Firebase مؤقتاً
+// import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /*
-  // تعليق Firebase مؤقتاً
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
