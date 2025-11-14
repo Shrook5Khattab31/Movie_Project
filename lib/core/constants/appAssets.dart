@@ -33,5 +33,5 @@ class AppImages{
   static const String exitIcon ='assets/images/exit_icon.png';
   static const String watchIcon ='assets/images/watch_list.png';
   static const String historyIcon ='assets/images/history_icon.png';
-
+  static const String availableMovies = 'assets/images/available_movies.png';
 }
