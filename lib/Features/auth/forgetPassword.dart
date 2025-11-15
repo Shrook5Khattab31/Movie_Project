@@ -56,7 +56,6 @@ class ForgetPasswordScreen extends StatelessWidget {
                 height: height * 0.06,
                 child: CustomElevatedButton(
                   onPressed: () {
-                    // تنقل مباشر لصفحة ResetPassword بدون أي logic
                     Navigator.push(
                       context,
                       MaterialPageRoute(
