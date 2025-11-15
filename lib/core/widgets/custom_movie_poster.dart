@@ -6,7 +6,7 @@ class CustomMoviePoster extends StatelessWidget {
   double imageWidth;
   double imageHeight;
   String image;
-  String rating;
+  double? rating;
    CustomMoviePoster({super.key, required this.imageWidth, required this.imageHeight,
     required this.image, required this.rating});
 
@@ -27,7 +27,7 @@ class CustomMoviePoster extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.amber
             ),
-            child: Image.asset(image, fit: BoxFit.fill,)
+            child: Image.network(image, fit: BoxFit.fill,)
         ),
         Container(
           height: height*0.03,
@@ -41,7 +41,7 @@ class CustomMoviePoster extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: width*0.02,
             children: [
-          Text(rating, style: AppStyles.reg16White),
+          Text('$rating', style: AppStyles.reg16White),
           Image.asset(AppImages.starIcon, width: width*0.03, height: height*0.02,)
         ],),
         )

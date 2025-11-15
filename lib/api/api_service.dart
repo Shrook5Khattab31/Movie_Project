@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:movie_project/Model/MovieResponse.dart';
 import 'package:movie_project/api/api_constants.dart';
 import 'package:movie_project/api/api_endpoints.dart';
 
@@ -6,6 +7,10 @@ class ApiService {
   var dio = Dio(BaseOptions(
     baseUrl: ApiConstants.baseUrlAuth,
   ));
+  static var movieDio = Dio(BaseOptions(
+    baseUrl: ApiConstants.baseUrlMovies,
+  ));
+
 
   // Login
   Future<Response> signIn({required String email, required String password}) async {
@@ -100,6 +105,23 @@ class ApiService {
         ),
       );
       return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  //homeTab
+  static Future<MovieResponse> getAllMovies({int page = 1,int limit = 20,String? genre,}) async {
+    try {
+      var response = await movieDio.get(
+        ApiEndPoints.listMovies,
+        queryParameters: {
+          'limit': limit,
+          'page': page,
+          if (genre != null) 'genre': genre,
+        },
+      );
+      return MovieResponse.fromJson(response.data);
     } catch (e) {
       rethrow;
     }
