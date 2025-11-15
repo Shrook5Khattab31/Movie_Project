@@ -38,8 +38,6 @@ class _ResetPasswordState extends State<ResetPassword> {
         .of(context)
         .size
         .width;
-    // TODO: implement build
-
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
@@ -48,8 +46,11 @@ class _ResetPasswordState extends State<ResetPassword> {
           ,style: AppStyles.reg16Yellow,),
         centerTitle: true,
         leading: InkWell(
-          child: Icon(Icons.arrow_back_sharp,
-            color: AppColors.secondColor,),
+          onTap: () => Navigator.pop(context),
+          child: Icon(
+            Icons.arrow_back_sharp,
+            color: AppColors.secondColor,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -69,7 +70,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   hintText: AppLocalizations.of(context)!.old_password,
                   hintStyle: AppStyles.reg16White,
                   validatorFunc: (text){
-                    if(text == null || text!.trim().isEmpty){
+                    if(text == null || text.trim().isEmpty){
                       return "Old password shouldn't be null";
                     }
                     return null;
@@ -84,12 +85,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                   hintStyle: AppStyles.reg16White,
                   validatorFunc: (text){
                     RegExp regex = RegExp(r'^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[!@#\$&*~]).{8,}$');
-                    if(text == null || text!.trim().isEmpty){
+                    if(text == null || text.trim().isEmpty){
                       return "New password shouldn't be null";
                     } else if(text.length < 8){
                       return "Password should at least 8 characters";
                     }
-                    else if(!regex.hasMatch(text!)){
+                    else if(!regex.hasMatch(text)){
                       return "Password should contains at least one upper letter,\n one lower letter, \n one digit and \none special character";
                     }
                     return null;
@@ -103,7 +104,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   hintText: AppLocalizations.of(context)!.rewrite_password,
                   hintStyle: AppStyles.reg16White,
                   validatorFunc: (text){
-                    if(text == null || text!.trim().isEmpty){
+                    if(text == null || text.trim().isEmpty){
                       return "Password shouldn't be null";
                     }
                     if(text != newPassController.text){
@@ -162,7 +163,6 @@ class _ResetPasswordState extends State<ResetPassword> {
         );
       }
     }
-
     catch(e){
       CustomDialog.showMessage(context: context, styleMessage: AppStyles.bold14Yellow,
           message: "Unexpected error!", posActionName: "Ok"
