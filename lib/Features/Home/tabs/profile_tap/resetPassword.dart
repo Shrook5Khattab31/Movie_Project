@@ -139,7 +139,8 @@ class _ResetPasswordState extends State<ResetPassword> {
       if( response.data['message'] == "Password updated successfully"){
         CustomDialog.hideLoading(context: context);
         CustomDialog.showMessage(context: context, styleMessage: AppStyles.bold14Yellow,
-            message: "Password updated successfully", posActionName: "Ok");
+            message: "Password updated successfully", posActionName: "Ok",
+            posActionClick: ()=> Navigator.pop(context),);
       }
     } on DioException catch(e){
       CustomDialog.hideLoading(context: context);
