@@ -85,30 +85,30 @@ class ApiService {
   }
 
   // Reset Password
-  Future<Response> resetPassword({
-    required String oldPassword,
-    required String newPassword,
-    required String token,
-  }) async {
-    try {
-      var response = await dio.patch(
-        ApiEndPoints.reset_password,
-        data: {
-          'oldPassword': oldPassword,
-          'newPassword': newPassword,
-        },
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-          validateStatus: (status) => status! < 500,
-        ),
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<Response> resetPassword({
+  //   required String oldPassword,
+  //   required String newPassword,
+  //   required String token,
+  // }) async {
+  //   try {
+  //     var response = await dio.patch(
+  //       ApiEndPoints.reset_password,
+  //       data: {
+  //         'oldPassword': oldPassword,
+  //         'newPassword': newPassword,
+  //       },
+  //       options: Options(
+  //         headers: {
+  //           'Authorization': 'Bearer $token',
+  //         },
+  //         validateStatus: (status) => status! < 500,
+  //       ),
+  //     );
+  //     return response;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   //homeTab
   static Future<MovieResponse> getAllMovies({int page = 1,int limit = 20,String? genre,}) async {
@@ -126,4 +126,30 @@ class ApiService {
       rethrow;
     }
   }
-}
+
+  Future<Response> resetPassword({
+    required String oldPassword,
+    required String newPassword,
+    required String token
+}) async{
+    try{
+      var response = await dio.patch(ApiEndPoints.reset_password,
+      data: {
+        'oldPassword': oldPassword,
+        'newPassword': newPassword
+      },
+        options: Options(
+          headers: {
+            'Authorization':'Bearer $token'
+          }
+        )
+      );
+      return response;
+
+    }
+    catch(e){
+      rethrow;
+
+    }
+    }
+  }
