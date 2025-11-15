@@ -94,6 +94,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   text: AppLocalizations.of(context)!.reset_password,
                   onPressed: () => Navigator.pushNamed(context, AppRoutes.resetPassScreen,
                   arguments: args
+
                   ),
                   styleText: AppStyles.reg20White,
                 ),
