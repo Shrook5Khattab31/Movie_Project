@@ -58,6 +58,23 @@ class ApiService {
     }
   }
 
+  // GET profile
+  Future<Map<String, dynamic>> getProfile(String token) async {
+    final response = await dio.get(
+      'profile',
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        validateStatus: (status) => status != null && status < 500,
+      ),
+    );
+
+    if (response.statusCode == 200 && response.data is Map) {
+      return Map<String, dynamic>.from(response.data['data']);
+    } else {
+      throw Exception(response.data?['message'] ?? 'Failed to load profile');
+    }
+  }
+
   // Update Profile
   Future<Response> updateProfile({
     required String email,
@@ -69,7 +86,7 @@ class ApiService {
         ApiEndPoints.updateProfile,
         data: {
           'email': email,
-          'avatarId': avatarId,
+          'avaterId': avatarId,
         },
         options: Options(
           headers: {
