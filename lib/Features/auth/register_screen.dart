@@ -20,11 +20,11 @@ class RegisterScreen extends StatefulWidget {
 }
 ApiService apiService=ApiService();
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController nameController = TextEditingController(text: "nada");
-  TextEditingController emailController = TextEditingController(text: "nada@gmail.com");
-  TextEditingController passwordController = TextEditingController(text: "Nada@123");
-  TextEditingController confirmPasswordController = TextEditingController(text: "Nada@123");
-  TextEditingController phoneController = TextEditingController(text: '01115370349');
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -68,7 +68,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  //todo avatar
                   BuiltAvatarRegister(
                     onAvatarChanged: (index) {
                     selectedAvatarId = index;
@@ -129,7 +128,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     suffixIcon: IconButton(
                       onPressed: () {
-                        //todo show password
                         setState(() {
                           showPassword = !showPassword;
                         });
@@ -150,7 +148,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     suffixIconColor: AppColors.whiteColor,
                     suffixIcon: IconButton(
                       onPressed: () {
-                        //todo show confirm password
                         setState(() {
                           showConfirmPassword = !showConfirmPassword;
                         });
@@ -253,12 +250,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     text: '${language.already_have_acc} ?',
                     textButton: language.login,
                     onPressedButton: () {
-                      //todo nav into login
                       Navigator.pushReplacementNamed(context, AppRoutes.login);
                     },
                   ),
                   SizedBox(height: 0.01 * height),
-                  //todo change language toggle
                   Align(
                     alignment: Alignment.center,
                     child: CustomToggleSwitch(),
