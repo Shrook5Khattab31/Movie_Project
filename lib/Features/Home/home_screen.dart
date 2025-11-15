@@ -8,7 +8,8 @@ import 'package:movie_project/core/theme/appColors.dart';
 
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final String? args; // nullable
+  const HomeScreen({super.key, this.args});
 
   @override
   State<HomeScreen> createState() => _HomeScreen();
@@ -17,17 +18,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   int selectedIndex = 0;
 
-
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as String;
+    //final args = ModalRoute.of(context)!.settings.arguments as String;
+    final token = widget.args;
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     List<Widget> tabsList = [
       const HomeTabScreen(),
       const SearchTabScreen(),
       const BrowseTabScreen(),
-      ProfileTabScreen(loginToken: args)
+      ProfileTabScreen(loginToken: token ?? '')
     ];
 
     return Scaffold(

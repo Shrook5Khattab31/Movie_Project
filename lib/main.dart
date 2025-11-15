@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/update_profile.dart';
-import 'package:movie_project/Features/auth/forgetPassword.dart';
+import 'package:movie_project/Features/auth/forget_pass.dart';
 import 'Features/Home/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/resetPassword.dart';
@@ -41,7 +41,10 @@ class MovieApp extends StatelessWidget {
         AppRoutes.onBoardingScreen: (context) => OnboardingOne(),
         AppRoutes.login: (context) => LoginScreen(),
         AppRoutes.resetPassScreen: (context) => ResetPassword(),
-        AppRoutes.homeScreen: (context) => HomeScreen(),
+        AppRoutes.homeScreen: (context) {
+          final token = ModalRoute.of(context)?.settings.arguments as String?;
+          return HomeScreen(args: token);
+        },
         AppRoutes.forgetPassScreen: (context) => ForgetPasswordScreen(),
         AppRoutes.updateProfileScreen: (context) => UpdateProfile(),
         AppRoutes.register: (context) => RegisterScreen(),

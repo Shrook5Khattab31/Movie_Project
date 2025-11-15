@@ -58,6 +58,23 @@ class ApiService {
     }
   }
 
+  // GET profile
+  Future<Map<String, dynamic>> getProfile(String token) async {
+    final response = await dio.get(
+      'profile',
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        validateStatus: (status) => status != null && status < 500,
+      ),
+    );
+
+    if (response.statusCode == 200 && response.data is Map) {
+      return Map<String, dynamic>.from(response.data['data']);
+    } else {
+      throw Exception(response.data?['message'] ?? 'Failed to load profile');
+    }
+  }
+
   // Update Profile
   Future<Response> updateProfile({
     required String email,
@@ -69,7 +86,7 @@ class ApiService {
         ApiEndPoints.updateProfile,
         data: {
           'email': email,
-          'avatarId': avatarId,
+          'avaterId': avatarId,
         },
         options: Options(
           headers: {
@@ -85,30 +102,30 @@ class ApiService {
   }
 
   // Reset Password
-  Future<Response> resetPassword({
-    required String oldPassword,
-    required String newPassword,
-    required String token,
-  }) async {
-    try {
-      var response = await dio.patch(
-        ApiEndPoints.reset_password,
-        data: {
-          'oldPassword': oldPassword,
-          'newPassword': newPassword,
-        },
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-          validateStatus: (status) => status! < 500,
-        ),
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<Response> resetPassword({
+  //   required String oldPassword,
+  //   required String newPassword,
+  //   required String token,
+  // }) async {
+  //   try {
+  //     var response = await dio.patch(
+  //       ApiEndPoints.reset_password,
+  //       data: {
+  //         'oldPassword': oldPassword,
+  //         'newPassword': newPassword,
+  //       },
+  //       options: Options(
+  //         headers: {
+  //           'Authorization': 'Bearer $token',
+  //         },
+  //         validateStatus: (status) => status! < 500,
+  //       ),
+  //     );
+  //     return response;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   //homeTab
   static Future<MovieResponse> getAllMovies({int page = 1,int limit = 20,String? genre,}) async {
@@ -126,4 +143,30 @@ class ApiService {
       rethrow;
     }
   }
-}
+
+  Future<Response> resetPassword({
+    required String oldPassword,
+    required String newPassword,
+    required String token
+}) async{
+    try{
+      var response = await dio.patch(ApiEndPoints.reset_password,
+      data: {
+        'oldPassword': oldPassword,
+        'newPassword': newPassword
+      },
+        options: Options(
+          headers: {
+            'Authorization':'Bearer $token'
+          }
+        )
+      );
+      return response;
+
+    }
+    catch(e){
+      rethrow;
+
+    }
+    }
+  }
