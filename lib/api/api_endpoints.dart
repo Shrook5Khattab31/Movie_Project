@@ -3,4 +3,5 @@ class ApiEndPoints{
   static String register = "auth/register";
   static String reset_password = "auth/reset-password";
   static String updateProfile = "profile";
+  static const String listMovies = '/list_movies.json';
 }
