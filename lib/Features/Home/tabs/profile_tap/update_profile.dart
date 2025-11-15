@@ -55,118 +55,116 @@ class _UpdateProfileState extends State<UpdateProfile> {
         padding: EdgeInsets.symmetric(horizontal: width * 0.04),
         child: Form(
           key: formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: height * 0.03),
-                GestureDetector(
-                  onTap: () => showAvatars(context),
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: height * 0.04),
-                    child: CircleAvatar(
-                      radius: 65,
-                      backgroundImage: AssetImage(selectedAvatar),
-                    ),
-                  ),
+          child: Column(
+            children: [
+              SizedBox(height: height * 0.03),
+              GestureDetector(
+                onTap: () => showAvatars(context),
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: height * 0.01),
+                  child: Image.asset(selectedAvatar, height: height * 0.12),
                 ),
+              ),
+              CustomTextFormField(
+                controller: emailController,
+                prefixIcon: Icon(Icons.person),
+                hintText: AppLocalizations.of(context)!.email,
+                hintStyle: AppStyles.reg16White,
+                validatorFunc: (text) {
+                  if (text == null || text.trim().isEmpty) {
+                    return "Please enter an Email";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: height * 0.015),
+              CustomTextFormField(
+                controller: phoneController,
+                hintText: AppLocalizations.of(context)!.phone_number,
+                hintStyle: AppStyles.reg16White,
+                fillColor: AppColors.grayDarkColor,
+                prefixIcon: Icon(Icons.phone),
+                prefixIconColor: AppColors.whiteColor,
+                keyboardType: TextInputType.phone,
+              ),
+              SizedBox(height: height * 0.015),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: CustomTextButton(
+                  text: AppLocalizations.of(context)!.reset_password,
+                  onPressed: () => Navigator.pushNamed(context, AppRoutes.resetPassScreen,
+                  arguments: args
+                  ),
+                  styleText: AppStyles.reg20White,
+                ),
+              ),
+              Expanded(child: SizedBox()),
+              CustomElevatedButton(
+                text: AppLocalizations.of(context)!.delete_account,
+                textStyle: AppStyles.reg20White,
+                onPressed: () {
+                  // هنا تضيفي API call للحذف مع widget.loginToken
+                },
+                backgroundColor: AppColors.redColor,
+              ),
+              SizedBox(height: height * 0.01),
+              CustomElevatedButton(
+                text: AppLocalizations.of(context)!.update_data,
+                textStyle: AppStyles.reg20Black,
+                backgroundColor: AppColors.secondColor,
+                onPressed: () async {
+                  if (formKey.currentState!.validate()) {
+                    CustomDialog.showMessage(
+                      context: context,
+                      background: AppColors.primaryColor,
+                      styleMessage: AppStyles.bold14Yellow,
+                      message: 'Waiting...',
+                    );
 
-                CustomTextFormField(
-                  controller: emailController,
-                  prefixIcon: Icon(Icons.person),
-                  hintText: AppLocalizations.of(context)!.email,
-                  hintStyle: AppStyles.reg16White,
-                  validatorFunc: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      return "Please enter an Email";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: height * 0.015),
-                CustomTextFormField(
-                  controller: phoneController,
-                  hintText: AppLocalizations.of(context)!.phone_number,
-                  hintStyle: AppStyles.reg16White,
-                  fillColor: AppColors.grayDarkColor,
-                  prefixIcon: Icon(Icons.phone),
-                  prefixIconColor: AppColors.whiteColor,
-                  keyboardType: TextInputType.phone,
-                ),
-                SizedBox(height: height * 0.015),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: CustomTextButton(
-                    text: AppLocalizations.of(context)!.reset_password,
-                    onPressed: () => Navigator.pushNamed(context, AppRoutes.resetPassScreen,
-                        arguments: args
-                    ),
-                    styleText: AppStyles.reg20White,
-                  ),
-                ),
-                 SizedBox(height: height*0.30,),
-                CustomElevatedButton(
-                  text: AppLocalizations.of(context)!.delete_account,
-                  textStyle: AppStyles.reg20White,
-                  onPressed: () {
-                  },
-                  backgroundColor: AppColors.redColor,
-                ),
-                SizedBox(height: height * 0.01),
-                CustomElevatedButton(
-                  text: AppLocalizations.of(context)!.update_data,
-                  textStyle: AppStyles.reg20Black,
-                  backgroundColor: AppColors.secondColor,
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      CustomDialog.showMessage(
-                        context: context,
-                        background: AppColors.primaryColor,
-                        styleMessage: AppStyles.bold14Yellow,
-                        message: 'Waiting...',
+                    try {
+                      Response response = await apiService.updateProfile(
+                        email: emailController.text,
+                        avatarId: avatars.indexOf(selectedAvatar) + 1,
+                        //todo add token here
+                        token: args,
                       );
+                      //todo add token here
+                      print('token update: ${args}');
+                      CustomDialog.hideLoading(context: context);
 
-                      try {
-                        Response response = await apiService.updateProfile(
-                          email: emailController.text,
-                          avatarId: avatars.indexOf(selectedAvatar) + 1,
-                          token: args,
+                      if (response.data['message'] == "Profile updated successfully") {
+                        CustomDialog.showMessage(
+                          context: context,
+                          background: AppColors.primaryColor,
+                          styleMessage: AppStyles.bold20Yellow,
+                          message: 'Profile updated successfully',
+                          posActionName: 'ok'
                         );
-                        print('token update: ${args}');
-                        CustomDialog.hideLoading(context: context);
-
-                        if (response.data['message'] == "Profile updated successfully") {
-                          CustomDialog.showMessage(
-                              context: context,
-                              background: AppColors.primaryColor,
-                              styleMessage: AppStyles.bold20Yellow,
-                              message: 'Profile updated successfully',
-                              posActionName: 'ok'
-                          );
-                        } else {
-                          CustomDialog.showMessage(
-                            context: context,
-                            background: AppColors.primaryColor,
-                            styleMessage: AppStyles.bold14Yellow,
-                            message: response.data['message'].toString(),
-                            title: "Error",
-                            posActionName: "ok",
-                          );
-                        }
-                      } catch (e) {
-                        CustomDialog.hideLoading(context: context);
+                      } else {
                         CustomDialog.showMessage(
                           context: context,
                           background: AppColors.primaryColor,
                           styleMessage: AppStyles.bold14Yellow,
-                          message: 'Something went wrong',
+                          message: response.data['message'].toString(),
+                          title: "Error",
+                          posActionName: "ok",
                         );
                       }
+                    } catch (e) {
+                      // 5. Exception
+                      CustomDialog.hideLoading(context: context);
+                      CustomDialog.showMessage(
+                        context: context,
+                        background: AppColors.primaryColor,
+                        styleMessage: AppStyles.bold14Yellow,
+                        message: 'Something went wrong',
+                      );
                     }
-                  },
-                ),
-                SizedBox(height: height * 0.03),
-              ],
-            ),
+                  }
+                },
+              ),
+              SizedBox(height: height * 0.03),
+            ],
           ),
         ),
       ),
@@ -182,7 +180,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       backgroundColor: AppColors.transparentColor,
       builder: (context) {
         return Container(
-          height: height * 0.50,
+          height: height * 0.46,
           padding: EdgeInsets.symmetric(vertical: height * 0.02, horizontal: width * 0.04),
           decoration: BoxDecoration(
             color: AppColors.grayDarkColor,
@@ -196,7 +194,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
               mainAxisSpacing: height * 0.02,
             ),
             itemBuilder: (context, index) {
-              bool isSelected = selectedAvatar==avatars[index];
               return GestureDetector(
                 onTap: () {
                   setState(() {
@@ -207,7 +204,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: height * 0.01, horizontal: width * 0.02),
                   decoration: BoxDecoration(
-                    color: isSelected?AppColors.secondColor.withOpacity(0.5):AppColors.transparentColor,
                     border: Border.all(color: AppColors.secondColor),
                     borderRadius: BorderRadius.circular(20),
                   ),

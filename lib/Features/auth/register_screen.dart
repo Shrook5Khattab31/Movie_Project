@@ -1,15 +1,14 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_project/Features/auth/widget/built_avatar_register.dart';
-import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
-import 'package:movie_project/core/utils/custom_dialog.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_form_field.dart';
+import '../../api/api_service.dart';
+import '../../core/utils/custom_dialog.dart';
 import '../../l10n/app_localizations.dart';
 import 'widget/already_and_donot_have_account.dart';
 
@@ -181,7 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         );
 
                         try {
-                          Response response = await apiService.registerUser(
+                          var response = await apiService.registerUser(
                             name: nameController.text,
                             email: emailController.text,
                             password: passwordController.text,
