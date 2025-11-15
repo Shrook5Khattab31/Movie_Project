@@ -1,14 +1,14 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
-import 'package:movie_project/core/utils/custom_dialog.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_text_form_field.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
+
+import '../../../../api/api_service.dart';
+import '../../../../core/utils/custom_dialog.dart';
 
 class ResetPassword extends StatefulWidget{
   ResetPassword({super.key});
@@ -19,8 +19,10 @@ class ResetPassword extends StatefulWidget{
 
 class _ResetPasswordState extends State<ResetPassword> {
   late var args;
-  var formKey = GlobalKey<FormState>();
+  //var formKey = GlobalKey<FormState>();
   bool isNotVisible = true;
+  bool isNotVisible2 = true;
+  bool isNotVisible3 = true;
   TextEditingController oldPassController = TextEditingController();
 
   TextEditingController newPassController = TextEditingController();
@@ -56,79 +58,99 @@ class _ResetPasswordState extends State<ResetPassword> {
       body: SingleChildScrollView(
         child: Padding(
           padding:EdgeInsets.symmetric(horizontal: width*0.04),
-          child: Form(
-            key: formKey,
-            child: Column(
+          child: Column(
 
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(AppImages.forgotPasswordImage),
-                CustomTextFormField(
-                  controller: oldPassController,
-                  prefixIcon:Image.asset( AppImages.passwordIcon),
-                  suffixIcon: Icon(Icons.visibility_off),
-                  hintText: AppLocalizations.of(context)!.old_password,
-                  hintStyle: AppStyles.reg16White,
-                  validatorFunc: (text){
-                    if(text == null || text.trim().isEmpty){
-                      return "Old password shouldn't be null";
-                    }
-                    return null;
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(AppImages.forgotPasswordImage),
+              CustomTextFormField(
+                controller: oldPassController,
+                isPassword: isNotVisible,
+                prefixIcon:Image.asset( AppImages.passwordIcon),
+                suffixIcon:IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isNotVisible = !isNotVisible;
+                    });
                   },
+                  icon: isNotVisible?Icon(Icons.visibility_off):Icon(Icons.visibility),
                 ),
-                SizedBox(height: height*0.02,),
-                CustomTextFormField(
-                  controller: newPassController,
-                  prefixIcon:Image.asset( AppImages.passwordIcon),
-                  suffixIcon: Icon(Icons.visibility_off),
-                  hintText: AppLocalizations.of(context)!.new_password,
-                  hintStyle: AppStyles.reg16White,
-                  validatorFunc: (text){
-                    RegExp regex = RegExp(r'^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[!@#\$&*~]).{8,}$');
-                    if(text == null || text.trim().isEmpty){
-                      return "New password shouldn't be null";
-                    } else if(text.length < 8){
-                      return "Password should at least 8 characters";
-                    }
-                    else if(!regex.hasMatch(text)){
-                      return "Password should contains at least one upper letter,\n one lower letter, \n one digit and \none special character";
-                    }
-                    return null;
+                hintText: AppLocalizations.of(context)!.old_password,
+                hintStyle: AppStyles.reg16White,
+                validatorFunc: (text){
+                  if(text == null || text.trim().isEmpty){
+                    return "Old password shouldn't be null";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: height*0.02,),
+              CustomTextFormField(
+                controller: newPassController,
+                prefixIcon:Image.asset( AppImages.passwordIcon),
+                isPassword: isNotVisible2,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isNotVisible2 = !isNotVisible2;
+                    });
                   },
+                  icon: isNotVisible2?Icon(Icons.visibility_off):Icon(Icons.visibility),
                 ),
-                SizedBox(height: height*0.02,),
-                CustomTextFormField(
-                  controller: confirmPassController,
-                  prefixIcon:Image.asset( AppImages.passwordIcon),
-                  suffixIcon: Icon(Icons.visibility_off),
-                  hintText: AppLocalizations.of(context)!.rewrite_password,
-                  hintStyle: AppStyles.reg16White,
-                  validatorFunc: (text){
-                    if(text == null || text.trim().isEmpty){
-                      return "Password shouldn't be null";
-                    }
-                    if(text != newPassController.text){
-                      return "Password doesn't much";
-                    }
-                    return null;
+                hintText: AppLocalizations.of(context)!.new_password,
+                hintStyle: AppStyles.reg16White,
+                validatorFunc: (text){
+                  RegExp regex = RegExp(r'^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[!@#\$&*~]).{8,}$');
+                  if(text == null || text.trim().isEmpty){
+                    return "New password shouldn't be null";
+                  } else if(text.length < 8){
+                    return "Password should at least 8 characters";
+                  }
+                  else if(!regex.hasMatch(text)){
+                    return "Password should contains at least one upper letter,\n one lower letter, \n one digit and \none special character";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: height*0.02,),
+              CustomTextFormField(
+                controller: confirmPassController,
+                prefixIcon:Image.asset( AppImages.passwordIcon),
+                isPassword: isNotVisible3,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isNotVisible3 = !isNotVisible3;
+                    });
                   },
+                  icon: isNotVisible3?Icon(Icons.visibility_off):Icon(Icons.visibility),
                 ),
-                SizedBox(height: height*0.05,),
-                SizedBox(
-                    width: double.infinity,
-                    child: CustomElevatedButton(
-                      onPressed: () {
-                        if(formKey.currentState!.validate()){
-                          resetPassword();
-                        }
-                      },
-                      backgroundColor: AppColors.secondColor,
-                      text: AppLocalizations.of(context)!.reset_password,
-                      textStyle: AppStyles.reg20Black,)
-                ),
-                SizedBox(height: height*0.05,)
-              ],
-            ),
+                hintText: AppLocalizations.of(context)!.rewrite_password,
+                hintStyle: AppStyles.reg16White,
+                validatorFunc: (text){
+                  if(text == null || text.trim().isEmpty){
+                    return "Password shouldn't be null";
+                  }
+                  if(text != newPassController.text){
+                    return "Password doesn't much";
+                  }
+                  return null;
+
+                },
+              ),
+              SizedBox(height: height*0.05,),
+              SizedBox(
+                  width: double.infinity,
+                  child: CustomElevatedButton(
+                    onPressed: () {
+                      resetPassword();
+                    },
+                    backgroundColor: AppColors.secondColor,
+                    text: AppLocalizations.of(context)!.reset_password,
+                    textStyle: AppStyles.reg20Black,)
+              ),
+              SizedBox(height: height*0.05,)
+            ],
           ),
         ),
       ),
@@ -143,7 +165,8 @@ class _ResetPasswordState extends State<ResetPassword> {
       if( response.data['message'] == "Password updated successfully"){
         CustomDialog.hideLoading(context: context);
         CustomDialog.showMessage(context: context, styleMessage: AppStyles.bold14Yellow,
-            message: "Password updated successfully", posActionName: "Ok");
+          message: "Password updated successfully", posActionName: "Ok",
+          posActionClick: ()=> Navigator.pop(context),);
       }
     } on DioException catch(e){
       CustomDialog.hideLoading(context: context);
