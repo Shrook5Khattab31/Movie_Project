@@ -1,15 +1,14 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_project/Features/auth/widget/built_avatar_register.dart';
-import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
-import 'package:movie_project/core/utils/custom_dialog.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_form_field.dart';
+import '../../api/api_service.dart';
+import '../../core/utils/custom_dialog.dart';
 import '../../l10n/app_localizations.dart';
 import 'widget/already_and_donot_have_account.dart';
 
@@ -21,11 +20,11 @@ class RegisterScreen extends StatefulWidget {
 }
 ApiService apiService=ApiService();
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController = TextEditingController(text: "nada");
+  TextEditingController emailController = TextEditingController(text: "nada@gmail.com");
+  TextEditingController passwordController = TextEditingController(text: "Nada@123");
+  TextEditingController confirmPasswordController = TextEditingController(text: "Nada@123");
+  TextEditingController phoneController = TextEditingController(text: '01115370349');
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -181,7 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         );
 
                         try {
-                          Response response = await apiService.registerUser(
+                          var response = await apiService.registerUser(
                             name: nameController.text,
                             email: emailController.text,
                             password: passwordController.text,
@@ -206,7 +205,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               AppRoutes.login,
                                   (route) => false,
                             );
-                          } else {
+                          }
+                          else if (response.data['message']
+                              .toString()
+                              .contains("Phone")) {
+
+                            CustomDialog.showMessage(
+                              context: context,
+                              background: AppColors.primaryColor,
+                              styleMessage: AppStyles.bold14Yellow,
+                              message: "Please make sure the phone number starts with +20 and contains 11 number",
+                              title: "Error",
+                              posActionName: "ok",
+                            );
+                          }
+
+                          else {
                             String message = response.data['message'].toString();
                             CustomDialog.showMessage(
                               context: context,
