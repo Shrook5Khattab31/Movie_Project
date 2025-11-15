@@ -20,11 +20,11 @@ class RegisterScreen extends StatefulWidget {
 }
 ApiService apiService=ApiService();
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController = TextEditingController(text: "nada");
+  TextEditingController emailController = TextEditingController(text: "nada@gmail.com");
+  TextEditingController passwordController = TextEditingController(text: "Nada@123");
+  TextEditingController confirmPasswordController = TextEditingController(text: "Nada@123");
+  TextEditingController phoneController = TextEditingController(text: '01115370349');
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -205,7 +205,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               AppRoutes.login,
                                   (route) => false,
                             );
-                          } else {
+                          }
+                          else if (response.data['message']
+                              .toString()
+                              .contains("Phone")) {
+
+                            CustomDialog.showMessage(
+                              context: context,
+                              background: AppColors.primaryColor,
+                              styleMessage: AppStyles.bold14Yellow,
+                              message: "Please make sure the phone number starts with +20 and contains 11 number",
+                              title: "Error",
+                              posActionName: "ok",
+                            );
+                          }
+
+                          else {
                             String message = response.data['message'].toString();
                             CustomDialog.showMessage(
                               context: context,
