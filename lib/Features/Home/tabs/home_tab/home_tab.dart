@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_project/Model/MovieResponse.dart';
 import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
+import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
@@ -75,34 +76,38 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                       ]
                     )
                   ),
-                  child: Container(
-                    height: height * 0.6,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage(AppImages.availableMovies))
-                    ),
-                    child: CarouselSlider.builder(
-                      itemCount: moviesList.length,
-                      itemBuilder: (context, index, realIndex) => CustomMoviePoster(
-                        imageWidth: width * 0.54,
-                        imageHeight: height * 0.37,
-                        image: moviesList[index].mediumCoverImage ?? '',
-                        rating: moviesList[index].rating,
+                  child: InkWell(
+                    onTap:(){ Navigator.of(context).pushNamed(AppRoutes.detailsScreen,
+                        arguments: moviesList[index] );},
+                    child: Container(
+                      height: height * 0.6,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(image: AssetImage(AppImages.availableMovies))
                       ),
-                      options: CarouselOptions(
-                        aspectRatio: 4/3,
-                        autoPlay: true,
-                        enlargeCenterPage: true,
-                        viewportFraction: 0.45,
-                        enlargeFactor: 0.25,
-                        enableInfiniteScroll: true,
-                        autoPlayInterval: Duration(seconds: 10),
-                        autoPlayAnimationDuration: Duration(seconds: 1),
-                        onPageChanged: (newIndex, reason) {
-                          setState(() {index = newIndex;});
-                          },
+                      child: CarouselSlider.builder(
+                        itemCount: moviesList.length,
+                        itemBuilder: (context, index, realIndex) => CustomMoviePoster(
+                          imageWidth: width * 0.54,
+                          imageHeight: height * 0.37,
+                          image: moviesList[index].mediumCoverImage ?? '',
+                          rating: moviesList[index].rating,
+                        ),
+                        options: CarouselOptions(
+                          aspectRatio: 4/3,
+                          autoPlay: true,
+                          enlargeCenterPage: true,
+                          viewportFraction: 0.45,
+                          enlargeFactor: 0.25,
+                          enableInfiniteScroll: true,
+                          autoPlayInterval: Duration(seconds: 10),
+                          autoPlayAnimationDuration: Duration(seconds: 1),
+                          onPageChanged: (newIndex, reason) {
+                            setState(() {index = newIndex;});
+                            },
+                          ),
                         ),
                       ),
-                    ),
+                  ),
                   ),
                 ),
               ...categorizedMovies.entries.map((entry) {
@@ -134,11 +139,17 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                         itemCount: filteredMovies.length,
                         itemBuilder: (context, i) {
                           final movie = filteredMovies[i];
-                          return CustomMoviePoster(
-                            imageWidth: width * 0.33,
-                            imageHeight: height * 0.23,
-                            image: movie.mediumCoverImage ?? '',
-                            rating: movie.rating,
+                          return InkWell(
+                            onTap: (){
+                              Navigator.of(context).pushNamed(AppRoutes.detailsScreen,
+                                  arguments: movie);}
+                            ,
+                            child: CustomMoviePoster(
+                              imageWidth: width * 0.33,
+                              imageHeight: height * 0.23,
+                              image: movie.mediumCoverImage ?? '',
+                              rating: movie.rating,
+                            ),
                           );
                         },
                         separatorBuilder: (context, i) => SizedBox(width: width * 0.02),

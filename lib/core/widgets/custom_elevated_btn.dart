@@ -8,21 +8,23 @@ class CustomElevatedButton extends StatelessWidget {
   final TextStyle? textStyle;
   final bool? haveIcon;
   final Widget? iconWidget;
-  const CustomElevatedButton({
+  double height;
+   CustomElevatedButton({
     super.key,
      this.text,
     required this.onPressed,
     required this.backgroundColor,
     this.textStyle,
    this.haveIcon,
-    this.iconWidget
+    this.iconWidget,
+     this.height = 50
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 50,
+      height: height,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

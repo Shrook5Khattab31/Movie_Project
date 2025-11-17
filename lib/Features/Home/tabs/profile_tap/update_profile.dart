@@ -67,7 +67,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
             if (!isInitialized) {
               emailController.text = data['email'] ?? '';
               phoneController.text = data['phone'] ?? '';
-              selectedAvatar = avatars[(data['avaterId'] ?? 1) - 1];
+              int avatarId = data['avaterId'] ?? 1;
+              int index = (avatarId >= 1 && avatarId <= avatars.length) ? avatarId - 1 : 0;
+              selectedAvatar = avatars[index];
               isInitialized = true;
             }
             return Form(
