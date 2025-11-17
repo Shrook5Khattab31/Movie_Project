@@ -49,9 +49,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
               final data = snapshot.data!;
               final userName = data['name'] ?? 'User';
               currentAvatarId = snapshot.data!['avaterId'] ?? currentAvatarId;
-              int index = (currentAvatarId >= 1 && currentAvatarId <= avatars.length)
-                  ? currentAvatarId - 1 : 0;
-              var avatarPath = avatars[index];
+              var avatarPath = avatars[currentAvatarId - 1];
               return Column(
                 children: [
                   Container(
