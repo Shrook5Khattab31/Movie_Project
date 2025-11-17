@@ -32,12 +32,17 @@ class MovieDetails extends StatelessWidget{
                   Container(
                     height: height*0.7,
                     decoration: BoxDecoration(gradient: LinearGradient(colors: [
-                      AppColors.transparentColor,
-                      AppColors.primaryColorWithObesity,
+                      AppColors.primaryColorWithObesity80,
+                      AppColors.primaryColorWithObesity60,
                       AppColors.primaryColor,
                     ],
-                      begin: FractionalOffset.topRight,
+                      begin: FractionalOffset.topCenter,
                       end: FractionalOffset.bottomCenter,
+                      stops: [
+                        0.0,
+                       0.47,
+                       1.0,
+                      ],
                     )),
                   ),
                  Container(
