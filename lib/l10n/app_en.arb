@@ -54,7 +54,11 @@
   "successfully": "Successfully",
   "ok": "Ok",
   "error": "Error",
-  "loading": "Loading"
+  "loading": "Loading",
+
+  "watch": "Watch"
+
+
 
 
 }
