@@ -21,6 +21,8 @@ class _ResetPasswordState extends State<ResetPassword> {
   late var args;
   //var formKey = GlobalKey<FormState>();
   bool isNotVisible = true;
+  bool isNotVisible2 = true;
+  bool isNotVisible3 = true;
   TextEditingController oldPassController = TextEditingController();
 
   TextEditingController newPassController = TextEditingController();
@@ -63,8 +65,16 @@ class _ResetPasswordState extends State<ResetPassword> {
               Image.asset(AppImages.forgotPasswordImage),
               CustomTextFormField(
                 controller: oldPassController,
+                isPassword: isNotVisible,
                 prefixIcon:Image.asset( AppImages.passwordIcon),
-                suffixIcon: Icon(Icons.visibility_off),
+                suffixIcon:IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isNotVisible = !isNotVisible;
+                    });
+                  },
+                  icon: isNotVisible?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                ),
                 hintText: AppLocalizations.of(context)!.old_password,
                 hintStyle: AppStyles.reg16White,
                 validatorFunc: (text){
@@ -78,7 +88,15 @@ class _ResetPasswordState extends State<ResetPassword> {
               CustomTextFormField(
                 controller: newPassController,
                 prefixIcon:Image.asset( AppImages.passwordIcon),
-                suffixIcon: Icon(Icons.visibility_off),
+                isPassword: isNotVisible2,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isNotVisible2 = !isNotVisible2;
+                    });
+                  },
+                  icon: isNotVisible2?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                ),
                 hintText: AppLocalizations.of(context)!.new_password,
                 hintStyle: AppStyles.reg16White,
                 validatorFunc: (text){
@@ -98,7 +116,15 @@ class _ResetPasswordState extends State<ResetPassword> {
               CustomTextFormField(
                 controller: confirmPassController,
                 prefixIcon:Image.asset( AppImages.passwordIcon),
-                suffixIcon: Icon(Icons.visibility_off),
+                isPassword: isNotVisible3,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isNotVisible3 = !isNotVisible3;
+                    });
+                  },
+                  icon: isNotVisible3?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                ),
                 hintText: AppLocalizations.of(context)!.rewrite_password,
                 hintStyle: AppStyles.reg16White,
                 validatorFunc: (text){
@@ -117,7 +143,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   width: double.infinity,
                   child: CustomElevatedButton(
                     onPressed: () {
-                        resetPassword();
+                      resetPassword();
                     },
                     backgroundColor: AppColors.secondColor,
                     text: AppLocalizations.of(context)!.reset_password,
@@ -139,7 +165,8 @@ class _ResetPasswordState extends State<ResetPassword> {
       if( response.data['message'] == "Password updated successfully"){
         CustomDialog.hideLoading(context: context);
         CustomDialog.showMessage(context: context, styleMessage: AppStyles.bold14Yellow,
-            message: "Password updated successfully", posActionName: "Ok");
+          message: "Password updated successfully", posActionName: "Ok",
+          posActionClick: ()=> Navigator.pop(context),);
       }
     } on DioException catch(e){
       CustomDialog.hideLoading(context: context);

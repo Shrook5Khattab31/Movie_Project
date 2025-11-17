@@ -16,7 +16,7 @@ import '../../l10n/app_localizations.dart';
 import '../../core/constants/appAssets.dart';
 
 class LoginScreen extends StatefulWidget {
-   String? loginToken;
+  String? loginToken;
   LoginScreen({super.key});
 
   @override
@@ -25,8 +25,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController(text: "mai@gmail.com");
-  TextEditingController passController = TextEditingController(text: "Mai@1994");
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
   bool isVisible = false;
 
   @override
@@ -145,8 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               CustomElevatedButton(
                 haveIcon: true,
-                onPressed: () {
-                },
+                onPressed: () => loginGoogle(),
                 text: AppLocalizations.of(context)!.login_with_google,
                 backgroundColor: AppColors.secondColor,
                 textStyle: AppStyles.reg16Black,
@@ -207,7 +206,6 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         }
         else {
-          // Other server-side error
           CustomDialog.showMessage(
             context: context,
             background: AppColors.primaryColor,
@@ -270,10 +268,12 @@ class _LoginScreenState extends State<LoginScreen> {
         styleMessage: AppStyles.reg16White,
         posActionName: AppLocalizations.of(context)!.ok,
         stylePosActionName:AppStyles.bold20Yellow,
-        posActionClick: () {
-         //todo nav into home
-        Navigator.pushNamedAndRemoveUntil(context, AppRoutes.homeScreen,(route) => false,);
-        },
+        posActionClick: () =>
+        Navigator.pushNamedAndRemoveUntil(
+            context, AppRoutes.homeScreen,
+              (route) => false,
+            arguments: widget.loginToken
+        ),
       );
     } on Exception catch (e) {
       //todo hide loading

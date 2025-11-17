@@ -68,7 +68,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  //todo avatar
                   BuiltAvatarRegister(
                     onAvatarChanged: (index) {
                     selectedAvatarId = index;
@@ -129,7 +128,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     suffixIcon: IconButton(
                       onPressed: () {
-                        //todo show password
                         setState(() {
                           showPassword = !showPassword;
                         });
@@ -150,7 +148,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     suffixIconColor: AppColors.whiteColor,
                     suffixIcon: IconButton(
                       onPressed: () {
-                        //todo show confirm password
                         setState(() {
                           showConfirmPassword = !showConfirmPassword;
                         });
@@ -205,7 +202,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               AppRoutes.login,
                                   (route) => false,
                             );
-                          } else {
+                          }
+                          else if (response.data['message']
+                              .toString()
+                              .contains("Phone")) {
+
+                            CustomDialog.showMessage(
+                              context: context,
+                              background: AppColors.primaryColor,
+                              styleMessage: AppStyles.bold14Yellow,
+                              message: "Please make sure the phone number starts with +20 and contains 11 number",
+                              title: "Error",
+                              posActionName: "ok",
+                            );
+                          }
+
+                          else {
                             String message = response.data['message'].toString();
                             CustomDialog.showMessage(
                               context: context,
@@ -238,12 +250,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     text: '${language.already_have_acc} ?',
                     textButton: language.login,
                     onPressedButton: () {
-                      //todo nav into login
                       Navigator.pushReplacementNamed(context, AppRoutes.login);
                     },
                   ),
                   SizedBox(height: 0.01 * height),
-                  //todo change language toggle
                   Align(
                     alignment: Alignment.center,
                     child: CustomToggleSwitch(),

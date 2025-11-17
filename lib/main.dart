@@ -14,7 +14,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MovieApp());
@@ -41,7 +41,10 @@ class MovieApp extends StatelessWidget {
         AppRoutes.onBoardingScreen: (context) => OnboardingOne(),
         AppRoutes.login: (context) => LoginScreen(),
         AppRoutes.resetPassScreen: (context) => ResetPassword(),
-        AppRoutes.homeScreen: (context) => HomeScreen(),
+        AppRoutes.homeScreen: (context) {
+          final token = ModalRoute.of(context)?.settings.arguments as String?;
+          return HomeScreen(args: token);
+        },
         AppRoutes.forgetPassScreen: (context) => ForgetPasswordScreen(),
         AppRoutes.updateProfileScreen: (context) => UpdateProfile(),
         AppRoutes.register: (context) => RegisterScreen(),
