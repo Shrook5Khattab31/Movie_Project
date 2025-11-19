@@ -10,5 +10,8 @@ class AppColors{
   static const Color redColor = Color(0xffE82626);
   static const Color transparentColor = Colors.transparent;
   static const Color primaryColorWithObesity = Color(0xB5121312);
+  static const Color primaryColorWithObesity80 = Color(0xCC121312);
+  static const Color primaryColorWithObesity60 = Color(0x99121312);
+
 
 }
