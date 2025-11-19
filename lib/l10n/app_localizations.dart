@@ -373,6 +373,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading'**
   String get loading;
+
+  /// No description provided for @watch.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch'**
+  String get watch;
 }
 
 class _AppLocalizationsDelegate

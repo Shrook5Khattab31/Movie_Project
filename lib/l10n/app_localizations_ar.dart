@@ -150,4 +150,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loading => 'جارٍ التحميل';
+
+  @override
+  String get watch => 'شاهد';
 }
