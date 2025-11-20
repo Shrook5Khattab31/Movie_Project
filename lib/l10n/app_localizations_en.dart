@@ -153,4 +153,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get watch => 'Watch';
+
+  @override
+  String get genres => 'Genres';
+
+  @override
+  String get cast => 'Cast';
 }
