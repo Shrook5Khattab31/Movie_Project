@@ -56,9 +56,7 @@
   "error": "Error",
   "loading": "Loading",
 
-  "watch": "Watch"
-
-
-
-
+  "watch": "Watch",
+  "genres": "Genres",
+  "cast": "Cast"
 }

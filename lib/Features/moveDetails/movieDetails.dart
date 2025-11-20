@@ -18,6 +18,7 @@ class MovieDetails extends StatelessWidget{
       SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
                 children: [
@@ -74,7 +75,7 @@ class MovieDetails extends StatelessWidget{
                     spacing: height*0.02,
                     children: [
                     CustomElevatedButton(
-                      onPressed: (){}, backgroundColor: AppColors.redColor,
+                      onPressed: () {}, backgroundColor: AppColors.redColor,
                       text: AppLocalizations.of(context)!.watch, textStyle: AppStyles.bold20White,
                       height: 70,
                     ),
@@ -86,9 +87,38 @@ class MovieDetails extends StatelessWidget{
                         CustomContainer(icon: AppImages.starIcon, text: "${args.rating}")
 
                       ],),
-                    SizedBox(height: height*0.03)
-                  ],)
-              )
+                     ],
+                  )
+              ),
+              Padding(
+                padding:EdgeInsets.symmetric(horizontal: width*0.03,vertical: height*0.005),
+                child: Text(AppLocalizations.of(context)!.cast,style: AppStyles.bold24White,),
+              ),
+              ///cast widget hna
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: width*0.03,vertical: height*0.005),
+                child: Text(AppLocalizations.of(context)!.genres,style: AppStyles.bold24White,),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: width*0.037,vertical: height*0.005),
+                child: Wrap(
+                  spacing: width * 0.04,
+                  runSpacing: height * 0.015,
+                  children: (args.genres)!.map((genre) {
+                    return Container(
+                      padding: EdgeInsets.symmetric(horizontal: height * 0.04, vertical: width * 0.02),
+                      decoration: BoxDecoration(
+                        color: AppColors.lightBlackColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        genre.toString(),
+                        style: AppStyles.reg16White,
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
             ],),
         )
       ),
