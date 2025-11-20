@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:movie_project/Model/MovieResponse.dart';
 import 'package:movie_project/api/api_constants.dart';
 import 'package:movie_project/api/api_endpoints.dart';
@@ -61,7 +62,7 @@ class ApiService {
   // GET profile
   Future<Map<String, dynamic>> getProfile(String token) async {
     final response = await dio.get(
-      'profile',
+      ApiEndPoints.profile,
       options: Options(
         headers: {'Authorization': 'Bearer $token'},
         validateStatus: (status) => status != null && status < 500,
@@ -83,7 +84,7 @@ class ApiService {
   }) async {
     try {
       var response = await dio.patch(
-        ApiEndPoints.updateProfile,
+        ApiEndPoints.profile,
         data: {
           'email': email,
           'avaterId': avatarId,
@@ -97,6 +98,32 @@ class ApiService {
       );
       return response;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  //Delete Account
+  Future<String?> deleteAccount({required String token}) async {
+    try {
+      var response = await dio.delete(
+        ApiEndPoints.profile,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      debugPrint("Status: ${response.statusCode}");
+      debugPrint("Response: ${response.data}");
+
+      if (response.statusCode == 200) {
+        return response.data["message"];
+      } else {
+        return null;
+      }
+    } catch (e) {
+      debugPrint("Delete Error: $e");
       rethrow;
     }
   }
