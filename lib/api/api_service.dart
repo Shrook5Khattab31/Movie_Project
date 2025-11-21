@@ -4,6 +4,8 @@ import 'package:movie_project/Model/MovieResponse.dart';
 import 'package:movie_project/api/api_constants.dart';
 import 'package:movie_project/api/api_endpoints.dart';
 
+import '../Model/details.dart';
+
 class ApiService {
   var dio = Dio(BaseOptions(
     baseUrl: ApiConstants.baseUrlAuth,
@@ -196,4 +198,24 @@ class ApiService {
 
     }
     }
+  static Future<Movie> fetchMovie(int ?movieId) async {
+    try {
+      final response = await movieDio.get(ApiEndPoints.movieDetails,
+        queryParameters: {
+          'movie_id': movieId,
+          'with_images': true,
+          'with_cast': true,
+        },
+      );
+      if (response.statusCode == 200) {
+        final data = response.data['data']['movie'];
+        return Movie.fromJson(data);
+      } else {
+        throw Exception('Failed to load movie');
+      }
+    } catch (e) {
+      throw Exception('Failed to load movie: $e');
+    }
   }
+
+}
