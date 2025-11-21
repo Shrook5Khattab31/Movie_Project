@@ -169,11 +169,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   CustomElevatedButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        CustomDialog.showMessage(
+                        CustomDialog.showLoading(
                           context: context,
-                          background: AppColors.primaryColor,
-                          styleMessage: AppStyles.bold14Yellow,
-                          message: 'Waiting...',
+                          text: 'Loading...',
                         );
 
                         try {
@@ -192,15 +190,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               response.data['data'] != null) ) {
                             CustomDialog.showMessage(
                               context: context,
-                              background: AppColors.primaryColor,
-                              styleMessage: AppStyles.bold20Yellow,
+                              title: "Success",
                               message: 'Register successfully ',
-                            );
-                            await Future.delayed(const Duration(seconds: 2));
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              AppRoutes.login,
-                                  (route) => false,
+                              posActionName: "Ok",
+                              posActionClick: (){
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  AppRoutes.login,
+                                      (route) => false,
+                                );
+                              }
                             );
                           }
                           else if (response.data['message']
@@ -209,8 +208,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                             CustomDialog.showMessage(
                               context: context,
-                              background: AppColors.primaryColor,
-                              styleMessage: AppStyles.bold14Yellow,
                               message: "Please make sure the phone number starts with +20 and contains 11 number",
                               title: "Error",
                               posActionName: "ok",
@@ -221,8 +218,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             String message = response.data['message'].toString();
                             CustomDialog.showMessage(
                               context: context,
-                              background: AppColors.primaryColor,
-                              styleMessage: AppStyles.bold14Yellow,
                               message: message,
                               title: "Error",
                               posActionName: "ok",
@@ -233,8 +228,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           CustomDialog.hideLoading(context: context);
                           CustomDialog.showMessage(
                             context: context,
-                            background: AppColors.primaryColor,
-                            styleMessage: AppStyles.bold14Yellow,
+                            title:"Error" ,
                             message: 'Something went wrong ',
                           );
                         }
