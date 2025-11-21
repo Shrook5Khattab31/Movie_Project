@@ -9,7 +9,6 @@ import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
 import '../../../../Model/Movies.dart';
-import '../../../../core/utils/custom_dialog.dart';
 
 class HomeTabScreen extends StatefulWidget{
   const HomeTabScreen({super.key});
@@ -27,7 +26,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   @override
   void initState() {
     super.initState();
-    moviesFuture = ApiService.getAllMovies(page: 1);
+    moviesFuture = ApiService.getAllMovies();
   }
   @override
   Widget build(BuildContext context) {
