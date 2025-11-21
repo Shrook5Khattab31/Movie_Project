@@ -155,7 +155,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get watch => 'شاهد';
 
   @override
-  String get genres => 'الأنواع';
+  String get genres => 'الانواع';
 
   @override
   String get action => 'أكشن';

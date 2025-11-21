@@ -165,11 +165,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     backgroundColor: AppColors.secondColor,
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        CustomDialog.showMessage(
+                        CustomDialog.showLoading(
                           context: context,
-                          background: AppColors.primaryColor,
-                          styleMessage: AppStyles.bold14Yellow,
-                          message: 'Waiting...',
+                          text: 'Loading...',
                         );
 
                         try {
@@ -183,8 +181,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               "Profile updated successfully") {
                             CustomDialog.showMessage(
                               context: context,
-                              background: AppColors.primaryColor,
-                              styleMessage: AppStyles.bold20Yellow,
+                              title: "Success",
                               message: 'Profile updated successfully',
                               posActionName: 'ok',
                               posActionClick: () => Navigator.pop(
@@ -195,10 +192,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           } else {
                             CustomDialog.showMessage(
                               context: context,
-                              background: AppColors.primaryColor,
-                              styleMessage: AppStyles.bold14Yellow,
-                              message: response.data['message'].toString(),
                               title: "Error",
+                              message: response.data['message'].toString(),
                               posActionName: "ok",
                             );
                           }
@@ -206,8 +201,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           CustomDialog.hideLoading(context: context);
                           CustomDialog.showMessage(
                             context: context,
-                            background: AppColors.primaryColor,
-                            styleMessage: AppStyles.bold14Yellow,
+                            title: "Error",
                             message: 'Something went wrong',
                           );
                         }
