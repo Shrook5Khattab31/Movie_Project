@@ -52,8 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               CustomTextFormField(
-                validatorFunc: (text){
-                  if(text == null || text.trim().isEmpty){
+                validatorFunc: (text) {
+                  if (text == null || text.trim().isEmpty) {
                     return "Please enter an Email";
                   }
                   // final bool emailValid =
@@ -69,8 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintStyle: AppStyles.reg16White,
               ),
               CustomTextFormField(
-                validatorFunc: (text){
-                  if(text == null || text.trim().isEmpty){
+                validatorFunc: (text) {
+                  if (text == null || text.trim().isEmpty) {
                     return "Please enter a valid Password";
                   }
                   // final regx = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
@@ -81,27 +81,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   // }
                   return null;
                 },
-                isPassword: isVisible? false:true,
+                isPassword: isVisible ? false : true,
                 controller: passController,
                 keyboardType: TextInputType.visiblePassword,
                 prefixIcon: const Icon(Icons.lock),
                 hintText: AppLocalizations.of(context)!.password,
-                suffixIcon: IconButton(onPressed: (){
-                  //todo show pass
-                  setState(() {
-                    isVisible = !isVisible;
-                  });
-                }, icon: isVisible? Icon(Icons.visibility): Icon(Icons.visibility_off) ),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    //todo show pass
+                    setState(() {
+                      isVisible = !isVisible;
+                    });
+                  },
+                  icon: isVisible
+                      ? Icon(Icons.visibility)
+                      : Icon(Icons.visibility_off),
+                ),
                 hintStyle: AppStyles.reg16White,
               ),
               Align(
                 alignment: AlignmentGeometry.centerRight,
                 child: CustomTextButton(
                   text: "${AppLocalizations.of(context)!.forget_password} ?",
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.pushNamed(context, AppRoutes.forgetPassScreen);
                   },
-                  styleText: AppStyles.reg14Yellow
+                  styleText: AppStyles.reg14Yellow,
                 ),
               ),
               SizedBox(
@@ -115,10 +120,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   textStyle: AppStyles.reg20Black,
                 ),
               ),
-              AlreadyAndDonotHaveAccount(text: "${AppLocalizations.of(context)!.dont_have_acc} ?",
-                  textButton: AppLocalizations.of(context)!.create_one, onPressedButton: (){
-                    Navigator.pushNamed(context, AppRoutes.register);
-                  }),
+              AlreadyAndDonotHaveAccount(
+                text: "${AppLocalizations.of(context)!.dont_have_acc} ?",
+                textButton: AppLocalizations.of(context)!.create_one,
+                onPressedButton: () {
+                  Navigator.pushNamed(context, AppRoutes.register);
+                },
+              ),
               Row(
                 children: [
                   Expanded(
@@ -149,95 +157,103 @@ class _LoginScreenState extends State<LoginScreen> {
                 text: AppLocalizations.of(context)!.login_with_google,
                 backgroundColor: AppColors.secondColor,
                 textStyle: AppStyles.reg16Black,
-                iconWidget:Row(
+                iconWidget: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: width*0.02,
+                  spacing: width * 0.02,
                   children: [
-                    Image.asset(AppImages.googleIcon, width: width*0.06, height: height*0.03,),
-                    Text(AppLocalizations.of(context)!.login_with_google, style: AppStyles.reg16Black)
-                  ],)
-
+                    Image.asset(
+                      AppImages.googleIcon,
+                      width: width * 0.06,
+                      height: height * 0.03,
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!.login_with_google,
+                      style: AppStyles.reg16Black,
+                    ),
+                  ],
+                ),
               ),
-              CustomToggleSwitch()
+              CustomToggleSwitch(),
             ],
           ),
         ),
       ),
     );
   }
-  void login() async{
-    if (formKey.currentState?.validate() == true){
-      CustomDialog.showLoading(context: context, background: AppColors.primaryColor,
-          text: "Loading...", style: AppStyles.bold14Yellow);
-      try{
-        var response = await ApiService().signIn(email: emailController.text, password: passController.text);
-        if(response.data['message'] == 'Success Login'){
+
+  void login() async {
+    if (formKey.currentState?.validate() == true) {
+      CustomDialog.showLoading(context: context, text: "Loading...");
+      try {
+        var response = await ApiService().signIn(
+          email: emailController.text,
+          password: passController.text,
+        );
+        if (response.data['message'] == 'Success Login') {
           widget.loginToken = response.data["data"];
           print("token ${widget.loginToken}");
           CustomDialog.hideLoading(context: context);
-          CustomDialog.showMessage(context: context,
-              styleMessage: AppStyles.bold14Yellow, message: "Login Successfully",
-          posActionName: "Go to home", posActionClick: (){
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  AppRoutes.homeScreen,
-                      (route) => false,
-                  arguments: widget.loginToken
-                );
-              }
-          );
-
-        }
-      }
-      on DioException catch(e){
-        CustomDialog.hideLoading(context: context);
-        if(e.type == DioExceptionType.connectionError ||
-            e.type == DioExceptionType.connectionTimeout ||
-            e.type == DioExceptionType.receiveTimeout){
-          CustomDialog.showMessage(context: context, background: AppColors.primaryColor,
-              styleMessage: AppStyles.bold14Yellow, message: "Network error, please try again!"
-          , posActionName: "Ok"
-          );
-        }
-        else if(e.response!.statusCode==400){
-          CustomDialog.showMessage(context: context, background: AppColors.primaryColor,
-              styleMessage: AppStyles.bold14Yellow, message: "User is not found!, please try again",
-          posActionName: "Ok"
-          );
-        }
-        else {
           CustomDialog.showMessage(
             context: context,
-            background: AppColors.primaryColor,
-            styleMessage: AppStyles.bold14Yellow,
+            title: "Success",
+            message: "Login Successfully",
+            posActionName: "Go to home",
+            posActionClick: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.homeScreen,
+                (route) => false,
+                arguments: widget.loginToken,
+              );
+            },
+          );
+        }
+      } on DioException catch (e) {
+        CustomDialog.hideLoading(context: context);
+        if (e.type == DioExceptionType.connectionError ||
+            e.type == DioExceptionType.connectionTimeout ||
+            e.type == DioExceptionType.receiveTimeout) {
+          CustomDialog.showMessage(
+            context: context,
+            title: "Error",
+            message: "Network error, please try again!",
+            posActionName: "Ok",
+          );
+        } else if (e.response!.statusCode == 400) {
+          CustomDialog.showMessage(
+            context: context,
+            title: "Error",
+            message: "User is not found!, please try again",
+            posActionName: "Ok",
+          );
+        } else {
+          CustomDialog.showMessage(
+            context: context,
+            title: "Error",
             message: e.response?.data['message'] ?? "Something went wrong!",
             posActionName: "Ok",
           );
         }
-      }
-      catch (e) {
+      } catch (e) {
         CustomDialog.hideLoading(context: context);
         CustomDialog.showMessage(
           context: context,
-          background: AppColors.primaryColor,
-          styleMessage: AppStyles.bold14Yellow,
+          title: "Error",
           message: "Unexpected error: $e",
           posActionName: "Ok",
         );
       }
     }
   }
-  void loginGoogle()async{
+
+  void loginGoogle() async {
     //todo show loading
     CustomDialog.showLoading(
       context: context,
-      background: AppColors.primaryColor,
       text: AppLocalizations.of(context)!.loading,
-      style: AppStyles.bold20Yellow,
     );
     try {
-      final GoogleSignInAccount? googleUser =
-      await GoogleSignIn().signIn();
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
         //todo hide loading
         CustomDialog.hideLoading(context: context);
@@ -245,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
 
       final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+          await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -261,18 +277,14 @@ class _LoginScreenState extends State<LoginScreen> {
       //todo show message successfully
       CustomDialog.showMessage(
         context: context,
-        background: AppColors.primaryColor,
         title: AppLocalizations.of(context)!.successfully,
-        styleTitle: AppStyles.bold20Yellow,
         message: AppLocalizations.of(context)!.login_successfully,
-        styleMessage: AppStyles.reg16White,
         posActionName: AppLocalizations.of(context)!.ok,
-        stylePosActionName:AppStyles.bold20Yellow,
-        posActionClick: () =>
-        Navigator.pushNamedAndRemoveUntil(
-            context, AppRoutes.homeScreen,
-              (route) => false,
-            arguments: widget.loginToken
+        posActionClick: () => Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRoutes.homeScreen,
+          (route) => false,
+          arguments: widget.loginToken,
         ),
       );
     } on Exception catch (e) {
@@ -281,13 +293,9 @@ class _LoginScreenState extends State<LoginScreen> {
       //todo show message error
       CustomDialog.showMessage(
         context: context,
-        background: AppColors.primaryColor,
         title: AppLocalizations.of(context)!.error,
-        styleTitle: AppStyles.bold20Yellow,
         message: e.toString(),
-        styleMessage: AppStyles.reg16White,
         posActionName: AppLocalizations.of(context)!.ok,
-        stylePosActionName:AppStyles.bold20Yellow,
       );
     }
   }
