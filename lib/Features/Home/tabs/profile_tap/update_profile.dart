@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
+import 'package:movie_project/core/utils/custom_toast.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
 import 'package:movie_project/core/widgets/custom_text_form_field.dart';
@@ -23,9 +24,15 @@ class UpdateProfile extends StatefulWidget {
 class _UpdateProfileState extends State<UpdateProfile> {
   final apiService = ApiService();
   final List<String> avatars = [
-    AppImages.avatar1, AppImages.avatar2, AppImages.avatar3,
-    AppImages.avatar4, AppImages.avatar5, AppImages.avatar6,
-    AppImages.avatar7, AppImages.avatar8, AppImages.avatar9
+    AppImages.avatar1,
+    AppImages.avatar2,
+    AppImages.avatar3,
+    AppImages.avatar4,
+    AppImages.avatar5,
+    AppImages.avatar6,
+    AppImages.avatar7,
+    AppImages.avatar8,
+    AppImages.avatar9,
   ];
   bool isInitialized = false;
   String selectedAvatar = AppImages.avatar1;
@@ -57,8 +64,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
         padding: EdgeInsets.symmetric(horizontal: width * 0.04),
         child: FutureBuilder<Map<String, dynamic>>(
           future: apiService.getProfile(args),
-          builder: (context,snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting&& !isInitialized) {
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting &&
+                !isInitialized) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError || !snapshot.hasData) {
               return const Center(child: Text("Failed to load profile"));
@@ -68,7 +76,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
               emailController.text = data['email'] ?? '';
               phoneController.text = data['phone'] ?? '';
               int avatarId = data['avaterId'] ?? 1;
-              int index = (avatarId >= 1 && avatarId <= avatars.length) ? avatarId - 1 : 0;
+              int index = (avatarId >= 1 && avatarId <= avatars.length)
+                  ? avatarId - 1
+                  : 0;
               selectedAvatar = avatars[index];
               isInitialized = true;
             }
@@ -81,7 +91,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     onTap: () => showAvatars(context),
                     child: Padding(
                       padding: EdgeInsets.only(bottom: height * 0.02),
-                      child: Image.asset(selectedAvatar, height: height * 0.16, fit: BoxFit.contain,),
+                      child: Image.asset(
+                        selectedAvatar,
+                        height: height * 0.16,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                   CustomTextFormField(
@@ -111,8 +125,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     alignment: Alignment.centerLeft,
                     child: CustomTextButton(
                       text: AppLocalizations.of(context)!.reset_password,
-                      onPressed: () => Navigator.pushNamed(context, AppRoutes.resetPassScreen,
-                          arguments: args
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        AppRoutes.resetPassScreen,
+                        arguments: args,
                       ),
                       styleText: AppStyles.reg20White,
                     ),
@@ -121,7 +137,25 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   CustomElevatedButton(
                     text: AppLocalizations.of(context)!.delete_account,
                     textStyle: AppStyles.reg20White,
-                    onPressed: () {},
+                    onPressed: () async {
+                      //todo delete account
+                      var result = await apiService.deleteAccount(token: args);
+                      if (result != null) {
+                        CustomToast.showToast(message: result);
+                        Future.delayed(
+                          Duration(milliseconds: 200),
+                          () => Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            AppRoutes.login,
+                            (route) => false,
+                          ),
+                        );
+                      } else {
+                        CustomToast.showToast(
+                          message: "Failed to delete account",
+                        );
+                      }
+                    },
                     backgroundColor: AppColors.redColor,
                   ),
                   SizedBox(height: height * 0.01),
@@ -145,14 +179,18 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             token: args,
                           );
                           CustomDialog.hideLoading(context: context);
-                          if (response.data['message'] == "Profile updated successfully") {
+                          if (response.data['message'] ==
+                              "Profile updated successfully") {
                             CustomDialog.showMessage(
                               context: context,
                               background: AppColors.primaryColor,
                               styleMessage: AppStyles.bold20Yellow,
                               message: 'Profile updated successfully',
                               posActionName: 'ok',
-                              posActionClick: () => Navigator.pop(context,avatars.indexOf(selectedAvatar) + 1),
+                              posActionClick: () => Navigator.pop(
+                                context,
+                                avatars.indexOf(selectedAvatar) + 1,
+                              ),
                             );
                           } else {
                             CustomDialog.showMessage(
@@ -196,7 +234,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
       builder: (context) {
         return Container(
           height: height * 0.5,
-          padding: EdgeInsets.symmetric(vertical: height * 0.02, horizontal: width * 0.04),
+          padding: EdgeInsets.symmetric(
+            vertical: height * 0.02,
+            horizontal: width * 0.04,
+          ),
           decoration: BoxDecoration(
             color: AppColors.grayDarkColor,
             borderRadius: BorderRadius.circular(24),
@@ -209,7 +250,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               mainAxisSpacing: height * 0.02,
             ),
             itemBuilder: (context, index) {
-              bool isSelected = selectedAvatar==avatars[index];
+              bool isSelected = selectedAvatar == avatars[index];
               return GestureDetector(
                 onTap: () {
                   setState(() {
@@ -218,9 +259,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   Navigator.pop(context);
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: height * 0.01, horizontal: width * 0.02),
+                  padding: EdgeInsets.symmetric(
+                    vertical: height * 0.01,
+                    horizontal: width * 0.02,
+                  ),
                   decoration: BoxDecoration(
-                    color: isSelected?AppColors.secondColor.withOpacity(0.5):AppColors.transparentColor,
+                    color: isSelected
+                        ? AppColors.secondColor.withOpacity(0.5)
+                        : AppColors.transparentColor,
                     border: Border.all(color: AppColors.secondColor),
                     borderRadius: BorderRadius.circular(20),
                   ),
