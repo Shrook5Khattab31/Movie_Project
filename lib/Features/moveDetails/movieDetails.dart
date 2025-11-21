@@ -108,7 +108,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     ],
                   ),
 
-                  // ========= BUTTON + INFO ==========
+
                   Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: width * 0.03, vertical: height * 0.01),
@@ -134,7 +134,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     ),
                   ),
 
-                  // ========= SCREENSHOTS ==========
+
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: width * 0.03, vertical: height * 0.005),
@@ -158,7 +158,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     ),
                   ),
 
-                  // ========= CAST ==========
+
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: width * 0.03, vertical: height * 0.005),
@@ -227,7 +227,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     }).toList(),
                   ),
 
-                  // ========= GENRES ==========
+
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: width * 0.03, vertical: height * 0.005),
