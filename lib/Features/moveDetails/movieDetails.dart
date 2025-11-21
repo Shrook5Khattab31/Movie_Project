@@ -19,9 +19,10 @@ class MovieDetails extends StatefulWidget {
 class _MovieDetailsState extends State<MovieDetails> {
   late Future<Movie> movieFuture;
   @override
-  void initState() {
-    super.initState();
-    movieFuture =  ApiService.fetchMovie(15);
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var args = ModalRoute.of(context)!.settings.arguments as Movies;
+    movieFuture = ApiService.fetchMovie( args.id);
   }
   @override
   Widget build(BuildContext context) {
@@ -94,7 +95,6 @@ class _MovieDetailsState extends State<MovieDetails> {
                       ),
                       Container(
                 padding: EdgeInsets.symmetric(horizontal: width*0.03, vertical: height*0.01),
-                          decoration: BoxDecoration(color: Colors.black),
                           child: Column(
                             spacing: height * 0.02,
                             children: [
@@ -113,6 +113,28 @@ class _MovieDetailsState extends State<MovieDetails> {
                                 ],),
                             ],
                           )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: width * 0.03, vertical: height * 0.005),
+                        child: Text(AppLocalizations.of(context)!.screen_shots, style: AppStyles.bold24White),
+                      ),
+                      Padding(
+                        padding:EdgeInsets.symmetric(
+                          horizontal: width*0.037,
+                          vertical: height*0.005
+                        ),
+                        child: Column(
+                          children: [
+                            if (movie.largeScreenshotImage1 != null)
+                              buildScreenshot(movie.largeScreenshotImage1!),
+                            SizedBox(height: height*0.02,),
+                            if (movie.largeScreenshotImage2 != null)
+                              buildScreenshot(movie.largeScreenshotImage2!),
+                            SizedBox(height: height*0.02,),
+                            if (movie.largeScreenshotImage3 != null)
+                              buildScreenshot(movie.largeScreenshotImage3!),
+                          ],
+                        ),
                       ),
                       Padding(
                 padding:EdgeInsets.symmetric(horizontal: width*0.03,vertical: height*0.005),
@@ -204,6 +226,15 @@ class _MovieDetailsState extends State<MovieDetails> {
                 )
             );
           }
+      ),
+    );
+  }
+  Widget buildScreenshot(String url) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Image.network(
+        url,
+        fit: BoxFit.cover,
       ),
     );
   }
