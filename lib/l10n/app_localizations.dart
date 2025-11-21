@@ -385,6 +385,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Genres'**
   String get genres;
+
   /// No description provided for @action.
   ///
   /// In en, this message translates to:
@@ -426,12 +427,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cast'**
   String get cast;
-
-  /// No description provided for @genres.
-  ///
-  /// In en, this message translates to:
-  /// **'Genres'**
-  String get genres;
 
   /// No description provided for @adventure.
   ///
