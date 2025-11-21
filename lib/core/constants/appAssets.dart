@@ -36,5 +36,6 @@ class AppImages{
   static const String availableMovies = 'assets/images/available_movies.png';
   static const String play = 'assets/images/play.png';
   static const String timeIcon = 'assets/images/timeIcon.png';
+  static const String noImage = 'assets/images/no_image.jpg';
 
 }

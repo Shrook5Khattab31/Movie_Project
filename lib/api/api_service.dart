@@ -3,6 +3,7 @@ import 'package:movie_project/Model/MovieResponse.dart';
 import 'package:movie_project/api/api_constants.dart';
 import 'package:movie_project/api/api_endpoints.dart';
 
+import '../Model/Movies.dart';
 import '../Model/details.dart';
 
 class ApiService {
@@ -130,7 +131,7 @@ class ApiService {
   // }
 
   //homeTab
-  static Future<MovieResponse> getAllMovies({int page = 1,int limit = 20,String? genre,}) async {
+  static Future<MovieResponse> getAllMovies({int page =3500,int limit = 20,String? genre,}) async {
     try {
       var response = await movieDio.get(
         ApiEndPoints.listMovies,

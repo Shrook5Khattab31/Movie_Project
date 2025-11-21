@@ -19,9 +19,10 @@ class MovieDetails extends StatefulWidget {
 class _MovieDetailsState extends State<MovieDetails> {
   late Future<Movie> movieFuture;
   @override
-  void initState() {
-    super.initState();
-    movieFuture =  ApiService.fetchMovie(15);
+  void didChangeDependencies() {
+    var args = ModalRoute.of(context)!.settings.arguments as Movies;
+    super.didChangeDependencies();
+    movieFuture =  ApiService.fetchMovie(args.id);
   }
   @override
   Widget build(BuildContext context) {
@@ -147,8 +148,15 @@ class _MovieDetailsState extends State<MovieDetails> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      actor.urlSmallImage ?? "",
+                                    child: (actor.urlSmallImage != null && actor.urlSmallImage!.isNotEmpty)
+                                        ? Image.network(
+                                      actor.urlSmallImage!,
+                                      width: 70,
+                                      height: 70,
+                                      fit: BoxFit.cover,
+                                    )
+                                        : Image.asset(
+                                      AppImages.noImage,
                                       width: 70,
                                       height: 70,
                                       fit: BoxFit.cover,
