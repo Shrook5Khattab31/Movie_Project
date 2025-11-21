@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movie_project/Features/auth/widget/already_and_donot_have_account.dart';
 import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
+import 'package:movie_project/core/utils/validator_helper.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
 import '../../core/theme/appColors.dart';
@@ -45,42 +46,21 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Image.asset(
+                AppImages.appLogoAuth,
                 fit: BoxFit.fill,
-                "assets/images/app_logo.png",
                 width: width * 0.3,
                 height: height * 0.13,
               ),
 
               CustomTextFormField(
-                validatorFunc: (text) {
-                  if (text == null || text.trim().isEmpty) {
-                    return "Please enter an Email";
-                  }
-                  // final bool emailValid =
-                  // RegExp(r'^[\w\.-]+@[\w\.-]+\.\w+$').hasMatch(text);
-                  // if (!emailValid) {
-                  //   return "Please enter a valid Email";
-                  // }
-                  return null;
-                },
+                validatorFunc: (text) =>ValidatorHelper.validateEmail(text),
                 controller: emailController,
                 prefixIcon: const Icon(Icons.email_outlined),
                 hintText: AppLocalizations.of(context)!.email,
                 hintStyle: AppStyles.reg16White,
               ),
               CustomTextFormField(
-                validatorFunc: (text) {
-                  if (text == null || text.trim().isEmpty) {
-                    return "Please enter a valid Password";
-                  }
-                  // final regx = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
-                  // .hasMatch(text);
-                  // if(!regx){
-                  //   return "Password must be equal or more than 8 characters "
-                  //       "and contain Upper letters, lower lettres, numbers and characters";
-                  // }
-                  return null;
-                },
+                validatorFunc: (text) =>ValidatorHelper.validatePassword(text),
                 isPassword: isVisible ? false : true,
                 controller: passController,
                 keyboardType: TextInputType.visiblePassword,
@@ -183,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void login() async {
     if (formKey.currentState?.validate() == true) {
-      CustomDialog.showLoading(context: context, text: "Loading...");
+      CustomDialog.showLoading(context: context,text: AppLocalizations.of(context)!.loading,);
       try {
         var response = await ApiService().signIn(
           email: emailController.text,
