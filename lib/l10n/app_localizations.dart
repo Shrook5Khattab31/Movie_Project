@@ -380,6 +380,11 @@ abstract class AppLocalizations {
   /// **'Watch'**
   String get watch;
 
+  /// No description provided for @genres.
+  ///
+  /// In en, this message translates to:
+  /// **'Genres'**
+  String get genres;
   /// No description provided for @action.
   ///
   /// In en, this message translates to:
