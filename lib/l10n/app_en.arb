@@ -58,5 +58,23 @@
 
   "watch": "Watch",
   "genres": "Genres",
-  "cast": "Cast"
+
+  "action": "Action",
+  "see_more": "See More",
+  "screen_shots": "Screen Shots",
+  "search": "Search",
+  "similar": "Similar ",
+  "summary": "Summary",
+  "cast": "Cast",
+  "genres": "Genres",
+  "adventure": "Adventure",
+  "animation": "Animation",
+  "biography": "Biography",
+  "wish_list":"Wish List",
+  "delete_acc":"Delete Account",
+  "update_date": "Update Data"
+
+
+
+
 }

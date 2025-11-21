@@ -156,7 +156,46 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get genres => 'الانواع';
+  
+  @override
+  String get action => 'أكشن';
 
   @override
-  String get cast => 'طاقم العمل';
+  String get see_more => 'عرض المزيد';
+
+  @override
+  String get screen_shots => 'لقطات الشاشة';
+
+  @override
+  String get search => 'بحث';
+
+  @override
+  String get similar => 'مشابه';
+
+  @override
+  String get summary => 'الملخص';
+
+  @override
+  String get cast => 'طاقم التمثيل';
+
+  @override
+  String get genres => 'الأنواع';
+
+  @override
+  String get adventure => 'مغامرة';
+
+  @override
+  String get animation => 'رسوم متحركة';
+
+  @override
+  String get biography => 'سيرة ذاتية';
+
+  @override
+  String get wish_list => 'قائمة الأمنيات';
+
+  @override
+  String get delete_acc => 'حذف الحساب';
+
+  @override
+  String get update_date => 'تحديث البيانات';
 }

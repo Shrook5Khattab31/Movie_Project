@@ -158,5 +158,44 @@ class AppLocalizationsEn extends AppLocalizations {
   String get genres => 'Genres';
 
   @override
+  String get action => 'Action';
+
+  @override
+  String get see_more => 'See More';
+
+  @override
+  String get screen_shots => 'Screen Shots';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get similar => 'Similar ';
+
+  @override
+  String get summary => 'Summary';
+
+  @override
   String get cast => 'Cast';
+
+  @override
+  String get genres => 'Genres';
+
+  @override
+  String get adventure => 'Adventure';
+
+  @override
+  String get animation => 'Animation';
+
+  @override
+  String get biography => 'Biography';
+
+  @override
+  String get wish_list => 'Wish List';
+
+  @override
+  String get delete_acc => 'Delete Account';
+
+  @override
+  String get update_date => 'Update Data';
 }
