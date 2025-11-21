@@ -20,11 +20,11 @@ class RegisterScreen extends StatefulWidget {
 }
 ApiService apiService=ApiService();
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController nameController = TextEditingController(text: "aya");
-  TextEditingController emailController = TextEditingController(text: "aya@gmail.com");
-  TextEditingController passwordController = TextEditingController(text: "Aya12345@");
-  TextEditingController confirmPasswordController = TextEditingController(text: "Aya12345@");
-  TextEditingController phoneController = TextEditingController(text: "+201288811928");
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override

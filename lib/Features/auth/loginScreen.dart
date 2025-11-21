@@ -25,8 +25,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController(text: "aya@gmail.com");
-  TextEditingController passController = TextEditingController(text: "Aya12345@");
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
   bool isVisible = false;
 
   @override
