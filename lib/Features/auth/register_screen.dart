@@ -4,6 +4,7 @@ import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
+import 'package:movie_project/core/utils/validator_helper.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_form_field.dart';
@@ -80,12 +81,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fillColor: AppColors.grayDarkColor,
                     prefixIcon: Image.asset(AppImages.userIcon),
                     prefixIconColor: AppColors.whiteColor,
-                    validatorFunc: (text) {
-                      if(text==null || text.trim().isEmpty){
-                        return"What's your name?";
-                      }
-                      return null;
-                    },
+                    validatorFunc: (text) =>ValidatorHelper.validateName(text)
                   ),
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
@@ -96,18 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     prefixIcon: Image.asset(AppImages.emailIcon),
                     prefixIconColor: AppColors.whiteColor,
                     keyboardType: TextInputType.emailAddress,
-                      validatorFunc:(text) {
-                        if(text==null || text.trim().isEmpty){
-                          return'Please Enter your Email';
-                        }
-                        final bool emailValid =
-                        RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(text);
-                        if(!emailValid){
-                          return 'Please Enter valid Email';
-                        }
-                        return null;
-                      }
+                      validatorFunc:(text) =>ValidatorHelper.validateEmail(text)
                   ),
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
@@ -120,12 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     keyboardType: TextInputType.visiblePassword,
                     isPassword: showPassword,
                     suffixIconColor: AppColors.whiteColor,
-                    validatorFunc:(text) {
-                      if(text==null || text.trim().isEmpty){
-                        return'Please Enter Password';
-                      }
-                      return null;
-                    },
+                    validatorFunc:(text) =>ValidatorHelper.validatePassword(text),
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
@@ -154,6 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                       icon: showIconPassword(showConfirmPassword),
                     ),
+                    validatorFunc:(text) =>ValidatorHelper.validateConfirmPassword(text),
                   ),
                   SizedBox(height: 0.03 * height),
                   CustomTextFormField(
@@ -169,11 +150,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   CustomElevatedButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        CustomDialog.showMessage(
+                        CustomDialog.showLoading(
                           context: context,
-                          background: AppColors.primaryColor,
-                          styleMessage: AppStyles.bold14Yellow,
-                          message: 'Waiting...',
+                          text: 'Loading...',
                         );
 
                         try {
@@ -192,15 +171,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               response.data['data'] != null) ) {
                             CustomDialog.showMessage(
                               context: context,
-                              background: AppColors.primaryColor,
-                              styleMessage: AppStyles.bold20Yellow,
+                              title: "Success",
                               message: 'Register successfully ',
-                            );
-                            await Future.delayed(const Duration(seconds: 2));
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              AppRoutes.login,
-                                  (route) => false,
+                              posActionName: "Ok",
+                              posActionClick: (){
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  AppRoutes.login,
+                                      (route) => false,
+                                );
+                              }
                             );
                           }
                           else if (response.data['message']
@@ -209,8 +189,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                             CustomDialog.showMessage(
                               context: context,
-                              background: AppColors.primaryColor,
-                              styleMessage: AppStyles.bold14Yellow,
                               message: "Please make sure the phone number starts with +20 and contains 11 number",
                               title: "Error",
                               posActionName: "ok",
@@ -221,8 +199,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             String message = response.data['message'].toString();
                             CustomDialog.showMessage(
                               context: context,
-                              background: AppColors.primaryColor,
-                              styleMessage: AppStyles.bold14Yellow,
                               message: message,
                               title: "Error",
                               posActionName: "ok",
@@ -233,8 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           CustomDialog.hideLoading(context: context);
                           CustomDialog.showMessage(
                             context: context,
-                            background: AppColors.primaryColor,
-                            styleMessage: AppStyles.bold14Yellow,
+                            title:"Error" ,
                             message: 'Something went wrong ',
                           );
                         }

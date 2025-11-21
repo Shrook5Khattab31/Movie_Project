@@ -156,7 +156,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get genres => 'الانواع';
-  
+
   @override
   String get action => 'أكشن';
 
@@ -177,9 +177,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cast => 'طاقم التمثيل';
-
-  @override
-  String get genres => 'الأنواع';
 
   @override
   String get adventure => 'مغامرة';
