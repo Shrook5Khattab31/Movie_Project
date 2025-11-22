@@ -5,9 +5,11 @@ import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_container.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
+import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
 import '../../Model/MovieDetailsModel/details.dart';
 import '../../api/api_service.dart';
+import '../../core/routing/routeNames.dart';
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({super.key});
@@ -18,11 +20,18 @@ class MovieDetails extends StatefulWidget {
 
 class _MovieDetailsState extends State<MovieDetails> {
   late Future<Movie> movieFuture;
+  List<Movies> similarMovies = [];
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     var args = ModalRoute.of(context)!.settings.arguments as Movies;
     movieFuture = ApiService.fetchMovie( args.id);
+    ApiService.getSimilarMovies(args.id).then((movies) {
+      setState(() {
+        similarMovies = movies;
+      });
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -45,8 +54,9 @@ class _MovieDetailsState extends State<MovieDetails> {
           return SafeArea(
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  //todo: movie image + appbar
                   Stack(
                     children: [
                       Container(
@@ -70,7 +80,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                             ],
                             begin: FractionalOffset.topCenter,
                             end: FractionalOffset.bottomCenter,
-                            stops: [0.0, 0.47, 1.0],
+                            stops: [0.0, 0.47, 0.97],
                           ),
                         ),
                       ),
@@ -97,6 +107,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                             Text(args.title ?? "",
                                 style: AppStyles.bold24White,
                                 textAlign: TextAlign.center),
+                            SizedBox(height: height*0.016,),
                             Text("${args.year}",
                                 style: AppStyles.bold20Gray,
                                 textAlign: TextAlign.center),
@@ -105,8 +116,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       ),
                     ],
                   ),
-
-
+                  //todo: rating + button section
                   Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: width * 0.03, vertical: height * 0.01),
@@ -131,14 +141,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                       ],
                     ),
                   ),
-
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.03, vertical: height * 0.005),
-                    child: Text(AppLocalizations.of(context)!.screen_shots,
-                        style: AppStyles.bold24White),
-                  ),
+                  //todo: screenshots section
+                  buildTitle(title: AppLocalizations.of(context)!.screen_shots),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: width * 0.037, vertical: height * 0.005),
@@ -155,14 +159,48 @@ class _MovieDetailsState extends State<MovieDetails> {
                       ],
                     ),
                   ),
-
-
+                  //todo: similar movies section
+                  buildTitle(title: AppLocalizations.of(context)!.similar),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.03, vertical: height * 0.005),
-                    child: Text(AppLocalizations.of(context)!.cast,
-                        style: AppStyles.bold24White),
+                        horizontal: width * 0.037, vertical: height * 0.005),
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: height*0.016,
+                        crossAxisSpacing: width*0.02,
+                        childAspectRatio: 3/4
+                      ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                            onTap: ()=>
+                              Navigator.pushNamed(context,AppRoutes.detailsScreen,
+                                  arguments: similarMovies[index]),
+                            child: CustomMoviePoster(
+                            imageWidth: width*0.5,
+                            imageHeight: height*0.3,
+                            image: similarMovies[index].mediumCoverImage??"",
+                            rating: similarMovies[index].rating,
+                          ),
+                        );
+                      },
+                      itemCount: similarMovies.length,
+                    ),
                   ),
+                  //todo: summary section
+                  buildTitle(title: AppLocalizations.of(context)!.summary),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: width * 0.037, vertical: height * 0.005),
+                    child: Text(
+                      movie.descriptionFull ?? "No Summary Available",
+                      style: AppStyles.reg16White,
+                    ),
+                  ),
+                  //todo: cast section
+                  buildTitle(title: AppLocalizations.of(context)!.cast),
                   movie.cast == null || movie.cast!.isEmpty
                       ? Padding(
                       padding: EdgeInsets.symmetric(
@@ -195,8 +233,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                                   width: 70,
                                   height: 70,
                                   fit: BoxFit.cover,
-                                )
-                                    : Image.asset(
+                                ) : Image.asset(
                                   AppImages.noImage,
                                   width: 70,
                                   height: 70,
@@ -224,14 +261,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                       );
                     }).toList(),
                   ),
-
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.03, vertical: height * 0.005),
-                    child: Text(AppLocalizations.of(context)!.genres,
-                        style: AppStyles.bold24White),
-                  ),
+                  //todo: genres section
+                  buildTitle(title: AppLocalizations.of(context)!.genres),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: width * 0.037, vertical: height * 0.005),
@@ -253,21 +284,6 @@ class _MovieDetailsState extends State<MovieDetails> {
                       }).toList(),
                     ),
                   ),
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.03, vertical: height * 0.005),
-                    child: Text(AppLocalizations.of(context)!.summary,
-                        style: AppStyles.bold24White),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.037, vertical: height * 0.005),
-                    child: Text(
-                      movie.descriptionFull ?? "No Summary Available",
-                      style: AppStyles.reg16White,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -285,5 +301,13 @@ class _MovieDetailsState extends State<MovieDetails> {
       ),
     );
   }
-
+  Padding buildTitle({required String title}){
+    var height= MediaQuery.of(context).size.height;
+    var width= MediaQuery.of(context).size.width;
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: width * 0.03, vertical: height * 0.005),
+      child: Text(title, style: AppStyles.bold24White),
+    );
+  }
 }

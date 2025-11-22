@@ -1,5 +1,5 @@
+import '../MoviesModel/meta.dart';
 import 'Data.dart';
-import '@meta.dart';
 
 /// status : "ok"
 /// status_message : "Query was successful"

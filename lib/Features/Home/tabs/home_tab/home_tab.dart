@@ -94,11 +94,12 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                         options: CarouselOptions(
                           aspectRatio: 4/3,
                           autoPlay: true,
+                          pauseAutoPlayOnManualNavigate: false,
                           enlargeCenterPage: true,
                           viewportFraction: 0.45,
                           enlargeFactor: 0.25,
                           enableInfiniteScroll: true,
-                          autoPlayInterval: Duration(seconds: 10),
+                          autoPlayInterval: Duration(seconds: 7),
                           autoPlayAnimationDuration: Duration(seconds: 1),
                           onPageChanged: (newIndex, reason) {
                             setState(() {index = newIndex;});
@@ -141,8 +142,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                           return InkWell(
                             onTap: (){
                               Navigator.of(context).pushNamed(AppRoutes.detailsScreen,
-                                  arguments: movie);}
-                            ,
+                                  arguments: movie);},
                             child: CustomMoviePoster(
                               imageWidth: width * 0.33,
                               imageHeight: height * 0.23,
