@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_project/Model/MovieResponse.dart';
+import 'package:movie_project/Model/MoviesModel/MovieResponse.dart';
 import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
@@ -8,7 +8,7 @@ import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
-import '../../../../Model/Movies.dart';
+import '../../../../Model/MoviesModel/Movies.dart';
 
 class HomeTabScreen extends StatefulWidget{
   const HomeTabScreen({super.key});

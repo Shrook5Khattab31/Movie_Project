@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:movie_project/Model/Movies.dart';
+import 'package:movie_project/Model/MoviesModel/Movies.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_container.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
-import '../../Model/details.dart';
+import '../../Model/MovieDetailsModel/details.dart';
 import '../../api/api_service.dart';
 
 class MovieDetails extends StatefulWidget {
@@ -26,16 +26,17 @@ class _MovieDetailsState extends State<MovieDetails> {
   }
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+    var height= MediaQuery.of(context).size.height;
+    var width= MediaQuery.of(context).size.width;
     var args = ModalRoute.of(context)!.settings.arguments as Movies;
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: FutureBuilder<Movie>(
         future: movieFuture,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
-                child: CircularProgressIndicator(color: Colors.red),
+                child: CircularProgressIndicator(color: AppColors.secondColor),
               );
             }
 

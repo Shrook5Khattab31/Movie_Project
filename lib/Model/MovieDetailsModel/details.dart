@@ -1,5 +1,5 @@
 import 'Cast.dart';
-import 'Torrents.dart';
+import '../MoviesModel/Torrents.dart';
 
 class Movie {
   Movie({

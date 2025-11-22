@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_project/Model/MovieResponse.dart';
+import 'package:movie_project/Model/MoviesModel/MovieResponse.dart';
 import 'package:movie_project/api/api_constants.dart';
 import 'package:movie_project/api/api_endpoints.dart';
-
-import '../Model/Movies.dart';
-import '../Model/details.dart';
+import '../Model/MovieDetailsModel/details.dart';
 
 class ApiService {
   var dio = Dio(BaseOptions(
