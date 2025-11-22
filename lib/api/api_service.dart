@@ -4,6 +4,7 @@ import 'package:movie_project/Model/MoviesModel/MovieResponse.dart';
 import 'package:movie_project/api/api_constants.dart';
 import 'package:movie_project/api/api_endpoints.dart';
 import '../Model/MovieDetailsModel/details.dart';
+import '../Model/MoviesModel/Movies.dart';
 
 class ApiService {
   var dio = Dio(BaseOptions(
@@ -12,7 +13,6 @@ class ApiService {
   static var movieDio = Dio(BaseOptions(
     baseUrl: ApiConstants.baseUrlMovies,
   ));
-
 
   // Login
   Future<Response> signIn({required String email, required String password}) async {
@@ -178,7 +178,7 @@ class ApiService {
     required String token
 }) async{
     try{
-      var response = await dio.patch(ApiEndPoints.reset_password,
+      var response = await dio.patch(ApiEndPoints.resetPassword,
       data: {
         'oldPassword': oldPassword,
         'newPassword': newPassword
@@ -197,6 +197,7 @@ class ApiService {
 
     }
     }
+
   static Future<Movie> fetchMovie(int ?movieId) async {
     try {
       final response = await movieDio.get(ApiEndPoints.movieDetails,
@@ -214,6 +215,21 @@ class ApiService {
       }
     } catch (e) {
       throw Exception('Failed to load movie: $e');
+    }
+  }
+
+  static Future<List<Movies>> getSimilarMovies(int? movieId) async {
+    try {
+      final response = await movieDio.get(
+        ApiEndPoints.movieSuggestions,
+        queryParameters: {"movie_id": movieId},
+      );
+      final moviesJson = response.data['data']['movies'] as List?;
+      if (moviesJson == null) return [];
+
+      return moviesJson.map((m) => Movies.fromJson(m)).toList();
+    } catch (e) {
+      return [];
     }
   }
 
