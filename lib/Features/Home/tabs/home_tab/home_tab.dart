@@ -11,7 +11,8 @@ import 'package:movie_project/core/widgets/custom_text_button.dart';
 import '../../../../Model/MoviesModel/Movies.dart';
 
 class HomeTabScreen extends StatefulWidget{
-  const HomeTabScreen({super.key});
+  final List<Movies> moviesList;
+  const HomeTabScreen({super.key, required this.moviesList});
 
   @override
   State<HomeTabScreen> createState() => _HomeTabScreenState();
@@ -22,7 +23,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   int genreIndex=0;
   late Future<MovieResponse> moviesFuture;
   final Map<String, List<Movies>> categorizedMovies = {};
-  var moviesList=[];
+  late List<Movies> moviesList=widget.moviesList;
   @override
   void initState() {
     super.initState();
@@ -61,7 +62,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 decoration: BoxDecoration(
                   color: AppColors.primaryColorWithObesity,
                   image: DecorationImage(
-                    image: NetworkImage(moviesList[index].mediumCoverImage,),
+                    image: NetworkImage(moviesList[index].mediumCoverImage??"",),
                     fit: BoxFit.cover,
                   ),
                 ),
