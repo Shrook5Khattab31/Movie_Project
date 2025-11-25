@@ -23,7 +23,7 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
   @override
   void initState() {
     super.initState();
-    moviesFuture = ApiService.getAllMovies();
+    moviesFuture = ApiService.getAllMovies(page: 1, limit: 50);
   }
 
   List<Movies> get filteredMovies {
