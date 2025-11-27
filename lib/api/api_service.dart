@@ -233,6 +233,24 @@ class ApiService {
       return [];
     }
   }
+  static Future<List<Favorite>> getAllFavoritesMovies({required String token}) async {
+    try {
+      final response = await dio.get(
+        ApiEndPoints.allFavorites,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+      final moviesJson = response.data['data'] as List?;
+      if (moviesJson == null) return [];
+      return moviesJson.map((json) => Favorite.fromJson(json)).toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
   static Future<bool?> checkMovieIsFav({
     required int? movieId,
     required String token,
