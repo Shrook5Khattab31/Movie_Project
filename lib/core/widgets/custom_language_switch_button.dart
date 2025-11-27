@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_project/provider/langProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-
 import '../constants/appAssets.dart';
 import '../theme/appColors.dart';
 
@@ -9,6 +10,8 @@ class CustomToggleSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var langProvider = Provider.of<LangProvider>(context);
+    int currentIndex = langProvider.appLang == "en"? 0:1;
     return ToggleSwitch(
       borderWidth: 3,
       minWidth: 50.0,
@@ -22,7 +25,16 @@ class CustomToggleSwitch extends StatelessWidget {
         Image.asset(AppImages.usa),
         Image.asset(AppImages.egypt),
       ],
-      onToggle: (index) {},
+      onToggle: (index) {
+        print("switched to ${index}");
+        if(index == 0){
+          langProvider.changeLang("en");
+        } else {
+          langProvider.changeLang("ar");
+
+        }
+      },
+      initialLabelIndex: currentIndex,
     );
   }
 }
