@@ -6,9 +6,12 @@ import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
+import '../../../moveDetails/movie_details_args.dart';
+
 
 class BrowseTabScreen extends StatefulWidget {
-  const BrowseTabScreen({super.key});
+  final String loginToken;
+ const BrowseTabScreen({super.key,required this.loginToken,});
 
   @override
   State<BrowseTabScreen> createState() => _BrowseTabScreenState();
@@ -111,7 +114,12 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
                       onTap: () {
                         Navigator.of(context).pushNamed(
                           AppRoutes.detailsScreen,
-                          arguments: movie,
+                          arguments: MovieDetailsArgs(
+                            movies: moviesList,
+                            movie: movie,
+                            token: widget.loginToken,
+                            fromProfile: true,
+                          ),
                         );
                       },
                       child: CustomMoviePoster(

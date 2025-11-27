@@ -47,7 +47,7 @@ class _HomeScreen extends State<HomeScreen> {
             List<Widget> tabsList = [
             HomeTabScreen(moviesList: moviesList,loginToken: token ?? ''),
               const SearchTabScreen(),
-            const BrowseTabScreen(),
+               BrowseTabScreen(loginToken: token ?? ''),
               ProfileTabScreen(loginToken: token ?? '')
             ];
 
