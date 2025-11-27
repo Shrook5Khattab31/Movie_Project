@@ -37,39 +37,39 @@ class _HomeScreen extends State<HomeScreen> {
 
     return Scaffold(
       body: FutureBuilder<MovieResponse>(
-        future: moviesFuture,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          moviesList = snapshot.data!.data?.movies ?? [];
+          future: moviesFuture,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            moviesList = snapshot.data!.data?.movies ?? [];
 
-          List<Widget> tabsList = [
-            HomeTabScreen(moviesList: moviesList),
-            const SearchTabScreen(),
+            List<Widget> tabsList = [
+            HomeTabScreen(moviesList: moviesList,loginToken: token ?? ''),
+              const SearchTabScreen(),
             const BrowseTabScreen(),
-            ProfileTabScreen(loginToken: token ?? '')
-          ];
+              ProfileTabScreen(loginToken: token ?? '')
+            ];
 
-          return Stack(
-            children: [
-              Positioned.fill(
-                child: tabsList[selectedIndex],
-              ),
-              Positioned(
-                left: width * 0.03,
-                right: width * 0.03,
-                bottom: height * 0.01,
-                child: SafeArea(
-                  top: false,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(16)),
-                    child: Theme(
-                      data: Theme.of(context).copyWith(
-                        splashColor: AppColors.transparentColor,
-                        highlightColor: AppColors.transparentColor,
-                        hoverColor: AppColors.transparentColor,
-                      ),
+            return Stack(
+              children: [
+                Positioned.fill(
+                  child: tabsList[selectedIndex],
+                ),
+                Positioned(
+                  left: width * 0.03,
+                  right: width * 0.03,
+                  bottom: height * 0.01,
+                  child: SafeArea(
+                    top: false,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(16)),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          splashColor: AppColors.transparentColor,
+                          highlightColor: AppColors.transparentColor,
+                          hoverColor: AppColors.transparentColor,
+                        ),
                         child: BottomNavigationBar(
                           selectedItemColor: AppColors.secondColor,
                           unselectedItemColor: AppColors.whiteColor,
@@ -112,11 +112,11 @@ class _HomeScreen extends State<HomeScreen> {
                         ),
                       ),
                     ),
+                  ),
                 ),
-                ),
-            ],
-          );
-        }
+              ],
+            );
+          }
       ),
     );
   }
