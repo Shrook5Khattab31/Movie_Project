@@ -254,4 +254,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get userNotFound => 'المستخدم غير موجود، يرجى المحاولة مرة أخرى';
+
+  @override
+  String get registerSuccessfully => 'تم التسجيل بنجاح';
+
+  @override
+  String get invalidPhone =>
+      'يرجى التأكد من أن رقم الهاتف يبدأ بـ +20 ويحتوي على 11 رقمًا';
 }
