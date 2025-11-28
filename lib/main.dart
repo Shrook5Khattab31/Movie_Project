@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/update_profile.dart';
 import 'package:movie_project/Features/auth/forget_pass.dart';
 import 'package:movie_project/Features/moveDetails/movieDetails.dart';
-import 'package:movie_project/provider/langProvider.dart';
-import 'package:provider/provider.dart';
 import 'Features/Home/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/resetPassword.dart';
@@ -20,11 +18,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(
-      ChangeNotifierProvider(create: (context) =>LangProvider(),
-      child: MovieApp(),
-      )
-      );
+  runApp(const MovieApp());
 }
 
 class MovieApp extends StatelessWidget {
@@ -32,7 +26,6 @@ class MovieApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var langProvier = Provider.of<LangProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Movie App',
@@ -58,7 +51,6 @@ class MovieApp extends StatelessWidget {
         AppRoutes.register: (context) => RegisterScreen(),
         AppRoutes.detailsScreen:(context)=>MovieDetails()
       },
-      locale: Locale(langProvier.appLang),
     );
   }
 }
