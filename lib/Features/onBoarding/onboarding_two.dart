@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/constants/appAssets.dart';
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
@@ -16,7 +17,6 @@ class OnboardingTwo extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: [
           Positioned.fill(
@@ -28,7 +28,7 @@ class OnboardingTwo extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              width: 430,
+              width: screenWidth,
               height: screenHeight * 0.33,
               decoration: const BoxDecoration(
                 color: AppColors.primaryColor,
@@ -68,7 +68,6 @@ class OnboardingTwo extends StatelessWidget {
                           ),
                         );
                       },
-                      backgroundColor: AppColors.secondColor,
                       textStyle: AppStyles.semiBold20Black,
                     ),
                   ],

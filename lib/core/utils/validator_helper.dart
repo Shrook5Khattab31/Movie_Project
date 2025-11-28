@@ -1,4 +1,3 @@
-
 class ValidatorHelper{
   static String? validateName(String? text){
       if(text==null || text.trim().isEmpty){

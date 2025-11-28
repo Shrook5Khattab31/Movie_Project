@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/constants/appAssets.dart';
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
@@ -52,7 +53,6 @@ class OnboardingEnd extends StatelessWidget {
                           ),
                         );
                       },
-                      backgroundColor: AppColors.secondColor,
                     ),
                     SizedBox(height: 12),
                     GestureDetector(

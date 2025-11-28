@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
@@ -5,14 +6,12 @@ import 'package:movie_project/core/utils/custom_toast.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
 import 'package:movie_project/core/widgets/custom_text_form_field.dart';
+
 import '../../../../api/api_service.dart';
 import '../../../../core/theme/appColors.dart';
 import '../../../../core/theme/appStyles.dart';
 import '../../../../core/utils/custom_dialog.dart';
 import '../../../../l10n/app_localizations.dart';
-import 'package:dio/dio.dart';
-
-import '../../../auth/register_screen.dart';
 
 class UpdateProfile extends StatefulWidget {
   UpdateProfile({super.key});
@@ -49,7 +48,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
         title: Text(
           AppLocalizations.of(context)!.pick_avatar,
           style: AppStyles.reg16Yellow,
@@ -69,7 +67,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 !isInitialized) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError || !snapshot.hasData) {
-              return const Center(child: Text("Failed to load profile"));
+              return Center(child: Text(
+                  AppLocalizations.of(context)!.errorLoadingProfile));
             }
             final data = snapshot.data!;
             if (!isInitialized) {

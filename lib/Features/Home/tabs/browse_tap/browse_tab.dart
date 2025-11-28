@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:movie_project/Model/MoviesModel/Movies.dart';
 import 'package:movie_project/Model/MoviesModel/MovieResponse.dart';
+import 'package:movie_project/Model/MoviesModel/Movies.dart';
 import 'package:movie_project/api/api_service.dart';
+import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
-import 'package:movie_project/core/routing/routeNames.dart';
-import '../../../moveDetails/movie_details_args.dart';
 
+import '../../../moveDetails/movie_details_args.dart';
 
 class BrowseTabScreen extends StatefulWidget {
   final String loginToken;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_project/Model/favorites/favorite.dart';
 
+import '../../Model/MoviesModel/Movies.dart';
 import '../../l10n/app_localizations.dart';
 import '../constants/appAssets.dart';
 import '../routing/routeNames.dart';
@@ -15,6 +16,7 @@ class CustomProfileBuilder {
     required String userName,
     required double width,
     required List<Favorite> favoriteMovies,
+    required List<Movies> history,
     required double height,
   }) {
     return Padding(
@@ -48,7 +50,7 @@ class CustomProfileBuilder {
           SizedBox(width: width * 0.08),
           Column(
             children: [
-              Text("10", style: AppStyles.bold36White),
+              Text('${history.length}', style: AppStyles.bold36White),
               SizedBox(height: height * 0.02),
               Text(
                 AppLocalizations.of(context)!.history,
@@ -76,7 +78,6 @@ class CustomProfileBuilder {
               text: AppLocalizations.of(context)!.edit_profile,
               textStyle: AppStyles.reg20Black,
               onPressed: onPressed,
-              backgroundColor: AppColors.secondColor,
             ),
           ),
           SizedBox(width: width * 0.02),
@@ -111,11 +112,7 @@ class CustomProfileBuilder {
 
   static Widget buildProfileTabs({required BuildContext context}) {
     return TabBar(
-      indicatorColor: AppColors.secondColor,
       indicatorWeight: 3,
-      indicatorSize: TabBarIndicatorSize.tab,
-      labelColor: AppColors.whiteColor,
-      labelStyle: AppStyles.bold20White,
       tabs: [
         Tab(
           icon: Image.asset(AppImages.watchIcon),

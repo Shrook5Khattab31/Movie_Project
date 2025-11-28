@@ -7,7 +7,9 @@ class CustomMoviePoster extends StatelessWidget {
   double imageHeight;
   String image;
   double? rating;
-   CustomMoviePoster({super.key, required this.imageWidth, required this.imageHeight,
+
+  CustomMoviePoster(
+      {super.key, required this.imageWidth, required this.imageHeight,
     required this.image, required this.rating});
 
   @override
@@ -25,7 +27,7 @@ class CustomMoviePoster extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 5.0),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Colors.amber
+                color: AppColors.secondColor
             ),
             child: Image.network(image, fit: BoxFit.fill,)
         ),
