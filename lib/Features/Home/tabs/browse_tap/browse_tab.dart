@@ -118,7 +118,6 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
                             movies: moviesList,
                             movie: movie,
                             token: widget.loginToken,
-                            fromProfile: true,
                           ),
                         );
                       },
