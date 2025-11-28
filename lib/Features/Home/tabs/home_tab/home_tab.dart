@@ -9,10 +9,12 @@ import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
 import '../../../../Model/MoviesModel/Movies.dart';
+import '../../../moveDetails/movie_details_args.dart';
 
 class HomeTabScreen extends StatefulWidget{
+  final String loginToken;
   final List<Movies> moviesList;
-  const HomeTabScreen({super.key, required this.moviesList});
+  const HomeTabScreen({super.key, required this.moviesList,required this.loginToken,});
 
   @override
   State<HomeTabScreen> createState() => _HomeTabScreenState();
@@ -36,26 +38,26 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: FutureBuilder<MovieResponse>(
-      future: moviesFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (snapshot.data?.status != 'ok') {
-          return Center(child: Text(snapshot.data!.statusMessage!));
-        }
-
-        moviesList = snapshot.data!.data?.movies ?? [];
-
-        categorizedMovies.clear();
-        for (final movie in moviesList) {
-          for (final genre in movie.genres ?? []) {
-            categorizedMovies.putIfAbsent(genre, () => []);
-            categorizedMovies[genre]!.add(movie);
+        future: moviesFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.data?.status != 'ok') {
+            return Center(child: Text(snapshot.data!.statusMessage!));
           }
-        }
-        return ListView(
+
+          moviesList = snapshot.data!.data?.movies ?? [];
+
+          categorizedMovies.clear();
+          for (final movie in moviesList) {
+            for (final genre in movie.genres ?? []) {
+              categorizedMovies.putIfAbsent(genre, () => []);
+              categorizedMovies[genre]!.add(movie);
+            }
+          }
+          return ListView(
             children: [
               Container(
                 height: height*0.7,
@@ -68,21 +70,23 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: AlignmentGeometry.topCenter,
-                      end: AlignmentGeometry.bottomCenter,
-                      colors: [
-                        AppColors.primaryColorWithObesity,AppColors.primaryColor.withAlpha(233),AppColors.primaryColor
-                      ]
-                    )
+                      gradient: LinearGradient(
+                          begin: AlignmentGeometry.topCenter,
+                          end: AlignmentGeometry.bottomCenter,
+                          colors: [
+                            AppColors.primaryColorWithObesity,AppColors.primaryColor.withAlpha(233),AppColors.primaryColor
+                          ]
+                      )
                   ),
                   child: InkWell(
-                    onTap:(){ Navigator.of(context).pushNamed(AppRoutes.detailsScreen,
-                        arguments: moviesList[index] );},
+                    onTap:(){  Navigator.of(context).pushNamed(
+                        AppRoutes.detailsScreen,
+                        arguments: MovieDetailsArgs( movie: moviesList[index], token:widget.loginToken, movies:moviesList,)
+                    );},
                     child: Container(
                       height: height * 0.6,
                       decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage(AppImages.availableMovies))
+                          image: DecorationImage(image: AssetImage(AppImages.availableMovies))
                       ),
                       child: CarouselSlider.builder(
                         itemCount: moviesList.length,
@@ -104,13 +108,13 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                           autoPlayAnimationDuration: Duration(seconds: 1),
                           onPageChanged: (newIndex, reason) {
                             setState(() {index = newIndex;});
-                            },
-                          ),
+                          },
                         ),
                       ),
-                  ),
+                    ),
                   ),
                 ),
+              ),
               ...categorizedMovies.entries.map((entry) {
                 final category = entry.key;
                 final filteredMovies = entry.value;
@@ -142,8 +146,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                           final movie = filteredMovies[i];
                           return InkWell(
                             onTap: (){
-                              Navigator.of(context).pushNamed(AppRoutes.detailsScreen,
-                                  arguments: movie);},
+                              Navigator.of(context).pushNamed(
+                                  AppRoutes.detailsScreen,
+                                  arguments: MovieDetailsArgs( movies:moviesList, movie: movie, token:widget.loginToken));},
                             child: CustomMoviePoster(
                               imageWidth: width * 0.33,
                               imageHeight: height * 0.23,
