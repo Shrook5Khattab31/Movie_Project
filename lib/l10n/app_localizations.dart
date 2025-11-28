@@ -463,6 +463,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Update Data'**
   String get update_date;
+
+  /// No description provided for @no_movies_found.
+  ///
+  /// In en, this message translates to:
+  /// **'No movies found matching your search'**
+  String get no_movies_found;
 }
 
 class _AppLocalizationsDelegate

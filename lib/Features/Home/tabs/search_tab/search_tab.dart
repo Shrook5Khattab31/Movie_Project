@@ -5,6 +5,7 @@ import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_text_form_field.dart';
+import 'package:movie_project/l10n/app_localizations.dart';
 import '../../../../Model/MoviesModel/Movies.dart';
 import 'widget/built_movie_item.dart';
 
@@ -112,7 +113,7 @@ class _SearchTabScreenState extends State<SearchTabScreen> {
                         searchController.text.isNotEmpty &&
                         searchResults.isEmpty)
                       Text(
-                        "No movies found matching your search",
+                        AppLocalizations.of(context)!.no_movies_found,
                         style: AppStyles.reg18White,
                       ),
                   ],
