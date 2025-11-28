@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -253,11 +254,4 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get userNotFound => 'المستخدم غير موجود، يرجى المحاولة مرة أخرى';
-
-  @override
-  String get registerSuccessfully => 'تم التسجيل بنجاح';
-
-  @override
-  String get invalidPhone =>
-      'يرجى التأكد من أن رقم الهاتف يبدأ بـ +20 ويحتوي على 11 رقمًا';
 }
