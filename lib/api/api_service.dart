@@ -5,9 +5,10 @@ import 'package:movie_project/api/api_constants.dart';
 import 'package:movie_project/api/api_endpoints.dart';
 import '../Model/MovieDetailsModel/details.dart';
 import '../Model/MoviesModel/Movies.dart';
+import '../Model/favorites/favorite.dart';
 
 class ApiService {
-  var dio = Dio(BaseOptions(
+  static var dio = Dio(BaseOptions(
     baseUrl: ApiConstants.baseUrlAuth,
   ));
   static var movieDio = Dio(BaseOptions(
@@ -231,6 +232,77 @@ class ApiService {
     } catch (e) {
       return [];
     }
+  }
+  static Future<List<Favorite>> getAllFavoritesMovies({required String token}) async {
+    try {
+      final response = await dio.get(
+        ApiEndPoints.allFavorites,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+      final moviesJson = response.data['data'] as List?;
+      if (moviesJson == null) return [];
+      return moviesJson.map((json) => Favorite.fromJson(json)).toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
+  static Future<bool?> checkMovieIsFav({
+    required int? movieId,
+    required String token,
+  }) async {
+    try {
+      final response = await dio.get(
+        'favorites/is-favorite/$movieId',
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return response.data['data'] as bool;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<void> addFavorite({
+    required Movies movie,
+    required String token, int? movieId,
+  }) async {
+    try {
+       await dio.post(
+        ApiEndPoints.favorites,
+        data: {
+          'movieId': movie.id,
+          'name': movie.title ?? '',
+          'rating': movie.rating ?? 0,
+          'imageURL': movie.mediumCoverImage ?? '',
+          'year': movie.year ?? 0,
+        },
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
+    } catch (e) {
+      return;
+    }
+  }
+
+  static Future<void> removeFavorite({required int? movieId, required String token}) async {
+    await dio.delete(
+      'favorites/remove/$movieId',
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+      ),
+    );
   }
 
 }
