@@ -7,10 +7,10 @@ import 'package:movie_project/core/widgets/custom_container.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
-
 import '../../Model/MovieDetailsModel/details.dart';
 import '../../api/api_service.dart';
 import '../../core/routing/routeNames.dart';
+import '../../service/history_service.dart';
 import 'movie_details_args.dart';
 
 class MovieDetails extends StatefulWidget {
@@ -36,9 +36,10 @@ class _MovieDetailsState extends State<MovieDetails> {
     });
     ApiService.checkMovieIsFav(movieId: args.movie.id, token: args.token) .then((isFav) {
       setState(() {
-        isFavorite = isFav!;
+        isFavorite = isFav ?? false;
       });
     });
+    HistoryService.addMovieToHistory(args.movie);
   }
   @override
   Widget build(BuildContext context) {
@@ -246,8 +247,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       padding: EdgeInsets.symmetric(
                           horizontal: width * 0.037, vertical: height * 0.005),
                       child: Text(
-                        movie.descriptionFull ??
-                            AppLocalizations.of(context)!.noSummary,
+                          movie.descriptionFull ?? "No Summary Available",
                       style: AppStyles.reg16White,
                       ),
                     ),

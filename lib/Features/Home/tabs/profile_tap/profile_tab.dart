@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_project/Model/favorites/favorite.dart';
@@ -6,11 +7,11 @@ import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/utils/custom_profile_builder.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
-
 import '../../../../Model/MoviesModel/Movies.dart';
 import '../../../../api/api_service.dart';
 import '../../../../core/widgets/custom_movie_poster.dart';
 import '../../../moveDetails/movie_details_args.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileTabScreen extends StatefulWidget {
   final String loginToken;
@@ -26,6 +27,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
   late bool isGoogleLogin;
   int currentAvatarId = 1;
   List<Favorite> favoriteMovies = [];
+  List<Movies> historyMovies = [];
   String selectedAvatar = AppImages.avatar1;
   final List<String> avatars = [
     AppImages.avatar1, AppImages.avatar2, AppImages.avatar3,
@@ -43,9 +45,24 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
           favorite) {
         setState(() => favoriteMovies = favorite);
       });
+    loadHistory();
+  }
+
+  Future<void> loadHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? historyList = prefs.getStringList('movie_history');
+    if(historyList != null){
+      setState(() {
+        historyMovies = historyList.map((e) => Movies.fromJson(jsonDecode(e))).toList();
+      });
     }
   }
 
+  Future<void> saveHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> historyList = historyMovies.map((e) => jsonEncode(e.toJson())).toList();
+    await prefs.setStringList('movie_history', historyList);
+  }
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -85,12 +102,12 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                             width: width,
                             height: height,
                             context: context,
-                            favoriteMovies: favoriteMovies),
+                            favoriteMovies: favoriteMovies,
+                            historyCount: historyMovies.length,
+                          ),
                         CustomProfileBuilder.buildActionButtons(width: width,
                           onPressed: () async {
-                            final result = await Navigator
-                                .of(context)
-                                .pushNamed(
+                            final result = await Navigator.of(context).pushNamed(
                               AppRoutes.updateProfileScreen,
                               arguments: widget.loginToken,
                             );
@@ -177,7 +194,36 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                                   },
                                 )
                             ) : Image.asset(AppImages.emptyList)),
-                        Center(child: Image.asset(AppImages.emptyList)),
+
+                        historyMovies.isNotEmpty
+                            ? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: width * 0.037, vertical: height * 0.005),
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: height * 0.016,
+                                crossAxisSpacing: width * 0.02,
+                                childAspectRatio: 3 / 4
+                            ),
+                            itemCount: historyMovies.length,
+                            itemBuilder: (context, index){
+                              final movie = historyMovies[index];
+                              return GestureDetector(
+                                onTap: () async {
+                                },
+                                child: CustomMoviePoster(
+                                  imageWidth: width * 0.5,
+                                  imageHeight: height * 0.3,
+                                  image: movie.mediumCoverImage ?? "",
+                                  rating: movie.rating ?? 0.0,
+                                ),
+                              );
+                            },
+                          ),
+                        ) : Center(child: Image.asset(AppImages.emptyList)),
+
                       ],
                     ),
                   ),
