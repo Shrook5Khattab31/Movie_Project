@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_project/Features/Home/tabs/search_tab/widget/built_recent_searches.dart';
 import 'package:movie_project/Features/Home/tabs/search_tab/widget/built_search_item.dart';
 import 'package:movie_project/Features/Home/tabs/search_tab/widget/built_search_text__form_field.dart';
+import 'package:movie_project/Features/moveDetails/movie_details_args.dart';
 import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
@@ -12,7 +13,8 @@ import '../../../../Model/MoviesModel/Movies.dart';
 import 'widget/built_movie_item.dart';
 
 class SearchTabScreen extends StatefulWidget {
-  const SearchTabScreen({super.key});
+  final String loginToken;
+  const SearchTabScreen({super.key, required this.loginToken});
 
   @override
   State<SearchTabScreen> createState() => _SearchTabScreenState();
@@ -97,7 +99,7 @@ class _SearchTabScreenState extends State<SearchTabScreen> {
                       Navigator.pushNamed(
                         context,
                         AppRoutes.detailsScreen,
-                        arguments: movie,
+                        arguments: MovieDetailsArgs(movies: searchResults, movie: movie, token: widget.loginToken),
                       );
                     },
                     child: BuiltMovieItem(movie: movie),
