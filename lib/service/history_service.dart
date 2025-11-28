@@ -1,19 +1,31 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../Model/MoviesModel/Movies.dart';
 
 class HistoryService {
-  static const String key = "movie_history";
 
-  static final StreamController<List<Map<String, dynamic>>> _historyController =
+  static String _keyForUser(String userId) => "movie_history_$userId";
+
+  static final StreamController<List<Movies>> _historyController =
   StreamController.broadcast();
 
-  static Stream<List<Map<String, dynamic>>> get historyStream => _historyController.stream;
-  static Future<void> addMovieToHistory(Movies movie) async {
+  static Stream<List<Movies>> get historyStream => _historyController.stream;
+
+  static Future<void> addMovieToHistory(Movies movie, String userId) async {
     final prefs = await SharedPreferences.getInstance();
+    final key = _keyForUser(userId);
+
     List<String> history = prefs.getStringList(key) ?? [];
-    history.removeWhere((item) => jsonDecode(item)["id"] == movie.id);
+
+    history.removeWhere(
+            (item) =>
+        Movies
+            .fromJson(jsonDecode(item))
+            .id == movie.id);
+
     history.insert(0, jsonEncode(movie.toJson()));
 
     if (history.length > 30) {
@@ -21,17 +33,26 @@ class HistoryService {
     }
 
     await prefs.setStringList(key, history);
-    _historyController.add(history.map((item) => Map<String, dynamic>.from(jsonDecode(item))).toList());
+
+    _historyController.add(
+      history.map((item) => Movies.fromJson(jsonDecode(item))).toList(),
+    );
+
+    print("Saved to history for $userId: ${movie.title}");
   }
 
-  static Future<List<Map<String, dynamic>>> getHistory() async {
+  static Future<List<Movies>> getHistory(String userId) async {
     final prefs = await SharedPreferences.getInstance();
+    final key = _keyForUser(userId);
+
     List<String> history = prefs.getStringList(key) ?? [];
-    return history.map((item) => Map<String, dynamic>.from(jsonDecode(item))).toList();
+    return history.map((item) => Movies.fromJson(jsonDecode(item))).toList();
   }
 
-  static Future<void> clearHistory() async {
+  static Future<void> clearHistory(String userId) async {
     final prefs = await SharedPreferences.getInstance();
+    final key = _keyForUser(userId);
+
     await prefs.remove(key);
     _historyController.add([]);
   }

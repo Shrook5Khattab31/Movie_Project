@@ -34,7 +34,7 @@ class MovieApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var langProvier = Provider.of<LangProvider>(context);
+    var langProvider = Provider.of<LangProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Movie App',
@@ -60,7 +60,7 @@ class MovieApp extends StatelessWidget {
         AppRoutes.register: (context) => RegisterScreen(),
         AppRoutes.detailsScreen:(context)=>MovieDetails()
       },
-      locale: Locale(langProvier.appLang),
+      locale: Locale(langProvider.appLang),
     );
   }
 }

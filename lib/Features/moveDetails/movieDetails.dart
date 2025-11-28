@@ -7,6 +7,7 @@ import 'package:movie_project/core/widgets/custom_container.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
+
 import '../../Model/MovieDetailsModel/details.dart';
 import '../../api/api_service.dart';
 import '../../core/routing/routeNames.dart';
@@ -24,10 +25,14 @@ class _MovieDetailsState extends State<MovieDetails> {
   late Future<Movie> movieFuture;
   List<Movies> similarMovies = [];
   bool isFavorite = false;
+  late var args;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    var args = ModalRoute.of(context)!.settings.arguments as MovieDetailsArgs;
+    args = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as MovieDetailsArgs;
     movieFuture = ApiService.fetchMovie(args.movie.id);
     ApiService.getSimilarMovies(args.movie.id).then((movies) {
       setState(() {
@@ -39,10 +44,10 @@ class _MovieDetailsState extends State<MovieDetails> {
         isFavorite = isFav ?? false;
       });
     });
-    HistoryService.addMovieToHistory(args.movie);
   }
   @override
   Widget build(BuildContext context) {
+    HistoryService.addMovieToHistory(args.movie, args.token);
     return Scaffold(
         body: FutureBuilder<Movie>(
           future: movieFuture,

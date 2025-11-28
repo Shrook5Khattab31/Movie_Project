@@ -74,7 +74,7 @@
   "update_date": "Update Data",
   "no_movies_found": "No movies found matching your search",
   "recentSearches": "Recent searches",
-  "noGenre": "No Genre"
+  "noGenre": "No Genre",
 
   "errorLoadingMovie": "Error loading movie",
   "noMovieData": "No movie data available",

@@ -323,7 +323,7 @@ abstract class AppLocalizations {
   /// No description provided for @watch_list.
   ///
   /// In en, this message translates to:
-  /// **'Watch List  '**
+  /// **'Watch List'**
   String get watch_list;
 
   /// No description provided for @history.
@@ -413,7 +413,7 @@ abstract class AppLocalizations {
   /// No description provided for @similar.
   ///
   /// In en, this message translates to:
-  /// **'Similar '**
+  /// **'Similar'**
   String get similar;
 
   /// No description provided for @summary.
@@ -452,6 +452,36 @@ abstract class AppLocalizations {
   /// **'Wish List'**
   String get wish_list;
 
+  /// No description provided for @delete_acc.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get delete_acc;
+
+  /// No description provided for @update_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Data'**
+  String get update_date;
+
+  /// No description provided for @no_movies_found.
+  ///
+  /// In en, this message translates to:
+  /// **'No movies found matching your search'**
+  String get no_movies_found;
+
+  /// No description provided for @recentSearches.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent searches'**
+  String get recentSearches;
+
+  /// No description provided for @noGenre.
+  ///
+  /// In en, this message translates to:
+  /// **'No Genre'**
+  String get noGenre;
+
   /// No description provided for @errorLoadingMovie.
   ///
   /// In en, this message translates to:
@@ -479,35 +509,12 @@ abstract class AppLocalizations {
   /// No description provided for @noCast.
   ///
   /// In en, this message translates to:
-  /// **'Delete Account'**
-  String get delete_acc;
-
   /// **'No cast available'**
   String get noCast;
 
-  /// No description provided for @update_date.
+  /// No description provided for @errorLoadingProfile.
   ///
   /// In en, this message translates to:
-  /// **'Update Data'**
-  String get update_date;
-
-  /// No description provided for @no_movies_found.
-  ///
-  /// In en, this message translates to:
-  /// **'No movies found matching your search'**
-  String get no_movies_found;
-
-  /// No description provided for @recentSearches.
-  ///
-  /// In en, this message translates to:
-  /// **'Recent searches'**
-  String get recentSearches;
-
-  /// No description provided for @noGenre.
-  ///
-  /// In en, this message translates to:
-  /// **'No Genre'**
-  String get noGenre;
   /// **'Error loading profile'**
   String get errorLoadingProfile;
 

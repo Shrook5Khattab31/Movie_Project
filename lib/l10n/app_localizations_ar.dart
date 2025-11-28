@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -54,16 +55,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get register => 'التسجيل';
 
   @override
-  String get reset_password => 'اعاده ضبط كلمه المرور';
+  String get reset_password => 'إعادة ضبط كلمة المرور';
 
   @override
-  String get old_password => 'كلمه المرور القديمه';
+  String get old_password => 'كلمة المرور القديمة';
 
   @override
-  String get new_password => 'كلمه المرور الحديثه';
+  String get new_password => 'كلمة المرور الجديدة';
 
   @override
-  String get rewrite_password => 'اعد كتابه كلمه المرور';
+  String get rewrite_password => 'أعد كتابة كلمة المرور';
 
   @override
   String get pick_avatar => 'اختيار صورة شخصية';
@@ -106,7 +107,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'احفظ الأفلام في قائمة المشاهدة لتتابع ما تريد مشاهدته لاحقًا.\nاستمتع بالأفلام بجودات وأنواع مختلفة.';
 
   @override
-  String get rate_review_learn => 'قيم، راجع، وتعلم';
+  String get rate_review_learn => 'قيّم، راجع، وتعلم';
 
   @override
   String get share_your_thoughts =>
@@ -152,10 +153,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loading => 'جارٍ التحميل';
 
   @override
-  String get watch => 'شاهد';
+  String get watch => 'مشاهدة';
 
   @override
-  String get genres => 'الانواع';
+  String get genres => 'الأنواع';
 
   @override
   String get action => 'أكشن';
@@ -189,6 +190,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get wish_list => 'قائمة الأمنيات';
+
+  @override
+  String get delete_acc => 'حذف الحساب';
+
+  @override
+  String get update_date => 'تحديث البيانات';
+
+  @override
+  String get no_movies_found => 'لا توجد أفلام مطابقة لبحثك';
+
+  @override
+  String get recentSearches => 'عمليات البحث الأخيرة';
+
+  @override
+  String get noGenre => 'لا يوجد تصنيف';
 
   @override
   String get errorLoadingMovie => 'خطأ في تحميل الفيلم';
@@ -256,18 +272,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get registerSuccessfully => 'تم التسجيل بنجاح';
-
-  @override
-  String get update_date => 'تحديث البيانات';
-
-  @override
-  String get no_movies_found => 'لا توجد أفلام مطابقة لبحثك';
-
-  @override
-  String get recentSearches => 'عمليات البحث الأخيرة';
-
-  @override
-  String get noGenre => 'لا يوجد تصنيف';
 
   @override
   String get invalidPhone =>
