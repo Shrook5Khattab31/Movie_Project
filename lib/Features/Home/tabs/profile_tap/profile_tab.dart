@@ -6,6 +6,7 @@ import 'package:movie_project/Model/favorites/favorite.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
+import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/utils/custom_profile_builder.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,8 +19,10 @@ import '../../../moveDetails/movie_details_args.dart';
 
 class ProfileTabScreen extends StatefulWidget {
   final String loginToken;
+  final String loginType;
 
-  const ProfileTabScreen({super.key, required this.loginToken,});
+  const ProfileTabScreen(
+      {super.key, required this.loginToken, required this.loginType});
 
   @override
   State<ProfileTabScreen> createState() => _ProfileTabScreenState();
@@ -30,7 +33,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
   late bool isGoogleLogin;
   int currentAvatarId = 1;
   List<Favorite> favoriteMovies = [];
-  late List<Movies> historyMovies;
+  List<Movies> historyMovies = [];
   String selectedAvatar = AppImages.avatar1;
   final List<String> avatars = [
     AppImages.avatar1, AppImages.avatar2, AppImages.avatar3,
@@ -41,7 +44,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
   @override
   void initState() {
     super.initState();
-    isGoogleLogin = widget.loginToken.isEmpty;
+    isGoogleLogin = widget.loginType == 'google';
     if (!isGoogleLogin) {
       profileFuture = ApiService().getProfile(widget.loginToken);
       ApiService.getAllFavoritesMovies(token: widget.loginToken).then((
@@ -83,7 +86,8 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text(
-                  AppLocalizations.of(context)!.errorLoadingProfile));
+                AppLocalizations.of(context)!.errorLoadingProfile,
+                style: AppStyles.reg20White,));
             }
             final data = snapshot.data!;
             final userName = data['name'] ?? 'User';

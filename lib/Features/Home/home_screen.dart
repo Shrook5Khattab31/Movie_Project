@@ -13,7 +13,9 @@ import '../../api/api_service.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? args;
-  const HomeScreen({super.key, this.args});
+  final String? loginType;
+
+  const HomeScreen({super.key, this.args, this.loginType});
 
   @override
   State<HomeScreen> createState() => _HomeScreen();
@@ -48,7 +50,8 @@ class _HomeScreen extends State<HomeScreen> {
             HomeTabScreen(moviesList: moviesList,loginToken: token ?? ''),
                SearchTabScreen(loginToken: token ?? ''),
                BrowseTabScreen(loginToken: token ?? ''),
-              ProfileTabScreen(loginToken: token ?? '')
+              ProfileTabScreen(
+                  loginToken: token ?? '', loginType: widget.loginType ?? '')
             ];
 
             return Stack(

@@ -9,6 +9,7 @@ import 'package:movie_project/Features/moveDetails/movieDetails.dart';
 import 'package:movie_project/core/theme/appTheme.dart';
 import 'package:movie_project/provider/langProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Features/Home/home_screen.dart';
 import 'Features/auth/loginScreen.dart';
@@ -22,15 +23,30 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final prefs = await SharedPreferences.getInstance();
+  final hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
+  final token = prefs.getString('authToken');
+  final loginType = prefs.getString('loginType');
+
+  Widget startScreen;
+  if (!hasSeenOnboarding) {
+    startScreen = OnboardingOne();
+  } else if (token != null && loginType != null) {
+    startScreen = HomeScreen(args: token, loginType: loginType);
+  } else {
+    startScreen = LoginScreen();
+  }
   runApp(
       ChangeNotifierProvider(create: (context) =>LangProvider(),
-      child: MovieApp(),
+        child: MovieApp(startScreen: startScreen),
       )
       );
 }
 
 class MovieApp extends StatelessWidget {
-  const MovieApp({super.key});
+  final Widget startScreen;
+
+  const MovieApp({super.key, required this.startScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +62,7 @@ class MovieApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      initialRoute: AppRoutes.onBoardingScreen,
+      home: startScreen,
       routes: {
         AppRoutes.onBoardingScreen: (context) => OnboardingOne(),
         AppRoutes.login: (context) => LoginScreen(),
