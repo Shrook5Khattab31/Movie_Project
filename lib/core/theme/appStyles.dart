@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'appColors.dart';
 
 class AppStyles {
-
   static final TextStyle bold24White = GoogleFonts.almarai(
     fontSize: 24,
     color: AppColors.whiteColor,
@@ -89,6 +88,24 @@ class AppStyles {
     color: AppColors.secondColor,
     fontWeight: FontWeight.bold,
   );
-  static TextStyle bold14Yellow= GoogleFonts.roboto(color: AppColors.secondColor,
-      fontSize: 14, fontWeight: FontWeight.w700 );
+  static TextStyle bold14Yellow = GoogleFonts.roboto(
+    color: AppColors.secondColor,
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+  );
+  static final TextStyle reg18Yellow = GoogleFonts.almarai(
+    fontSize: 18,
+    color: AppColors.secondColor,
+    fontWeight: FontWeight.w500,
+  );
+  static final TextStyle reg18White = GoogleFonts.almarai(
+    fontSize: 18,
+    color: AppColors.whiteColor,
+    fontWeight: FontWeight.w400,
+  );
+  static final TextStyle semiBold16Yellow = GoogleFonts.almarai(
+    fontSize: 16,
+    color: AppColors.secondColor,
+    fontWeight: FontWeight.w600,
+  );
 }

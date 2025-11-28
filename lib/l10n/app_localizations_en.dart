@@ -195,4 +195,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get update_date => 'Update Data';
+
+  @override
+  String get no_movies_found => 'No movies found matching your search';
+
+  @override
+  String get recentSearches => 'Recent searches';
+
+  @override
+  String get noGenre => 'No Genre';
 }

@@ -305,4 +305,20 @@ class ApiService {
     );
   }
 
+  static Future<List<Movies>> searchMovies(String title) async {
+    try{
+      final response = await movieDio.get(
+        ApiEndPoints.searchMovie,
+        queryParameters: {
+          "query_term": title,
+        },
+      );
+      final data = response.data["data"]["movies"] as List?;
+      if (data == null) return [];
+      return data.map((m) => Movies.fromJson(m)).toList();
+    }catch(e){
+      rethrow;
+    }
+  }
+
 }
