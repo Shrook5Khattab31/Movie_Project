@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -126,7 +125,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get back => 'Back';
 
   @override
-  String get watch_list => 'Watch List';
+  String get watch_list => 'Watch List  ';
 
   @override
   String get history => 'History';
@@ -171,7 +170,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get search => 'Search';
 
   @override
-  String get similar => 'Similar';
+  String get similar => 'Similar ';
 
   @override
   String get summary => 'Summary';
@@ -207,6 +206,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noCast => 'No cast available';
 
   @override
+  String get update_date => 'Update Data';
+
+  @override
+  String get no_movies_found => 'No movies found matching your search';
+
+  @override
+  String get recentSearches => 'Recent searches';
+
+  @override
+  String get noGenre => 'No Genre';
   String get errorLoadingProfile => 'Error loading profile';
 
   @override

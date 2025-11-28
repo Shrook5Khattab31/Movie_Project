@@ -15,14 +15,14 @@
   "verify_email": "Verify Email",
   "register": "Register",
 
-  "reset_password": "Reset Password",
-  "old_password": "Old password",
-  "new_password": "New password",
-  "rewrite_password": "Rewrite password",
+  "reset_password":"Reset Password",
+  "old_password":"Old password",
+  "new_password":"New password",
+  "rewrite_password":"Rewrite password",
 
-  "pick_avatar": "Pick Avatar",
-  "delete_account": "Delete Account",
-  "update_data": "Update Data",
+  "pick_avatar":"Pick Avatar",
+  "delete_account":"Delete Account",
+  "update_data":"Update Data",
 
   "find_next_favorite_movie": "Find Your Next\nFavorite Movie Here",
   "access_huge_library": "Get access to a huge library of movies\nto suit all tastes. You will surely like it.",
@@ -49,7 +49,7 @@
   "history": "History",
   "edit_profile": "Edit Profile",
   "exit": "Exit",
-
+  
   "login_successfully": "Login successfully",
   "successfully": "Successfully",
   "ok": "Ok",
@@ -69,7 +69,12 @@
   "adventure": "Adventure",
   "animation": "Animation",
   "biography": "Biography",
-  "wish_list": "Wish List",
+  "wish_list":"Wish List",
+  "delete_acc":"Delete Account",
+  "update_date": "Update Data",
+  "no_movies_found": "No movies found matching your search",
+  "recentSearches": "Recent searches",
+  "noGenre": "No Genre"
 
   "errorLoadingMovie": "Error loading movie",
   "noMovieData": "No movie data available",

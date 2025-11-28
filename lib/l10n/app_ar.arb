@@ -70,7 +70,12 @@
   "animation": "رسوم متحركة",
   "biography": "سيرة ذاتية",
 
-  "wish_list": "قائمة الأمنيات",
+   "wish_list": "قائمة الأمنيات",
+   "delete_acc": "حذف الحساب",
+   "update_date": "تحديث البيانات",
+   "no_movies_found": "لا توجد أفلام مطابقة لبحثك",
+   "recentSearches": "عمليات البحث الأخيرة",
+   "noGenre": "لا يوجد تصنيف"
 
   "errorLoadingMovie": "خطأ في تحميل الفيلم",
   "noMovieData": "لا توجد بيانات للفيلم",
