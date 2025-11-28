@@ -42,7 +42,6 @@ class _ResetPasswordState extends State<ResetPassword> {
           AppLocalizations.of(context)!.reset_password,
           style: AppStyles.reg16Yellow,
         ),
-        centerTitle: true,
         leading: InkWell(
           onTap: () => Navigator.pop(context),
           child: Icon(Icons.arrow_back_sharp, color: AppColors.secondColor),

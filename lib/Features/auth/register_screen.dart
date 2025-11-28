@@ -8,6 +8,7 @@ import 'package:movie_project/core/utils/validator_helper.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_form_field.dart';
+
 import '../../api/api_service.dart';
 import '../../core/utils/custom_dialog.dart';
 import '../../l10n/app_localizations.dart';
@@ -46,11 +47,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     double width = MediaQuery.of(context).size.width;
     final language = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         title: Text(language.register, style: AppStyles.reg16Yellow),
-        centerTitle: true,
-        backgroundColor: AppColors.primaryColor,
         leading: InkWell(
           onTap: () => Navigator.pop(context),
           child: Icon(Icons.arrow_back_sharp,

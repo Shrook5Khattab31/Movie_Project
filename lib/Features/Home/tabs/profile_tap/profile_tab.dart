@@ -52,7 +52,6 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: AppColors.primaryColor,
         body: isGoogleLogin
             ? buildGoogleProfile(width, height) :
         FutureBuilder<Map<String, dynamic>>(

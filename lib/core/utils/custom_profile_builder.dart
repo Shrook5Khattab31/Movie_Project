@@ -76,7 +76,6 @@ class CustomProfileBuilder {
               text: AppLocalizations.of(context)!.edit_profile,
               textStyle: AppStyles.reg20Black,
               onPressed: onPressed,
-              backgroundColor: AppColors.secondColor,
             ),
           ),
           SizedBox(width: width * 0.02),
@@ -111,11 +110,7 @@ class CustomProfileBuilder {
 
   static Widget buildProfileTabs({required BuildContext context}) {
     return TabBar(
-      indicatorColor: AppColors.secondColor,
       indicatorWeight: 3,
-      indicatorSize: TabBarIndicatorSize.tab,
-      labelColor: AppColors.whiteColor,
-      labelStyle: AppStyles.bold20White,
       tabs: [
         Tab(
           icon: Image.asset(AppImages.watchIcon),

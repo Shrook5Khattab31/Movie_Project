@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+
+import '../../core/constants/appAssets.dart';
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
 import '../../core/widgets/custom_elevated_btn.dart';
 import '../../l10n/app_localizations.dart';
-import 'onboarding_two.dart';
 import 'onboarding_four.dart';
-import '../../core/constants/appAssets.dart';
+import 'onboarding_two.dart';
 
 class OnboardingThree extends StatelessWidget {
   const OnboardingThree({super.key});
@@ -17,7 +18,6 @@ class OnboardingThree extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: [
           Positioned.fill(
@@ -29,7 +29,7 @@ class OnboardingThree extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              width: 430,
+              width: screenWidth,
               height: screenHeight * 0.33,
               decoration: const BoxDecoration(
                 color: AppColors.primaryColor,
@@ -69,7 +69,6 @@ class OnboardingThree extends StatelessWidget {
                           ),
                         );
                       },
-                      backgroundColor: AppColors.secondColor,
                       textStyle: AppStyles.semiBold20Black,
                     ),
                     SizedBox(height: screenHeight * 0.015),

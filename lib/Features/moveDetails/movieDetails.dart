@@ -7,6 +7,7 @@ import 'package:movie_project/core/widgets/custom_container.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
+
 import '../../Model/MovieDetailsModel/details.dart';
 import '../../api/api_service.dart';
 import '../../core/routing/routeNames.dart';
@@ -42,7 +43,6 @@ class _MovieDetailsState extends State<MovieDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.primaryColor,
         body: FutureBuilder<Movie>(
           future: movieFuture,
           builder: (context, snapshot) {

@@ -8,13 +8,14 @@ import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/utils/validator_helper.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
+
+import '../../core/constants/appAssets.dart';
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
 import '../../core/utils/custom_dialog.dart';
 import '../../core/widgets/custom_elevated_btn.dart';
 import '../../core/widgets/custom_text_form_field.dart';
 import '../../l10n/app_localizations.dart';
-import '../../core/constants/appAssets.dart';
 
 class LoginScreen extends StatefulWidget {
   String? loginToken;
@@ -36,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: width * 0.04),
         child: Form(
