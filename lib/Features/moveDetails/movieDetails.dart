@@ -49,9 +49,11 @@ class _MovieDetailsState extends State<MovieDetails> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text("Error loading movie"));
+              return Center(
+                  child: Text(AppLocalizations.of(context)!.errorLoadingMovie));
             } else if (!snapshot.hasData || snapshot.data == null) {
-              return Center(child: Text("No movie data available"));
+              return Center(
+                  child: Text(AppLocalizations.of(context)!.noMovieData));
             }
 
             final movie = snapshot.data!;
@@ -244,7 +246,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                       padding: EdgeInsets.symmetric(
                           horizontal: width * 0.037, vertical: height * 0.005),
                       child: Text(
-                          movie.descriptionFull ?? "No Summary Available",
+                        movie.descriptionFull ??
+                            AppLocalizations.of(context)!.noSummary,
                       style: AppStyles.reg16White,
                       ),
                     ),
@@ -254,7 +257,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       ? Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 16, vertical: 8),
-                          child: Text("No cast available",
+                      child: Text(AppLocalizations.of(context)!.noCast,
                           style: TextStyle(
                               color: Colors.white70, fontSize: 16)))
                       : Column(
@@ -295,11 +298,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                                   crossAxisAlignment:
                                   CrossAxisAlignment.start,
                                       children: [
-                                    Text("Name : ${actor.name}",
+                                        Text("${AppLocalizations.of(context)!
+                                            .name} ${actor.name}",
                                         style: AppStyles.reg20White),
                                         SizedBox(height: height * 0.003),
                                     Text(
-                                        "Character : ${actor.characterName}",
+                                        "${AppLocalizations.of(context)!
+                                            .character} ${actor.characterName}",
                                         style: AppStyles.reg20White),
                                       ],
                                     ),

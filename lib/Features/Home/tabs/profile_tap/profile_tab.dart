@@ -5,6 +5,7 @@ import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/utils/custom_profile_builder.dart';
+import 'package:movie_project/l10n/app_localizations.dart';
 
 import '../../../../Model/MoviesModel/Movies.dart';
 import '../../../../api/api_service.dart';
@@ -59,11 +60,9 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
           builder: (context,snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text("Error loading profile"));
+              return Center(child: Text(
+                  AppLocalizations.of(context)!.errorLoadingProfile));
             }
             final data = snapshot.data!;
             final userName = data['name'] ?? 'User';
@@ -202,7 +201,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                 context: context,
                 avatarPath: selectedAvatar,
                 userName: FirebaseAuth.instance.currentUser?.displayName ??
-                    "Google User",
+                    AppLocalizations.of(context)!.googleUser,
                 width: width,
                 height: height,
                 favoriteMovies: favoriteMovies,

@@ -125,7 +125,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get back => 'Back';
 
   @override
-  String get watch_list => 'Watch List  ';
+  String get watch_list => 'Watch List';
 
   @override
   String get history => 'History';
@@ -170,7 +170,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get search => 'Search';
 
   @override
-  String get similar => 'Similar ';
+  String get similar => 'Similar';
 
   @override
   String get summary => 'Summary';
@@ -191,8 +191,73 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wish_list => 'Wish List';
 
   @override
-  String get delete_acc => 'Delete Account';
+  String get errorLoadingMovie => 'Error loading movie';
 
   @override
-  String get update_date => 'Update Data';
+  String get noMovieData => 'No movie data available';
+
+  @override
+  String get noSummary => 'No Summary Available';
+
+  @override
+  String get character => 'Character :';
+
+  @override
+  String get noCast => 'No cast available';
+
+  @override
+  String get errorLoadingProfile => 'Error loading profile';
+
+  @override
+  String get googleUser => 'Google User';
+
+  @override
+  String get oldPasswordNull => 'Old password shouldn\'t be null';
+
+  @override
+  String get newPasswordNull => 'New password shouldn\'t be null';
+
+  @override
+  String get passwordMinLength => 'Password should at least 8 characters';
+
+  @override
+  String get passwordRequirements =>
+      'Password should contains at least one upper letter,\n one lower letter, \n one digit and \none special character';
+
+  @override
+  String get passwordNull => 'Password shouldn\'t be null';
+
+  @override
+  String get passwordMismatch => 'Password doesn\'t match';
+
+  @override
+  String get passwordUpdated => 'Password updated successfully';
+
+  @override
+  String get success => 'Success';
+
+  @override
+  String get networkError => 'Network error, please try again!';
+
+  @override
+  String get oldPasswordMismatch => 'Old password doesn\'t match!';
+
+  @override
+  String get somethingWrong => 'Something went Wrong!';
+
+  @override
+  String get unexpectedError => 'Unexpected error!';
+
+  @override
+  String get loginSuccessfully => 'Login Successfully';
+
+  @override
+  String get userNotFound => 'User is not found!, please try again';
+
+  @override
+  String get registerSuccessfully => 'Register successfully';
+
+  @override
+  String get invalidPhone =>
+      'Please make sure the phone number starts with +20 and contains 11 number';
 }

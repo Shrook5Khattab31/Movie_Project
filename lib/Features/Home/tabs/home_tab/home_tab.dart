@@ -8,6 +8,7 @@ import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
+import 'package:movie_project/l10n/app_localizations.dart';
 
 import '../../../../Model/MoviesModel/Movies.dart';
 import '../../../moveDetails/movie_details_args.dart';
@@ -44,7 +45,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text(
+                '${AppLocalizations.of(context)!.error}: ${snapshot.error}'));
           } else if (snapshot.data?.status != 'ok') {
             return Center(child: Text(snapshot.data!.statusMessage!));
           }
@@ -132,7 +134,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                           Text(category, style: AppStyles.reg20White),
                           const Spacer(),
                           CustomTextButton(
-                            text: 'See More',
+                            text: AppLocalizations.of(context)!.see_more,
                             onPressed: () {
                               // TODO: navigate to a browse tab
                             },

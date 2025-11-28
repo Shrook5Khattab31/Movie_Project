@@ -175,9 +175,9 @@ class _LoginScreenState extends State<LoginScreen> {
           CustomDialog.hideLoading(context: context);
           CustomDialog.showMessage(
             context: context,
-            title: "Success",
-            message: "Login Successfully",
-            posActionName: "Go to home",
+            title: AppLocalizations.of(context)!.success,
+            message: AppLocalizations.of(context)!.login_successfully,
+            posActionName: AppLocalizations.of(context)!.ok,
             posActionClick: () {
               Navigator.pushNamedAndRemoveUntil(
                 context,
@@ -195,32 +195,34 @@ class _LoginScreenState extends State<LoginScreen> {
             e.type == DioExceptionType.receiveTimeout) {
           CustomDialog.showMessage(
             context: context,
-            title: "Error",
-            message: "Network error, please try again!",
-            posActionName: "Ok",
+            title: AppLocalizations.of(context)!.error,
+            message: AppLocalizations.of(context)!.networkError,
+            posActionName: AppLocalizations.of(context)!.ok,
           );
         } else if (e.response!.statusCode == 400) {
           CustomDialog.showMessage(
             context: context,
-            title: "Error",
-            message: "User is not found!, please try again",
-            posActionName: "Ok",
+            title: AppLocalizations.of(context)!.error,
+            message: AppLocalizations.of(context)!.userNotFound,
+            posActionName: AppLocalizations.of(context)!.ok,
           );
         } else {
           CustomDialog.showMessage(
             context: context,
-            title: "Error",
-            message: e.response?.data['message'] ?? "Something went wrong!",
-            posActionName: "Ok",
+            title: AppLocalizations.of(context)!.error,
+            message:
+                e.response?.data['message'] ??
+                AppLocalizations.of(context)!.somethingWrong,
+            posActionName: AppLocalizations.of(context)!.ok,
           );
         }
       } catch (e) {
         CustomDialog.hideLoading(context: context);
         CustomDialog.showMessage(
           context: context,
-          title: "Error",
-          message: "Unexpected error: $e",
-          posActionName: "Ok",
+          title: AppLocalizations.of(context)!.error,
+          message: "${AppLocalizations.of(context)!.unexpectedError}: $e",
+          posActionName: AppLocalizations.of(context)!.ok,
         );
       }
     }

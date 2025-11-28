@@ -67,7 +67,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 !isInitialized) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError || !snapshot.hasData) {
-              return const Center(child: Text("Failed to load profile"));
+              return Center(child: Text(
+                  AppLocalizations.of(context)!.errorLoadingProfile));
             }
             final data = snapshot.data!;
             if (!isInitialized) {

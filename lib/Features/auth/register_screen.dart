@@ -150,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (formKey.currentState!.validate()) {
                         CustomDialog.showLoading(
                           context: context,
-                          text: 'Loading...',
+                          text: AppLocalizations.of(context)!.loading,
                         );
 
                         try {
@@ -169,9 +169,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               response.data['data'] != null) ) {
                             CustomDialog.showMessage(
                               context: context,
-                              title: "Success",
-                              message: 'Register successfully ',
-                              posActionName: "Ok",
+                                title: AppLocalizations.of(context)!.success,
+                                message: AppLocalizations.of(context)!
+                                    .registerSuccessfully,
+                                posActionName: AppLocalizations.of(context)!.ok,
                               posActionClick: (){
                                 Navigator.pushNamedAndRemoveUntil(
                                   context,
@@ -187,9 +188,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                             CustomDialog.showMessage(
                               context: context,
-                              message: "Please make sure the phone number starts with +20 and contains 11 number",
-                              title: "Error",
-                              posActionName: "ok",
+                              message: AppLocalizations.of(context)!
+                                  .invalidPhone,
+                              title: AppLocalizations.of(context)!.error,
+                              posActionName: AppLocalizations.of(context)!.ok,
                             );
                           }
 
@@ -198,8 +200,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             CustomDialog.showMessage(
                               context: context,
                               message: message,
-                              title: "Error",
-                              posActionName: "ok",
+                              title: AppLocalizations.of(context)!.error,
+                              posActionName: AppLocalizations.of(context)!.ok,
 
                             );
                           }
@@ -207,8 +209,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           CustomDialog.hideLoading(context: context);
                           CustomDialog.showMessage(
                             context: context,
-                            title:"Error" ,
-                            message: 'Something went wrong ',
+                            title: AppLocalizations.of(context)!.error,
+                            message: AppLocalizations.of(context)!
+                                .somethingWrong,
                           );
                         }
                       }
