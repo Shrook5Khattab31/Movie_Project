@@ -198,4 +198,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get no_movies_found => 'لا توجد أفلام مطابقة لبحثك';
+
+  @override
+  String get recentSearches => 'عمليات البحث الأخيرة';
+
+  @override
+  String get noGenre => 'لا يوجد تصنيف';
 }

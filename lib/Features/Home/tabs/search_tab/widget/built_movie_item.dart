@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_project/l10n/app_localizations_ar.dart';
 import '../../../../../Model/MoviesModel/Movies.dart';
 import '../../../../../core/theme/appColors.dart';
 import '../../../../../core/theme/appStyles.dart';
+import '../../../../../l10n/app_localizations.dart';
 
 class BuiltMovieItem extends StatelessWidget {
   const BuiltMovieItem({super.key,required this.movie});
@@ -38,7 +40,7 @@ class BuiltMovieItem extends StatelessWidget {
         subtitle: Text(
           movie.genres != null && movie.genres!.isNotEmpty
               ? movie.genres!.join(", ")
-              : "No Genre",
+              : AppLocalizations.of(context)!.genres,
           style: AppStyles.reg16White,
         ),
         trailing: Row(

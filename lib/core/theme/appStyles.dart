@@ -103,4 +103,9 @@ class AppStyles {
     color: AppColors.whiteColor,
     fontWeight: FontWeight.w400,
   );
+  static final TextStyle semiBold16Yellow = GoogleFonts.almarai(
+    fontSize: 16,
+    color: AppColors.secondColor,
+    fontWeight: FontWeight.w600,
+  );
 }

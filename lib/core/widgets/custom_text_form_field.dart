@@ -18,6 +18,8 @@ class CustomTextFormField extends StatelessWidget {
   final VoidCallback? onToggleVisibility;
   final TextInputType? keyboardType;
   final onValidator? validatorFunc;
+  final void Function()? onTap;
+  final FocusNode? focusNode;
 
   const CustomTextFormField({
     super.key,
@@ -34,6 +36,8 @@ class CustomTextFormField extends StatelessWidget {
     this.onToggleVisibility,
     this.keyboardType,
     this.validatorFunc,
+    this.onTap,
+    this.focusNode
   });
 
   @override
@@ -42,6 +46,8 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: isPassword,
       controller: controller,
       onChanged: onChanged,
+      onTap: onTap,
+      focusNode: focusNode,
       validator: validatorFunc,
       cursorColor: AppColors.secondColor,
       style: hintStyle ?? AppStyles.reg16White,

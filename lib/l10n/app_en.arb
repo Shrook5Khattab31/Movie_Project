@@ -72,7 +72,9 @@
   "wish_list":"Wish List",
   "delete_acc":"Delete Account",
   "update_date": "Update Data",
-  "no_movies_found": "No movies found matching your search"
+  "no_movies_found": "No movies found matching your search",
+  "recentSearches": "Recent searches",
+  "noGenre": "No Genre"
 
 
 
