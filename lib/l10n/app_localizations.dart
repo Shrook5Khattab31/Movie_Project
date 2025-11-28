@@ -373,6 +373,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading'**
   String get loading;
+
+  /// No description provided for @watch.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch'**
+  String get watch;
+
+  /// No description provided for @genres.
+  ///
+  /// In en, this message translates to:
+  /// **'Genres'**
+  String get genres;
+
+  /// No description provided for @action.
+  ///
+  /// In en, this message translates to:
+  /// **'Action'**
+  String get action;
+
+  /// No description provided for @see_more.
+  ///
+  /// In en, this message translates to:
+  /// **'See More'**
+  String get see_more;
+
+  /// No description provided for @screen_shots.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen Shots'**
+  String get screen_shots;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @similar.
+  ///
+  /// In en, this message translates to:
+  /// **'Similar '**
+  String get similar;
+
+  /// No description provided for @summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get summary;
+
+  /// No description provided for @cast.
+  ///
+  /// In en, this message translates to:
+  /// **'Cast'**
+  String get cast;
+
+  /// No description provided for @adventure.
+  ///
+  /// In en, this message translates to:
+  /// **'Adventure'**
+  String get adventure;
+
+  /// No description provided for @animation.
+  ///
+  /// In en, this message translates to:
+  /// **'Animation'**
+  String get animation;
+
+  /// No description provided for @biography.
+  ///
+  /// In en, this message translates to:
+  /// **'Biography'**
+  String get biography;
+
+  /// No description provided for @wish_list.
+  ///
+  /// In en, this message translates to:
+  /// **'Wish List'**
+  String get wish_list;
+
+  /// No description provided for @delete_acc.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get delete_acc;
+
+  /// No description provided for @update_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Data'**
+  String get update_date;
 }
 
 class _AppLocalizationsDelegate

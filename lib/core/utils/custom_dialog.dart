@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import '../theme/appColors.dart';
+import '../theme/appStyles.dart';
 
 class CustomDialog {
   static void showLoading({
     required BuildContext context,
-    required Color background,
     required String text,
-    required TextStyle? style,
   }) {
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: background,
+          backgroundColor: AppColors.primaryColor,
           title: Row(
             spacing: 18,
             children: [
               CircularProgressIndicator(color: AppColors.secondColor),
-              Text(text, style: style),
+              Text(text, style: AppStyles.bold20Yellow,),
             ],
           ),
         );
@@ -32,16 +31,11 @@ class CustomDialog {
 
   static void showMessage({
     required BuildContext context,
-     Color background = AppColors.primaryColor,
-    required TextStyle? styleMessage,
+    required String title,
     required String message,
-    String? title,
-    TextStyle? styleTitle,
     String? posActionName,
-    TextStyle? stylePosActionName,
     Function? posActionClick,
     String? nagActionName,
-    TextStyle? styleNagActionName,
     Function? nagActionClick,
   }) {
     List<Widget>? actions = [];
@@ -52,7 +46,7 @@ class CustomDialog {
             Navigator.pop(context);
             posActionClick?.call();
           },
-          child: Text(posActionName, style: stylePosActionName),
+          child: Text(posActionName, style: AppStyles.bold20Yellow),
         ),
       );
     }
@@ -63,7 +57,7 @@ class CustomDialog {
             Navigator.pop(context);
             nagActionClick?.call();
           },
-          child: Text(nagActionName, style: styleNagActionName),
+          child: Text(nagActionName, style: AppStyles.bold20Yellow),
         ),
       );
     }
@@ -73,9 +67,9 @@ class CustomDialog {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: background,
-          title: Text(title ?? "", style: styleTitle),
-          content: Text(message, style: styleMessage),
+          backgroundColor: AppColors.primaryColor,
+          title: Text(title, style: AppStyles.bold20Yellow),
+          content: Text(message, style: AppStyles.reg16White),
           actions: actions,
         );
       },

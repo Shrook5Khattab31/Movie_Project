@@ -5,6 +5,7 @@ class AppRoutes{
   static const String homeScreen = 'homeScreen';
   static const String forgetPassScreen= 'forgetPassScreen';
   static const String updateProfileScreen= 'updateProfileScreen';
-  static String register = 'register';
+  static const String detailsScreen= 'detailsScreen';
+  static const String register = 'register';
 
 }

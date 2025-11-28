@@ -22,18 +22,21 @@ class _BuiltAvatarRegisterState extends State<BuiltAvatarRegister> {
     AppImages.avatar8,
     AppImages.avatar9
   ];
-  int currentIndex = 1;
+  int currentIndex = 0;
+  bool isAutoPlay = true;
+  CarouselSliderController? carouselController = CarouselSliderController();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return CarouselSlider(
+      carouselController: carouselController,
       options: CarouselOptions(
         enlargeCenterPage: true,
         aspectRatio: 15 / 6,
         viewportFraction: height * 0.00054,
         height: height * 0.18,
         enableInfiniteScroll: false,
-        autoPlay: true,
+        autoPlay: isAutoPlay,
         initialPage: currentIndex,
         onPageChanged: (index, reason) {
           setState(() {
@@ -45,7 +48,18 @@ class _BuiltAvatarRegisterState extends State<BuiltAvatarRegister> {
         },
       ),
       items: avatarList.map((e) {
-        return Image.asset(e,fit: BoxFit.cover,);
+        return InkWell(
+            onTap: (){
+              setState(() {
+                isAutoPlay = false;
+                currentIndex = avatarList.indexOf(e);
+              });
+              carouselController!.animateToPage(currentIndex);
+              if (widget.onAvatarChanged != null) {
+                widget.onAvatarChanged!(currentIndex+1);
+              }
+            },
+            child: Image.asset(e,fit: BoxFit.cover,));
       },).toList()
     );
   }

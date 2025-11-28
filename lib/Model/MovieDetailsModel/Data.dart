@@ -1,4 +1,4 @@
-import 'Movies.dart';
+import '../MoviesModel/Movies.dart';
 
 /// movie_count : 71272
 /// limit : 20

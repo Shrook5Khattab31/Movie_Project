@@ -42,6 +42,7 @@
 
    "start_watching_now": "ابدأ المشاهدة الآن",
    "finish": "إنهاء",
+   "Genres":"الأنواع",
 
    "next": "التالي",
    "back": "رجوع",
@@ -54,7 +55,26 @@
    "successfully": "بنجاح",
    "ok": "حسنًا",
    "error": "خطأ",
-   "loading": "جارٍ التحميل"
+   "loading": "جارٍ التحميل",
+
+   "watch": "شاهد",
+   "genres": "الانواع",
+
+   "action": "أكشن",
+   "see_more": "عرض المزيد",
+   "screen_shots": "لقطات الشاشة",
+   "search": "بحث",
+   "similar": "مشابه",
+   "summary": "الملخص",
+   "cast": "طاقم التمثيل",
+   "adventure": "مغامرة",
+   "animation": "رسوم متحركة",
+   "biography": "سيرة ذاتية",
+
+   "wish_list": "قائمة الأمنيات",
+   "delete_acc": "حذف الحساب",
+   "update_date": "تحديث البيانات"
+
 
 
 }

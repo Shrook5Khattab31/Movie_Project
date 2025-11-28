@@ -54,7 +54,26 @@
   "successfully": "Successfully",
   "ok": "Ok",
   "error": "Error",
-  "loading": "Loading"
+  "loading": "Loading",
+
+  "watch": "Watch",
+  "genres": "Genres",
+
+  "action": "Action",
+  "see_more": "See More",
+  "screen_shots": "Screen Shots",
+  "search": "Search",
+  "similar": "Similar ",
+  "summary": "Summary",
+  "cast": "Cast",
+  "adventure": "Adventure",
+  "animation": "Animation",
+  "biography": "Biography",
+  "wish_list":"Wish List",
+  "delete_acc":"Delete Account",
+  "update_date": "Update Data"
+
+
 
 
 }
