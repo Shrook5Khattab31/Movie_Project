@@ -51,9 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
             final moviesList = state.movies;
             final tabsList = [
               HomeTabScreen(loginToken: token ?? ''),
-              const SearchTabScreen(),
+              SearchTabScreen(loginToken: token ?? ''),
               BrowseTabScreen(loginToken: token ?? ''),
-              ProfileTabScreen(loginToken: token ?? '')
+              ProfileTabScreen(
+                  loginToken: token ?? '', loginType: widget.loginType ?? '')
             ];
 
             return Scaffold(
