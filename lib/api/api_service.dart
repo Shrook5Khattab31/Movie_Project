@@ -132,7 +132,7 @@ class ApiService {
   }
 
   //homeTab
-  static Future<MovieResponse> getAllMovies({int page =3500,int limit = 20,String? genre,}) async {
+   Future<MovieResponse> getAllMovies({int page =3500,int limit = 20,String? genre,}) async {
     try {
       var response = await movieDio.get(
         ApiEndPoints.listMovies,
