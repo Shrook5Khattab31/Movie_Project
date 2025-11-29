@@ -167,7 +167,9 @@ class _MovieDetailsState extends State<MovieDetails> {
                               Expanded(
                                   child: GestureDetector(
                                       onTap: () async {
-                                        launchMovieUrl();
+                                        launchMovieUrl(
+                                            'https://www.youtube.com/watch?v=${movie
+                                                .ytTrailerCode}');
                                       },
                                       child: Image.asset(AppImages.play)
                                   )
@@ -193,7 +195,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                         children: [
                           CustomElevatedButton(
                             onPressed: () async {
-                              launchMovieUrl();
+                              launchMovieUrl(movie.url);
                             },
                             backgroundColor: AppColors.redColor,
                             text: AppLocalizations.of(context)!.watch,
@@ -203,7 +205,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CustomContainer(icon: AppImages.likeIcon, text: "15"),
+                              CustomContainer(icon: AppImages.likeIcon,
+                                  text: "${movie.likeCount}"),
                               CustomContainer(icon: AppImages.timeIcon, text: "${movie.runtime}"),
                               CustomContainer(icon: AppImages.starIcon, text: "${movie.rating}"),
                             ],
@@ -382,8 +385,8 @@ class _MovieDetailsState extends State<MovieDetails> {
     );
   }
 
-  Future<void> launchMovieUrl() async {
-    final url = args.movie.url;
+  Future<void> launchMovieUrl(dynamic movieUrl) async {
+    final url = movieUrl;
     if (url != null && url.isNotEmpty) {
       final uri = Uri.parse(url);
       CustomDialog.showLoading(context: context,
