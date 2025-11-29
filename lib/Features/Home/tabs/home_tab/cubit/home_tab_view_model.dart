@@ -6,8 +6,8 @@ class HomeTabViewModel extends Cubit<HomeTabStates> {
    HomeTabRepository homeTabRepository;
   HomeTabViewModel({required this.homeTabRepository}): super(HomeTabLoadingState());
 
-  void fetchMovies () async {
-    emit(HomeTabLoadingState());
+  void fetchMovies  () async {
+        emit(HomeTabLoadingState());
     try{
       var response =await homeTabRepository.getAllMovies();
       if(response.status=='error'){

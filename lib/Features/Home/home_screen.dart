@@ -4,7 +4,6 @@ import 'package:movie_project/Features/Home/tabs/browse_tap/browse_tab.dart';
 import 'package:movie_project/Features/Home/tabs/home_tab/home_tab.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/profile_tab.dart';
 import 'package:movie_project/Features/Home/tabs/search_tab/search_tab.dart';
-
 import '../../core/constants/appAssets.dart';
 import '../../core/theme/appColors.dart';
 import '../../di/di.dart';
@@ -50,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (state is HomeScreenSuccessState) {
             final moviesList = state.movies;
             final tabsList = [
-              HomeTabScreen(loginToken: token ?? ''),
+              HomeTabScreen(loginToken: token ?? '',),
                SearchTabScreen(loginToken: token ?? ''),
               BrowseTabScreen(loginToken: token ?? ''),
               ProfileTabScreen(

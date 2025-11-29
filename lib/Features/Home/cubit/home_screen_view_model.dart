@@ -10,11 +10,11 @@ class HomeScreenViewModel extends Cubit<HomeScreenStates> {
   HomeScreenViewModel({required this.homeScreenRepository}): super(HomeScreenLoadingState());
 
   void fetchMovies() async {
-    emit(HomeScreenLoadingState());
+         emit(HomeScreenLoadingState());
     try{
       var response =await homeScreenRepository.getAllMovies();
       if(response.status=='error'){
-        emit(HomeScreenErrorState(errorMessage:response.statusMessage!));
+         emit(HomeScreenErrorState(errorMessage:response.statusMessage!));
         return;
       }
       else if(response.status=='ok'){

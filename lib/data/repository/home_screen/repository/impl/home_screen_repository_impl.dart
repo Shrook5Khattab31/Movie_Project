@@ -4,9 +4,10 @@ import '../home_tab_repository.dart';
 
 class HomeScreenRepositoryImpl implements HomeScreenRepository{
 HomeScreenRemoteDataSource remoteDataSource;
-HomeScreenRepositoryImpl({required this.remoteDataSource});
+HomeScreenRepositoryImpl  ({required this.remoteDataSource});
   @override
   Future<MovieResponse> getAllMovies() {
-    return  remoteDataSource.getAllMovies();
+    return remoteDataSource.getAllMovies();
+
   }
 }
