@@ -3,16 +3,19 @@ import 'package:movie_project/Model/MoviesModel/Movies.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
+import 'package:movie_project/core/utils/custom_dialog.dart';
 import 'package:movie_project/core/widgets/custom_container.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Model/MovieDetailsModel/details.dart';
 import '../../api/api_service.dart';
 import '../../core/routing/routeNames.dart';
 import '../../service/history_service.dart';
 import 'movie_details_args.dart';
+
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({super.key});
@@ -161,7 +164,14 @@ class _MovieDetailsState extends State<MovieDetails> {
 
                                 ],
                               ),
-                              Expanded(child: Image.asset(AppImages.play)),
+                              Expanded(
+                                  child: GestureDetector(
+                                      onTap: () async {
+                                        launchMovieUrl();
+                                      },
+                                      child: Image.asset(AppImages.play)
+                                  )
+                              ),
                               Text(movie.title ?? "",
                                   style: AppStyles.bold24White,
                                   textAlign: TextAlign.center),
@@ -182,7 +192,9 @@ class _MovieDetailsState extends State<MovieDetails> {
                         spacing: height * 0.02,
                         children: [
                           CustomElevatedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              launchMovieUrl();
+                            },
                             backgroundColor: AppColors.redColor,
                             text: AppLocalizations.of(context)!.watch,
                             textStyle: AppStyles.bold20White,
@@ -369,4 +381,27 @@ class _MovieDetailsState extends State<MovieDetails> {
       child: Text(title, style: AppStyles.bold24White),
     );
   }
+
+  Future<void> launchMovieUrl() async {
+    final url = args.movie.url;
+    if (url != null && url.isNotEmpty) {
+      final uri = Uri.parse(url);
+      CustomDialog.showLoading(context: context,
+          text: AppLocalizations.of(context)!.loading);
+      try {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+        CustomDialog.hideLoading(context: context);
+      } catch (e) {
+        CustomDialog.hideLoading(context: context);
+        CustomDialog.showMessage(
+          context: context,
+          title: AppLocalizations.of(context)!.error,
+          message: AppLocalizations.of(context)!.errorLoadingMovie,
+          posActionName: AppLocalizations.of(context)!.ok,
+          posActionClick: () => Navigator.of(context).pop(),
+        );
+      }
+    }
+  }
+
 }
