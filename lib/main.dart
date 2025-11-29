@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/update_profile.dart';
 import 'package:movie_project/Features/auth/forget_pass.dart';
 import 'package:movie_project/Features/moveDetails/movieDetails.dart';
 import 'Features/Home/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/resetPassword.dart';
+import 'api/my_bloc_observer.dart';
 import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 import 'Features/onBoarding/onboarding_one.dart';
@@ -18,6 +20,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Bloc.observer = MyBlocObserver();
   runApp(const MovieApp());
 }
 

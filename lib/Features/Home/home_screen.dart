@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_project/Features/Home/tabs/browse_tap/browse_tab.dart';
 import 'package:movie_project/Features/Home/tabs/home_tab/home_tab.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/profile_tab.dart';
 import 'package:movie_project/Features/Home/tabs/search_tab/search_tab.dart';
-import 'package:movie_project/Model/MoviesModel/Movies.dart';
-import 'package:movie_project/core/constants/appAssets.dart';
-import 'package:movie_project/core/theme/appColors.dart';
 
-import '../../Model/MoviesModel/MovieResponse.dart';
-import '../../api/api_service.dart';
-
+import '../../core/constants/appAssets.dart';
+import '../../core/theme/appColors.dart';
+import '../../di/di.dart';
+import 'cubit/home_screen_states.dart';
+import 'cubit/home_screen_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? args;
   const HomeScreen({super.key, this.args});
 
   @override
-  State<HomeScreen> createState() => _HomeScreen();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreen extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  late Future<MovieResponse> moviesFuture;
-  late List<Movies> moviesList = [];
+  late HomeScreenViewModel viewModel;
+
   @override
   void initState() {
     super.initState();
-    moviesFuture = ApiService.getAllMovies();
+    viewModel = HomeScreenViewModel( homeScreenepository: injectHomeScreenRepository(),);
+    viewModel.fetchMovies();
   }
 
   @override
@@ -35,88 +36,87 @@ class _HomeScreen extends State<HomeScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: FutureBuilder<MovieResponse>(
-          future: moviesFuture,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            moviesList = snapshot.data!.data?.movies ?? [];
-
-            List<Widget> tabsList = [
-            HomeTabScreen(moviesList: moviesList,loginToken: token ?? ''),
+    return BlocProvider(
+      create: (_) => viewModel,
+      child: BlocBuilder<HomeScreenViewModel, HomeScreenStates>(
+        builder: (context, state) {
+          if (state is HomeScreenLoadingState) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is HomeScreenErrorState) {
+            return Center(child: Text('Error: ${state.errorMessage}'));
+          } else if (state is HomeScreenSuccessState) {
+            final moviesList = state.movies;
+            final tabsList = [
+              HomeTabScreen(loginToken: token ?? ''),
               const SearchTabScreen(),
-               BrowseTabScreen(loginToken: token ?? ''),
+              BrowseTabScreen(loginToken: token ?? ''),
               ProfileTabScreen(loginToken: token ?? '')
             ];
 
-            return Stack(
-              children: [
-                Positioned.fill(
-                  child: tabsList[selectedIndex],
-                ),
-                Positioned(
-                  left: width * 0.03,
-                  right: width * 0.03,
-                  bottom: height * 0.01,
-                  child: SafeArea(
-                    top: false,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                          splashColor: AppColors.transparentColor,
-                          highlightColor: AppColors.transparentColor,
-                          hoverColor: AppColors.transparentColor,
-                        ),
-                        child: BottomNavigationBar(
-                          selectedItemColor: AppColors.secondColor,
-                          unselectedItemColor: AppColors.whiteColor,
-                          backgroundColor: AppColors.grayDarkColor,
-                          showSelectedLabels: false,
-                          showUnselectedLabels: false,
-                          currentIndex: selectedIndex,
-                          type: BottomNavigationBarType.fixed,
-                          onTap: (index) {
-                            setState(() {
-                              selectedIndex = index;
-                            });
-                          },
-                          items: [
-                            buildBottomNavBarItem(
-                              index: 0,
-                              selectedIconName: AppImages.homeIcon,
-                              unSelectedIconName: AppImages.homeIcon,
-                              label: 'Home',
-                            ),
-                            buildBottomNavBarItem(
-                              index: 1,
-                              selectedIconName: AppImages.searchIcon,
-                              unSelectedIconName: AppImages.searchIcon,
-                              label: 'Search',
-                            ),
-                            buildBottomNavBarItem(
-                              index: 2,
-                              selectedIconName: AppImages.browseIcon,
-                              unSelectedIconName: AppImages.browseIcon,
-                              label: 'Browse',
-                            ),
-                            buildBottomNavBarItem(
-                              index: 3,
-                              selectedIconName: AppImages.profileIcon,
-                              unSelectedIconName: AppImages.profileIcon,
-                              label: 'Profile',
-                            ),
-                          ],
+            return Scaffold(
+              body: Stack(
+                children: [
+                  Positioned.fill(child: tabsList[selectedIndex]),
+                  Positioned(
+                    left: width * 0.03,
+                    right: width * 0.03,
+                    bottom: height * 0.01,
+                    child: SafeArea(
+                      top: false,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        child: Theme(
+                          data: Theme.of(context).copyWith(
+                            splashColor: AppColors.transparentColor,
+                            highlightColor: AppColors.transparentColor,
+                            hoverColor: AppColors.transparentColor,
+                          ),
+                          child: BottomNavigationBar(
+                            selectedItemColor: AppColors.secondColor,
+                            unselectedItemColor: AppColors.whiteColor,
+                            backgroundColor: AppColors.grayDarkColor,
+                            showSelectedLabels: false,
+                            showUnselectedLabels: false,
+                            currentIndex: selectedIndex,
+                            type: BottomNavigationBarType.fixed,
+                            onTap: (index) {
+                              setState(() {
+                                selectedIndex = index;
+                              });
+                            },
+                            items: [
+                              buildBottomNavBarItem(
+                                  index: 0,
+                                  selectedIconName: AppImages.homeIcon,
+                                  unSelectedIconName: AppImages.homeIcon,
+                                  label: 'Home'),
+                              buildBottomNavBarItem(
+                                  index: 1,
+                                  selectedIconName: AppImages.searchIcon,
+                                  unSelectedIconName: AppImages.searchIcon,
+                                  label: 'Search'),
+                              buildBottomNavBarItem(
+                                  index: 2,
+                                  selectedIconName: AppImages.browseIcon,
+                                  unSelectedIconName: AppImages.browseIcon,
+                                  label: 'Browse'),
+                              buildBottomNavBarItem(
+                                  index: 3,
+                                  selectedIconName: AppImages.profileIcon,
+                                  unSelectedIconName: AppImages.profileIcon,
+                                  label: 'Profile'),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           }
+          return const SizedBox();
+        },
       ),
     );
   }
@@ -129,12 +129,10 @@ class _HomeScreen extends State<HomeScreen> {
   }) {
     return BottomNavigationBarItem(
       icon: ImageIcon(
-        AssetImage(
-          selectedIndex == index ? selectedIconName : unSelectedIconName,
-        ),
+        AssetImage(selectedIndex == index ? selectedIconName : unSelectedIconName),
       ),
-      label:label,
+      label: label,
     );
   }
-
 }
+
