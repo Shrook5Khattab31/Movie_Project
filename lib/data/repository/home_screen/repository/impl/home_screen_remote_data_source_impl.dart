@@ -7,7 +7,7 @@ class HomeScreenRemoteDataSourceImpl implements HomeScreenRemoteDataSource{
   HomeScreenRemoteDataSourceImpl({required this.apiService});
   @override
   Future<MovieResponse> getAllMovies() {
-    var homeScreenResponse=apiService.getAllMovies();
+    var  homeScreenResponse=apiService.getAllMovies();
     return homeScreenResponse;
   }
 }

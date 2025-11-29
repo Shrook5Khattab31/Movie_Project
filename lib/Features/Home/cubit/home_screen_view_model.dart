@@ -6,13 +6,13 @@ import '../tabs/home_tab/cubit/home_tab_states.dart';
 import 'home_screen_states.dart';
 
 class HomeScreenViewModel extends Cubit<HomeScreenStates> {
-  HomeScreenRepository homeScreenepository;
-  HomeScreenViewModel({required this.homeScreenepository}): super(HomeScreenLoadingState());
+  HomeScreenRepository  homeScreenRepository;
+  HomeScreenViewModel({required this.homeScreenRepository}): super(HomeScreenLoadingState());
 
   void fetchMovies() async {
     emit(HomeScreenLoadingState());
     try{
-      var response =await homeScreenepository.getAllMovies();
+      var response =await homeScreenRepository.getAllMovies();
       if(response.status=='error'){
         emit(HomeScreenErrorState(errorMessage:response.statusMessage!));
         return;

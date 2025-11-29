@@ -12,8 +12,7 @@ import '../../../moveDetails/movie_details_args.dart';
 
 class BrowseTabScreen extends StatefulWidget {
   final String loginToken;
-  const BrowseTabScreen({super.key, required this.loginToken});
-
+  final String? initialGenre;
   const BrowseTabScreen(
       {super.key, required this.loginToken, this.initialGenre});
   @override

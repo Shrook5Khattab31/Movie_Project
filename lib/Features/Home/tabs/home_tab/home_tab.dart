@@ -13,6 +13,7 @@ import 'package:movie_project/core/widgets/custom_text_button.dart';
 import 'package:movie_project/di/di.dart';
 import '../../../../Model/MoviesModel/Movies.dart';
 import '../../../moveDetails/movie_details_args.dart';
+import '../../home_screen.dart';
 
 class HomeTabScreen extends StatefulWidget {
   final String loginToken;

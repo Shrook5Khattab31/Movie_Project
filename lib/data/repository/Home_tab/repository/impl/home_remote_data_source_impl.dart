@@ -5,7 +5,7 @@ import '../../data_source/remote/home_remote_data_source.dart';
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource{
   ApiService apiService;
-  HomeRemoteDataSourceImpl({required this.apiService});
+  HomeRemoteDataSourceImpl ({required this.apiService});
   @override
   Future<MovieResponse> getAllMovies() {
     var homeTabResponse=apiService.getAllMovies();

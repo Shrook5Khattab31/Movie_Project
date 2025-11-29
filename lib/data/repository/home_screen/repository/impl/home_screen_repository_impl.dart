@@ -7,6 +7,6 @@ HomeScreenRemoteDataSource remoteDataSource;
 HomeScreenRepositoryImpl({required this.remoteDataSource});
   @override
   Future<MovieResponse> getAllMovies() {
-    return remoteDataSource.getAllMovies();
+    return  remoteDataSource.getAllMovies();
   }
 }
