@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:movie_project/Model/MoviesModel/Movies.dart';
 import 'package:movie_project/Model/MoviesModel/MovieResponse.dart';
+import 'package:movie_project/Model/MoviesModel/Movies.dart';
 import 'package:movie_project/api/api_service.dart';
+import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
-import 'package:movie_project/core/routing/routeNames.dart';
-import '../../../moveDetails/movie_details_args.dart';
 
+import '../../../moveDetails/movie_details_args.dart';
 
 class BrowseTabScreen extends StatefulWidget {
   final String loginToken;
- const BrowseTabScreen({super.key,required this.loginToken,});
+  final String? initialGenre;
 
+  const BrowseTabScreen(
+      {super.key, required this.loginToken, this.initialGenre});
   @override
   State<BrowseTabScreen> createState() => _BrowseTabScreenState();
 }
@@ -22,11 +24,13 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
   List<Movies> moviesList = [];
   List<String> genresList = [];
   String? selectedGenre;
+  final ScrollController _genreScrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     moviesFuture = ApiService.getAllMovies();
+    selectedGenre = widget.initialGenre;
   }
 
   List<Movies> get filteredMovies {
@@ -55,8 +59,18 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
             if (movie.genres != null) genresSet.addAll(movie.genres!);
           }
           genresList = genresSet.toList()..sort();
-
-
+          if (selectedGenre != null) {
+            final index = genresList.indexOf(selectedGenre!);
+            if (index != -1) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _genreScrollController.animateTo(
+                  index * 125,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              });
+            }
+          }
           selectedGenre ??= genresList.isNotEmpty ? genresList.first : null;
 
           return Column(
@@ -64,6 +78,7 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
               SizedBox(
                 height: height*0.055,
                 child: ListView.separated(
+                  controller: _genreScrollController,
                   scrollDirection: Axis.horizontal,
                   padding:  EdgeInsets.symmetric(horizontal: width*0.02),
                   itemCount: genresList.length,
@@ -118,7 +133,6 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
                             movies: moviesList,
                             movie: movie,
                             token: widget.loginToken,
-                            fromProfile: true,
                           ),
                         );
                       },

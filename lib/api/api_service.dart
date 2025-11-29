@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_project/Model/MoviesModel/MovieResponse.dart';
 import 'package:movie_project/api/api_constants.dart';
 import 'package:movie_project/api/api_endpoints.dart';
+
 import '../Model/MovieDetailsModel/details.dart';
 import '../Model/MoviesModel/Movies.dart';
 import '../Model/favorites/favorite.dart';
@@ -130,32 +131,6 @@ class ApiService {
     }
   }
 
-  // Reset Password
-  // Future<Response> resetPassword({
-  //   required String oldPassword,
-  //   required String newPassword,
-  //   required String token,
-  // }) async {
-  //   try {
-  //     var response = await dio.patch(
-  //       ApiEndPoints.reset_password,
-  //       data: {
-  //         'oldPassword': oldPassword,
-  //         'newPassword': newPassword,
-  //       },
-  //       options: Options(
-  //         headers: {
-  //           'Authorization': 'Bearer $token',
-  //         },
-  //         validateStatus: (status) => status! < 500,
-  //       ),
-  //     );
-  //     return response;
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
-
   //homeTab
   static Future<MovieResponse> getAllMovies({int page =3500,int limit = 20,String? genre,}) async {
     try {
@@ -191,11 +166,8 @@ class ApiService {
         )
       );
       return response;
-
-    }
-    catch(e){
+    } catch (e) {
       rethrow;
-
     }
     }
 

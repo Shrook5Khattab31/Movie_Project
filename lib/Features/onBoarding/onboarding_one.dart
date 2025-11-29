@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/constants/appAssets.dart';
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
@@ -16,7 +17,6 @@ class OnboardingOne extends StatelessWidget {
     final lang = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: [
           Positioned.fill(
@@ -75,7 +75,6 @@ class OnboardingOne extends StatelessWidget {
                                 builder: (context) => const OnboardingTwo()),
                           );
                         },
-                        backgroundColor: AppColors.secondColor,
                         textStyle: AppStyles.semiBold20Black,
                       ),
                     ],

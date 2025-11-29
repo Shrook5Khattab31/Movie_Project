@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_project/Features/Home/home_screen.dart';
 import 'package:movie_project/Model/MoviesModel/MovieResponse.dart';
 import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
@@ -8,6 +9,8 @@ import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
+import 'package:movie_project/l10n/app_localizations.dart';
+
 import '../../../../Model/MoviesModel/Movies.dart';
 import '../../../moveDetails/movie_details_args.dart';
 
@@ -41,9 +44,10 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
         future: moviesFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text(
+                '${AppLocalizations.of(context)!.error}: ${snapshot.error}'));
           } else if (snapshot.data?.status != 'ok') {
             return Center(child: Text(snapshot.data!.statusMessage!));
           }
@@ -74,15 +78,19 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                           begin: AlignmentGeometry.topCenter,
                           end: AlignmentGeometry.bottomCenter,
                           colors: [
-                            AppColors.primaryColorWithObesity,AppColors.primaryColor.withAlpha(233),AppColors.primaryColor
+                            AppColors.primaryColorWithObesity,
+                            AppColors.primaryColor.withAlpha(233),
+                            AppColors.primaryColor
                           ]
                       )
                   ),
                   child: InkWell(
-                    onTap:(){  Navigator.of(context).pushNamed(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
                         AppRoutes.detailsScreen,
                         arguments: MovieDetailsArgs( movie: moviesList[index], token:widget.loginToken, movies:moviesList,)
-                    );},
+                      );
+                    },
                     child: Container(
                       height: height * 0.6,
                       decoration: BoxDecoration(
@@ -127,9 +135,17 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                           Text(category, style: AppStyles.reg20White),
                           const Spacer(),
                           CustomTextButton(
-                            text: 'See More',
+                            text: AppLocalizations.of(context)!.see_more,
                             onPressed: () {
-                              // TODO: navigate to a category page
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      HomeScreen(
+                                        args: widget.loginToken,
+                                        initialBrowseGenre: category,
+                                      ),
+                                ),
+                              );
                             },
                             styleText: AppStyles.reg16Yellow,
                           ),

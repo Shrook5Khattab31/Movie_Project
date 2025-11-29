@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -54,16 +55,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get register => 'التسجيل';
 
   @override
-  String get reset_password => 'اعاده ضبط كلمه المرور';
+  String get reset_password => 'إعادة ضبط كلمة المرور';
 
   @override
-  String get old_password => 'كلمه المرور القديمه';
+  String get old_password => 'كلمة المرور القديمة';
 
   @override
-  String get new_password => 'كلمه المرور الحديثه';
+  String get new_password => 'كلمة المرور الجديدة';
 
   @override
-  String get rewrite_password => 'اعد كتابه كلمه المرور';
+  String get rewrite_password => 'أعد كتابة كلمة المرور';
 
   @override
   String get pick_avatar => 'اختيار صورة شخصية';
@@ -106,7 +107,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'احفظ الأفلام في قائمة المشاهدة لتتابع ما تريد مشاهدته لاحقًا.\nاستمتع بالأفلام بجودات وأنواع مختلفة.';
 
   @override
-  String get rate_review_learn => 'قيم، راجع، وتعلم';
+  String get rate_review_learn => 'قيّم، راجع، وتعلم';
 
   @override
   String get share_your_thoughts =>
@@ -152,10 +153,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loading => 'جارٍ التحميل';
 
   @override
-  String get watch => 'شاهد';
+  String get watch => 'مشاهدة';
 
   @override
-  String get genres => 'الانواع';
+  String get genres => 'الأنواع';
 
   @override
   String get action => 'أكشن';
@@ -204,4 +205,75 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noGenre => 'لا يوجد تصنيف';
+
+  @override
+  String get errorLoadingMovie => 'خطأ في تحميل الفيلم';
+
+  @override
+  String get noMovieData => 'لا توجد بيانات للفيلم';
+
+  @override
+  String get noSummary => 'لا يوجد ملخص متاح';
+
+  @override
+  String get character => 'الشخصية :';
+
+  @override
+  String get noCast => 'لا يوجد طاقم ممثلين';
+
+  @override
+  String get errorLoadingProfile => 'خطأ في تحميل الملف الشخصي';
+
+  @override
+  String get googleUser => 'مستخدم جوجل';
+
+  @override
+  String get oldPasswordNull => 'لا يجب أن تكون كلمة المرور القديمة فارغة';
+
+  @override
+  String get newPasswordNull => 'لا يجب أن تكون كلمة المرور الجديدة فارغة';
+
+  @override
+  String get passwordMinLength => 'يجب أن تكون كلمة المرور ٨ أحرف على الأقل';
+
+  @override
+  String get passwordRequirements =>
+      'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل، وحرف صغير واحد، ورقم واحد، ورمز خاص واحد';
+
+  @override
+  String get passwordNull => 'لا يجب أن تكون كلمة المرور فارغة';
+
+  @override
+  String get passwordMismatch => 'كلمة المرور غير متطابقة';
+
+  @override
+  String get passwordUpdated => 'تم تحديث كلمة المرور بنجاح';
+
+  @override
+  String get success => 'نجاح';
+
+  @override
+  String get networkError => 'خطأ في الشبكة، يرجى المحاولة مرة أخرى!';
+
+  @override
+  String get oldPasswordMismatch => 'كلمة المرور القديمة غير متطابقة!';
+
+  @override
+  String get somethingWrong => 'حدث خطأ ما!';
+
+  @override
+  String get unexpectedError => 'خطأ غير متوقع';
+
+  @override
+  String get loginSuccessfully => 'تم تسجيل الدخول بنجاح';
+
+  @override
+  String get userNotFound => 'المستخدم غير موجود، يرجى المحاولة مرة أخرى';
+
+  @override
+  String get registerSuccessfully => 'تم التسجيل بنجاح';
+
+  @override
+  String get invalidPhone =>
+      'يرجى التأكد من أن رقم الهاتف يبدأ بـ +20 ويحتوي على 11 رقمًا';
 }
