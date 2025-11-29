@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_project/Features/Home/tabs/search_tab/search_cubit.dart';
+import 'package:movie_project/Features/Home/tabs/search_tab/viewmodel/search_cubit.dart';
 import 'package:movie_project/Features/Home/tabs/search_tab/widget/built_movie_item.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
@@ -38,7 +38,7 @@ class _SearchTabScreenState extends State<SearchTabScreen> {
               viewModel.clearSearch();
             },
             onTap: () {
-              viewModel.setFocus(!viewModel.isTextFieldFocused);
+              viewModel.setFocus(true);
             },
             onChanged: (value) {
               viewModel.getMovieBySearch(value);

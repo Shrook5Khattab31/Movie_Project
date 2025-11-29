@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../Model/MoviesModel/Movies.dart';
-import '../../../../api/api_service.dart';
+import '../../../../../Model/MoviesModel/Movies.dart';
+import '../../../../../api/api_service.dart';
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
