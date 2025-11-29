@@ -9,6 +9,7 @@ import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../Model/MovieDetailsModel/details.dart';
 import '../../api/api_service.dart';
 import '../../core/routing/routeNames.dart';
