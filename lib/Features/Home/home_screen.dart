@@ -43,20 +43,20 @@ class _HomeScreen extends State<HomeScreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: FutureBuilder<MovieResponse>(
-          future: moviesFuture,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            moviesList = snapshot.data!.data?.movies ?? [];
-
-            List<Widget> tabsList = [
-              HomeTabScreen(moviesList: moviesList, loginToken: token ?? ''),
+    return BlocProvider(
+      create: (_) => viewModel,
+      child: BlocBuilder<HomeScreenViewModel, HomeScreenStates>(
+        builder: (context, state) {
+          if (state is HomeScreenLoadingState) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is HomeScreenErrorState) {
+            return Center(child: Text('Error: ${state.errorMessage}'));
+          } else if (state is HomeScreenSuccessState) {
+            final moviesList = state.movies;
+            final tabsList = [
+              HomeTabScreen(loginToken: token ?? ''),
               SearchTabScreen(loginToken: token ?? ''),
-              BrowseTabScreen(
-                  loginToken: token ?? '', initialGenre: browseGenre),
+              BrowseTabScreen(loginToken: token ?? ''),
               ProfileTabScreen(
                   loginToken: token ?? '', loginType: widget.loginType ?? '')
             ];

@@ -13,6 +13,7 @@ import 'package:movie_project/l10n/app_localizations.dart';
 
 import '../../../../Model/MoviesModel/Movies.dart';
 import '../../../moveDetails/movie_details_args.dart';
+import '../../home_screen.dart';
 
 class HomeTabScreen extends StatefulWidget{
   final String loginToken;

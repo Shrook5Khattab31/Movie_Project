@@ -12,7 +12,6 @@ import '../../../moveDetails/movie_details_args.dart';
 class BrowseTabScreen extends StatefulWidget {
   final String loginToken;
   final String? initialGenre;
-
   const BrowseTabScreen(
       {super.key, required this.loginToken, this.initialGenre});
   @override
@@ -145,9 +144,11 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
                     );
                   },
                 ),
-              ),
-            ],
-          );
+              ],
+            );
+          }
+
+          return const SizedBox();
         },
       ),
     );
