@@ -15,7 +15,7 @@ class BuiltSearchTextFormField extends StatelessWidget implements PreferredSizeW
   });
   final TextEditingController searchController;
   final void Function() onPressedClear;
-  final void Function() onTap;
+  final void Function()? onTap;
   final dynamic Function(String) onChanged;
 
   @override

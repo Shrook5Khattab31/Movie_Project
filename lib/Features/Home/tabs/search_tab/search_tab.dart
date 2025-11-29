@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:movie_project/Features/Home/tabs/search_tab/widget/built_recent_searches.dart';
-import 'package:movie_project/Features/Home/tabs/search_tab/widget/built_search_item.dart';
-import 'package:movie_project/Features/Home/tabs/search_tab/widget/built_search_text__form_field.dart';
-import 'package:movie_project/Features/moveDetails/movie_details_args.dart';
-import 'package:movie_project/api/api_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_project/Features/Home/tabs/search_tab/search_cubit.dart';
+import 'package:movie_project/Features/Home/tabs/search_tab/widget/built_movie_item.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
-import '../../../../Model/MoviesModel/Movies.dart';
-import 'widget/built_movie_item.dart';
+import '../../../moveDetails/movie_details_args.dart';
+import 'widget/built_recent_searches.dart';
+import 'widget/built_search_item.dart';
+import 'widget/built_search_text__form_field.dart';
 
 class SearchTabScreen extends StatefulWidget {
   final String loginToken;
@@ -21,145 +21,115 @@ class SearchTabScreen extends StatefulWidget {
 }
 
 class _SearchTabScreenState extends State<SearchTabScreen> {
-  TextEditingController searchController = TextEditingController();
-
-  bool isLoading = false;
-  List<Movies> searchResults = [];
-  List<String> recentSearches = [];
-
-  Future<void> getMovieBySearch(String text) async {
-    if (text.isEmpty) return;
-    if (!recentSearches.contains(text)) {
-      //todo already found movie --> change place
-      recentSearches.insert(0, text);
-      if (recentSearches.length > 5) {
-        recentSearches.removeLast();
-      }
-    }
-    setState(() => isLoading = true);
-    try {
-      final result = await ApiService.searchMovies(text);
-      setState(() {
-        searchResults = result;
-      });
-    } catch (e) {
-      setState(() {
-        searchResults = [];
-      });
-    }
-    setState(() => isLoading = false);
-  }
-
-  bool isTextFieldFocused = false;
+  SearchCubit viewModel = SearchCubit();
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-
-    return Scaffold(
-      backgroundColor: AppColors.primaryColor,
-      appBar: BuiltSearchTextFormField(
-        searchController: searchController,
-        onPressedClear: () {
-          searchController.clear();
-          searchResults.clear();
-          setState(() {});
-        },
-        onTap: () {
-          setState(() {
-            isTextFieldFocused = true;
-          });
-        },
-        onChanged: (value) {
-          isTextFieldFocused = false;
-          if (value.isNotEmpty) {
-            getMovieBySearch(value);
-          } else {
-            searchResults.clear();
-            setState(() {});
-          }
-        },
-      ),
-
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 0.04 * width,
-          vertical: 0.01 * height,
-        ),
-        //todo found movie
-        child: searchResults.isNotEmpty
-            ? ListView.separated(
-                itemCount: searchResults.length,
-                separatorBuilder: (_, __) => SizedBox(height: height * 0.02),
-                itemBuilder: (context, index) {
-                  final movie = searchResults[index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        AppRoutes.detailsScreen,
-                        arguments: MovieDetailsArgs(movies: searchResults, movie: movie, token: widget.loginToken),
-                      );
-                    },
-                    child: BuiltMovieItem(movie: movie),
-                  );
-                },
-              )
-            : isTextFieldFocused && recentSearches.isNotEmpty
-            ?
-              //todo show recent searches
-              BuiltRecentSearches(
-                itemList: ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: recentSearches.length,
-                  separatorBuilder: (context, index) =>
-                      SizedBox(height: height * 0.03),
-                  itemBuilder: (context, index) {
-                    final item = recentSearches[index];
-                    return InkWell(
-                      onTap: () {
-                        searchController.text = item;
-                        isTextFieldFocused = false;
-                        getMovieBySearch(item);
-                        setState(() {});
-                      },
-                      child: BuiltSearchItem(item: item),
-                    );
-                  },
-                ),
-              )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //todo start and empty TextField(controller)
-                  if (!isTextFieldFocused &&
-                      searchController.text.isEmpty &&
-                      recentSearches.isEmpty)
-                    Center(child: Image.asset(AppImages.emptyList)),
-
-                  //todo loading to search
-                  if (isLoading)
-                    Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.secondColor,
-                      ),
-                    ),
-
-                  //todo not found movie
-                  if (!isLoading &&
-                      searchController.text.isNotEmpty &&
-                      searchResults.isEmpty)
-                    Center(
-                      child: Text(
-                        AppLocalizations.of(context)!.no_movies_found,
-                        style: AppStyles.reg18White,
-                      ),
-                    ),
-                ],
-              ),
-      ),
+    return BlocBuilder<SearchCubit, SearchState>(
+      bloc: viewModel,
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: AppColors.primaryColor,
+          appBar: BuiltSearchTextFormField(
+            searchController: viewModel.searchController,
+            onPressedClear: () {
+              viewModel.clearSearch();
+            },
+            onTap: () {
+              viewModel.setFocus(!viewModel.isTextFieldFocused);
+            },
+            onChanged: (value) {
+              viewModel.getMovieBySearch(value);
+            },
+          ),
+          body: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.04 * width,
+              vertical: 0.01 * height,
+            ),
+            child: buildBody(state, height),
+          ),
+        );
+      },
     );
+  }
+
+  Widget buildBody(SearchState state, double height) {
+     //todo show recent searches
+    if(state is SearchFocus){
+      return BuiltRecentSearches(
+        itemList: ListView.separated(
+          shrinkWrap: true,
+          itemCount: viewModel.recentSearches.length,
+          separatorBuilder: (context, index) =>
+              SizedBox(height: height * 0.03),
+          itemBuilder: (context, index) {
+            final item = viewModel.recentSearches[index];
+            return InkWell(
+              onTap: () {
+                viewModel.searchController.text = item;
+                viewModel.setFocus(false);
+                viewModel.getMovieBySearch(item);
+              },
+              child: BuiltSearchItem(item: item),
+            );
+          },
+        ),
+      );
+
+    }
+    //todo loading to search
+    if (state is SearchLoading) {
+      return Center(
+        child: CircularProgressIndicator(color: AppColors.secondColor),
+      );
+    }
+
+    //todo found movie
+    if (state is SearchSuccess) {
+      return ListView.separated(
+        itemCount: state.movieList.length,
+        separatorBuilder: (_, __) => SizedBox(height: height * 0.02),
+        itemBuilder: (context, index) {
+          final movie = state.movieList[index];
+          return InkWell(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.detailsScreen,
+                arguments: MovieDetailsArgs(
+                  movies: state.movieList,
+                  movie: movie,
+                  token: widget.loginToken,
+                ),
+              );
+            },
+            child: BuiltMovieItem(movie: movie),
+          );
+        },
+      );
+    }
+
+    //todo not found movie
+    if (state is SearchEmpty) {
+      return Center(
+        child: Text(
+          AppLocalizations.of(context)!.no_movies_found,
+          style: AppStyles.reg18White,
+        ),
+      );
+    }
+
+    // todo error
+    if (state is SearchError) {
+      return Center(
+        child: Text(state.errorMessage, style: AppStyles.reg18White),
+      );
+    }
+    //todo start and empty TextField(controller) SearchInitial
+      return Center(child: Image.asset(AppImages.emptyList));
+
   }
 }
