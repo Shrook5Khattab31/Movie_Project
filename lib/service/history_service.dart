@@ -19,13 +19,10 @@ class HistoryService {
     final key = _keyForUser(userId);
 
     List<String> history = prefs.getStringList(key) ?? [];
-
-    history.removeWhere(
-            (item) =>
-        Movies
-            .fromJson(jsonDecode(item))
-            .id == movie.id);
-
+    history.removeWhere((item) =>
+    Movies
+        .fromJson(jsonDecode(item))
+        .id == movie.id);
     history.insert(0, jsonEncode(movie.toJson()));
 
     if (history.length > 30) {
@@ -33,29 +30,18 @@ class HistoryService {
     }
 
     await prefs.setStringList(key, history);
-
     _historyController.add(
-      history.map((item) => Movies.fromJson(jsonDecode(item))).toList(),
+        history.map((item) => Movies.fromJson(jsonDecode(item))).toList()
     );
-
-    print("Saved to history for $userId: ${movie.title}");
   }
 
   static Future<List<Movies>> getHistory(String userId) async {
     final prefs = await SharedPreferences.getInstance();
     final key = _keyForUser(userId);
-
     List<String> history = prefs.getStringList(key) ?? [];
     return history.map((item) => Movies.fromJson(jsonDecode(item))).toList();
   }
 
-  static Future<void> clearHistory(String userId) async {
-    final prefs = await SharedPreferences.getInstance();
-    final key = _keyForUser(userId);
-
-    await prefs.remove(key);
-    _historyController.add([]);
-  }
 
   static void dispose() {
     _historyController.close();

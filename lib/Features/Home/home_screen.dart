@@ -13,8 +13,11 @@ import '../../api/api_service.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? args;
-  const HomeScreen({super.key, this.args});
+  final String? loginType;
+  final String? initialBrowseGenre;
 
+  const HomeScreen(
+      {super.key, this.args, this.loginType, this.initialBrowseGenre});
   @override
   State<HomeScreen> createState() => _HomeScreen();
 }
@@ -23,9 +26,14 @@ class _HomeScreen extends State<HomeScreen> {
   int selectedIndex = 0;
   late Future<MovieResponse> moviesFuture;
   late List<Movies> moviesList = [];
+  String? browseGenre;
   @override
   void initState() {
     super.initState();
+    if (widget.initialBrowseGenre != null) {
+      selectedIndex = 2;
+      browseGenre = widget.initialBrowseGenre;
+    }
     moviesFuture = ApiService.getAllMovies();
   }
 
@@ -45,10 +53,12 @@ class _HomeScreen extends State<HomeScreen> {
             moviesList = snapshot.data!.data?.movies ?? [];
 
             List<Widget> tabsList = [
-            HomeTabScreen(moviesList: moviesList,loginToken: token ?? ''),
-               SearchTabScreen(loginToken: token ?? ''),
-               BrowseTabScreen(loginToken: token ?? ''),
-              ProfileTabScreen(loginToken: token ?? '')
+              HomeTabScreen(moviesList: moviesList, loginToken: token ?? ''),
+              SearchTabScreen(loginToken: token ?? ''),
+              BrowseTabScreen(
+                  loginToken: token ?? '', initialGenre: browseGenre),
+              ProfileTabScreen(
+                  loginToken: token ?? '', loginType: widget.loginType ?? '')
             ];
 
             return Stack(

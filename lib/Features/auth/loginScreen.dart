@@ -8,6 +8,7 @@ import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/utils/validator_helper.dart';
 import 'package:movie_project/core/widgets/custom_language_switch_button.dart';
 import 'package:movie_project/core/widgets/custom_text_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants/appAssets.dart';
 import '../../core/theme/appColors.dart';
@@ -171,7 +172,10 @@ class _LoginScreenState extends State<LoginScreen> {
         );
         if (response.data['message'] == 'Success Login') {
           widget.loginToken = response.data["data"];
-          print("token ${widget.loginToken}");
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('authToken', widget.loginToken!);
+          await prefs.setString('loginType', 'api');
+
           CustomDialog.hideLoading(context: context);
           CustomDialog.showMessage(
             context: context,
@@ -249,11 +253,10 @@ class _LoginScreenState extends State<LoginScreen> {
         idToken: googleAuth.idToken,
       );
       FirebaseAuth.instance.signInWithCredential(credential);
-      debugPrint('---------------------------------------');
-      debugPrint('UID: ${googleUser.id}');
-      debugPrint('Name: ${googleUser.displayName ?? ""}');
-      debugPrint('Email: ${googleUser.email}');
-      debugPrint('---------------------------------------');
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('authToken', googleUser.id);
+      await prefs.setString('loginType', 'google');
+
       //todo hide loading
       CustomDialog.hideLoading(context: context);
       //todo show message successfully

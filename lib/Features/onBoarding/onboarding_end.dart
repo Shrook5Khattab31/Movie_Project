@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants/appAssets.dart';
 import '../../core/theme/appColors.dart';
@@ -45,7 +46,9 @@ class OnboardingEnd extends StatelessWidget {
                     SizedBox(height: screenHeight * 0.03),
                     CustomElevatedButton(
                       text: lang.finish,
-                      onPressed: () {
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('hasSeenOnboarding', true);
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

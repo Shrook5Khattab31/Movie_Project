@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_project/Model/favorites/favorite.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Model/MoviesModel/Movies.dart';
 import '../../l10n/app_localizations.dart';
@@ -97,7 +98,10 @@ class CustomProfileBuilder {
                   ],
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.remove('authToken');
+                await prefs.remove('loginType');
                 Navigator.of(
                   context,
                 ).pushNamedAndRemoveUntil(AppRoutes.login, (route) => false);
