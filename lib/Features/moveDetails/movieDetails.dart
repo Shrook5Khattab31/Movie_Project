@@ -44,10 +44,10 @@ class _MovieDetailsState extends State<MovieDetails> {
         isFavorite = isFav ?? false;
       });
     });
+    HistoryService.addMovieToHistory(args.movie, args.token);
   }
   @override
   Widget build(BuildContext context) {
-    HistoryService.addMovieToHistory(args.movie, args.token);
     return Scaffold(
         body: FutureBuilder<Movie>(
           future: movieFuture,

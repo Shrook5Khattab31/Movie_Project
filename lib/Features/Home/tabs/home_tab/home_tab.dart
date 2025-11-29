@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_project/Features/Home/home_screen.dart';
 import 'package:movie_project/Model/MoviesModel/MovieResponse.dart';
 import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
@@ -136,7 +137,15 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                           CustomTextButton(
                             text: AppLocalizations.of(context)!.see_more,
                             onPressed: () {
-                              // TODO: navigate to a browse tab
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      HomeScreen(
+                                        args: widget.loginToken,
+                                        initialBrowseGenre: category,
+                                      ),
+                                ),
+                              );
                             },
                             styleText: AppStyles.reg16Yellow,
                           ),

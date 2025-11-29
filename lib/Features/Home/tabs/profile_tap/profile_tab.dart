@@ -44,7 +44,7 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
   @override
   void initState() {
     super.initState();
-    isGoogleLogin = widget.loginType == 'google';
+    isGoogleLogin = widget.loginToken.isEmpty;
     if (!isGoogleLogin) {
       profileFuture = ApiService().getProfile(widget.loginToken);
       ApiService.getAllFavoritesMovies(token: widget.loginToken).then((
@@ -58,7 +58,8 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
   Future<void> saveHistory() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> historyList = historyMovies.map((e) => jsonEncode(e.toJson())).toList();
-    await prefs.setStringList('movie_history', historyList);
+    await prefs.setStringList(
+        'movie_history_${widget.loginToken}', historyList);
   }
 
   Future<void> loadHistory() async {
@@ -190,7 +191,8 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                                             });
                                           });
                                         }
-                                        loadHistory();
+                                        await loadHistory();
+                                        saveHistory();
                                       },
                                       child: CustomMoviePoster(
                                         imageWidth: width * 0.5,
@@ -232,7 +234,8 @@ class _ProfileTabScreenState extends State<ProfileTabScreen> {
                                       fromProfile: true,
                                     ),
                                   );
-                                  loadHistory();
+                                  await loadHistory();
+                                  saveHistory();
                                 },
                                 child: CustomMoviePoster(
                                   imageWidth: width * 0.5,

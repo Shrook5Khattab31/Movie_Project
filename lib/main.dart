@@ -37,10 +37,10 @@ void main() async {
     startScreen = LoginScreen();
   }
   runApp(
-      ChangeNotifierProvider(create: (context) =>LangProvider(),
+      ChangeNotifierProvider(create: (context) => LangProvider(),
         child: MovieApp(startScreen: startScreen),
       )
-      );
+  );
 }
 
 class MovieApp extends StatelessWidget {
