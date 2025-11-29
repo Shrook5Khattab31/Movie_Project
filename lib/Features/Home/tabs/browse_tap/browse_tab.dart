@@ -14,6 +14,8 @@ class BrowseTabScreen extends StatefulWidget {
   final String loginToken;
   const BrowseTabScreen({super.key, required this.loginToken});
 
+  const BrowseTabScreen(
+      {super.key, required this.loginToken, this.initialGenre});
   @override
   State<BrowseTabScreen> createState() => _BrowseTabScreenState();
 }
@@ -21,6 +23,7 @@ class BrowseTabScreen extends StatefulWidget {
 class _BrowseTabScreenState extends State<BrowseTabScreen> {
   HomeTabViewModel viewModel = HomeTabViewModel(homeTabRepository: injectHomeTabRepository());
   String? selectedGenre;
+  final ScrollController _genreScrollController = ScrollController();
 
   List<Movies> get filteredMovies {
     if (selectedGenre == null || viewModel.state is! HomeTabSuccessState) return [];
@@ -31,7 +34,7 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
   @override
   void initState() {
     super.initState();
-    viewModel.fetchMovies(); // استدعاء fetchMovies وسيتم emit للstate
+    viewModel.fetchMovies(); 
   }
 
   @override
@@ -53,8 +56,6 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
 
           if (state is HomeTabSuccessState) {
             final moviesList = state.movies;
-
-            // استخراج كل الجانرات
             Set<String> genresSet = {};
             for (var movie in moviesList) {
               if (movie.genres != null) genresSet.addAll(movie.genres!);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
+
 class CustomContainer extends StatelessWidget {
   String icon;
   String text;

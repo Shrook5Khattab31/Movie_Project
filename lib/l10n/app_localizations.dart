@@ -323,7 +323,7 @@ abstract class AppLocalizations {
   /// No description provided for @watch_list.
   ///
   /// In en, this message translates to:
-  /// **'Watch List  '**
+  /// **'Watch List'**
   String get watch_list;
 
   /// No description provided for @history.
@@ -413,7 +413,7 @@ abstract class AppLocalizations {
   /// No description provided for @similar.
   ///
   /// In en, this message translates to:
-  /// **'Similar '**
+  /// **'Similar'**
   String get similar;
 
   /// No description provided for @summary.
@@ -463,6 +463,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Update Data'**
   String get update_date;
+
+  /// No description provided for @no_movies_found.
+  ///
+  /// In en, this message translates to:
+  /// **'No movies found matching your search'**
+  String get no_movies_found;
+
+  /// No description provided for @recentSearches.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent searches'**
+  String get recentSearches;
+
+  /// No description provided for @noGenre.
+  ///
+  /// In en, this message translates to:
+  /// **'No Genre'**
+  String get noGenre;
+
+  /// No description provided for @errorLoadingMovie.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading movie'**
+  String get errorLoadingMovie;
+
+  /// No description provided for @noMovieData.
+  ///
+  /// In en, this message translates to:
+  /// **'No movie data available'**
+  String get noMovieData;
+
+  /// No description provided for @noSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'No Summary Available'**
+  String get noSummary;
+
+  /// No description provided for @character.
+  ///
+  /// In en, this message translates to:
+  /// **'Character :'**
+  String get character;
+
+  /// No description provided for @noCast.
+  ///
+  /// In en, this message translates to:
+  /// **'No cast available'**
+  String get noCast;
+
+  /// No description provided for @errorLoadingProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading profile'**
+  String get errorLoadingProfile;
+
+  /// No description provided for @googleUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Google User'**
+  String get googleUser;
+
+  /// No description provided for @oldPasswordNull.
+  ///
+  /// In en, this message translates to:
+  /// **'Old password shouldn\'t be null'**
+  String get oldPasswordNull;
+
+  /// No description provided for @newPasswordNull.
+  ///
+  /// In en, this message translates to:
+  /// **'New password shouldn\'t be null'**
+  String get newPasswordNull;
+
+  /// No description provided for @passwordMinLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Password should at least 8 characters'**
+  String get passwordMinLength;
+
+  /// No description provided for @passwordRequirements.
+  ///
+  /// In en, this message translates to:
+  /// **'Password should contains at least one upper letter,\n one lower letter, \n one digit and \none special character'**
+  String get passwordRequirements;
+
+  /// No description provided for @passwordNull.
+  ///
+  /// In en, this message translates to:
+  /// **'Password shouldn\'t be null'**
+  String get passwordNull;
+
+  /// No description provided for @passwordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Password doesn\'t match'**
+  String get passwordMismatch;
+
+  /// No description provided for @passwordUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated successfully'**
+  String get passwordUpdated;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get success;
+
+  /// No description provided for @networkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error, please try again!'**
+  String get networkError;
+
+  /// No description provided for @oldPasswordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Old password doesn\'t match!'**
+  String get oldPasswordMismatch;
+
+  /// No description provided for @somethingWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went Wrong!'**
+  String get somethingWrong;
+
+  /// No description provided for @unexpectedError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unexpected error!'**
+  String get unexpectedError;
+
+  /// No description provided for @loginSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Successfully'**
+  String get loginSuccessfully;
+
+  /// No description provided for @userNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'User is not found!, please try again'**
+  String get userNotFound;
+
+  /// No description provided for @registerSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Register successfully'**
+  String get registerSuccessfully;
+
+  /// No description provided for @invalidPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Please make sure the phone number starts with +20 and contains 11 number'**
+  String get invalidPhone;
 }
 
 class _AppLocalizationsDelegate

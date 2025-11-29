@@ -3,14 +3,19 @@ import 'package:movie_project/Model/MoviesModel/Movies.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
+import 'package:movie_project/core/utils/custom_dialog.dart';
 import 'package:movie_project/core/widgets/custom_container.dart';
 import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
 import 'package:movie_project/core/widgets/custom_movie_poster.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../../Model/MovieDetailsModel/details.dart';
 import '../../api/api_service.dart';
 import '../../core/routing/routeNames.dart';
+import '../../service/history_service.dart';
 import 'movie_details_args.dart';
+
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({super.key});
@@ -23,10 +28,14 @@ class _MovieDetailsState extends State<MovieDetails> {
   late Future<Movie> movieFuture;
   List<Movies> similarMovies = [];
   bool isFavorite = false;
+  late var args;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    var args = ModalRoute.of(context)!.settings.arguments as MovieDetailsArgs;
+    args = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as MovieDetailsArgs;
     movieFuture = ApiService.fetchMovie(args.movie.id);
     ApiService.getSimilarMovies(args.movie.id).then((movies) {
       setState(() {
@@ -35,23 +44,25 @@ class _MovieDetailsState extends State<MovieDetails> {
     });
     ApiService.checkMovieIsFav(movieId: args.movie.id, token: args.token) .then((isFav) {
       setState(() {
-        isFavorite = isFav!;
+        isFavorite = isFav ?? false;
       });
     });
+    HistoryService.addMovieToHistory(args.movie, args.token);
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.primaryColor,
         body: FutureBuilder<Movie>(
           future: movieFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text("Error loading movie"));
+              return Center(
+                  child: Text(AppLocalizations.of(context)!.errorLoadingMovie));
             } else if (!snapshot.hasData || snapshot.data == null) {
-              return Center(child: Text("No movie data available"));
+              return Center(
+                  child: Text(AppLocalizations.of(context)!.noMovieData));
             }
 
             final movie = snapshot.data!;
@@ -153,7 +164,16 @@ class _MovieDetailsState extends State<MovieDetails> {
 
                                 ],
                               ),
-                              Expanded(child: Image.asset(AppImages.play)),
+                              Expanded(
+                                  child: GestureDetector(
+                                      onTap: () async {
+                                        launchMovieUrl(
+                                            'https://www.youtube.com/watch?v=${movie
+                                                .ytTrailerCode}');
+                                      },
+                                      child: Image.asset(AppImages.play)
+                                  )
+                              ),
                               Text(movie.title ?? "",
                                   style: AppStyles.bold24White,
                                   textAlign: TextAlign.center),
@@ -174,7 +194,9 @@ class _MovieDetailsState extends State<MovieDetails> {
                         spacing: height * 0.02,
                         children: [
                           CustomElevatedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              launchMovieUrl(movie.url);
+                            },
                             backgroundColor: AppColors.redColor,
                             text: AppLocalizations.of(context)!.watch,
                             textStyle: AppStyles.bold20White,
@@ -183,7 +205,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CustomContainer(icon: AppImages.likeIcon, text: "15"),
+                              CustomContainer(icon: AppImages.likeIcon,
+                                  text: "${movie.likeCount}"),
                               CustomContainer(icon: AppImages.timeIcon, text: "${movie.runtime}"),
                               CustomContainer(icon: AppImages.starIcon, text: "${movie.rating}"),
                             ],
@@ -254,7 +277,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       ? Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 16, vertical: 8),
-                          child: Text("No cast available",
+                      child: Text(AppLocalizations.of(context)!.noCast,
                           style: TextStyle(
                               color: Colors.white70, fontSize: 16)))
                       : Column(
@@ -295,11 +318,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                                   crossAxisAlignment:
                                   CrossAxisAlignment.start,
                                       children: [
-                                    Text("Name : ${actor.name}",
+                                        Text("${AppLocalizations.of(context)!
+                                            .name} ${actor.name}",
                                         style: AppStyles.reg20White),
                                         SizedBox(height: height * 0.003),
                                     Text(
-                                        "Character : ${actor.characterName}",
+                                        "${AppLocalizations.of(context)!
+                                            .character} ${actor.characterName}",
                                         style: AppStyles.reg20White),
                                       ],
                                     ),
@@ -359,4 +384,27 @@ class _MovieDetailsState extends State<MovieDetails> {
       child: Text(title, style: AppStyles.bold24White),
     );
   }
+
+  Future<void> launchMovieUrl(dynamic movieUrl) async {
+    final url = movieUrl;
+    if (url != null && url.isNotEmpty) {
+      final uri = Uri.parse(url);
+      CustomDialog.showLoading(context: context,
+          text: AppLocalizations.of(context)!.loading);
+      try {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+        CustomDialog.hideLoading(context: context);
+      } catch (e) {
+        CustomDialog.hideLoading(context: context);
+        CustomDialog.showMessage(
+          context: context,
+          title: AppLocalizations.of(context)!.error,
+          message: AppLocalizations.of(context)!.errorLoadingMovie,
+          posActionName: AppLocalizations.of(context)!.ok,
+          posActionClick: () => Navigator.of(context).pop(),
+        );
+      }
+    }
+  }
+
 }

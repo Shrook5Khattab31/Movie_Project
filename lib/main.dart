@@ -1,8 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/update_profile.dart';
 import 'package:movie_project/Features/auth/forget_pass.dart';
+import 'package:movie_project/Features/auth/register_screen.dart';
 import 'package:movie_project/Features/moveDetails/movieDetails.dart';
+import 'package:movie_project/core/theme/appTheme.dart';
+import 'package:movie_project/provider/langProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'Features/Home/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/resetPassword.dart';
@@ -12,8 +19,10 @@ import 'l10n/app_localizations.dart';
 import 'Features/onBoarding/onboarding_one.dart';
 import 'package:movie_project/Features/auth/register_screen.dart';
 import 'Features/auth/loginScreen.dart';
+import 'Features/onBoarding/onboarding_one.dart';
 import 'core/routing/routeNames.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,14 +34,17 @@ void main() async {
 }
 
 class MovieApp extends StatelessWidget {
-  const MovieApp({super.key});
+  final Widget startScreen;
+
+  const MovieApp({super.key, required this.startScreen});
 
   @override
   Widget build(BuildContext context) {
+    var langProvider = Provider.of<LangProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Movie App',
-      theme: ThemeData.dark(),
+      theme: DarkAppTheme.darkTheme,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -40,7 +52,7 @@ class MovieApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      initialRoute: AppRoutes.onBoardingScreen,
+      home: startScreen,
       routes: {
         AppRoutes.onBoardingScreen: (context) => OnboardingOne(),
         AppRoutes.login: (context) => LoginScreen(),
@@ -54,6 +66,7 @@ class MovieApp extends StatelessWidget {
         AppRoutes.register: (context) => RegisterScreen(),
         AppRoutes.detailsScreen:(context)=>MovieDetails()
       },
+      locale: Locale(langProvider.appLang),
     );
   }
 }

@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:movie_project/core/theme/appColors.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String? text;
   final VoidCallback onPressed;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final TextStyle? textStyle;
   final bool? haveIcon;
   final Widget? iconWidget;
   double height;
    CustomElevatedButton({
     super.key,
-     this.text,
+    this.text,
     required this.onPressed,
-    required this.backgroundColor,
+    this.backgroundColor = AppColors.secondColor,
     this.textStyle,
-   this.haveIcon,
+    this.haveIcon,
     this.iconWidget,
-     this.height = 50
+    this.height = 50
   });
 
   @override

@@ -134,7 +134,15 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                             CustomTextButton(
                               text: 'See More',
                             onPressed: () {
-                              // TODO: navigate to a category page
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      HomeScreen(
+                                        args: widget.loginToken,
+                                        initialBrowseGenre: category,
+                                      ),
+                                ),
+                              );
                             },
                               styleText: AppStyles.reg16Yellow,
                             ),

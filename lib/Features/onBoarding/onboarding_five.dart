@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../../core/constants/appAssets.dart';
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
 import '../../core/widgets/custom_elevated_btn.dart';
 import '../../l10n/app_localizations.dart';
-import 'onboarding_four.dart';
 import 'onboarding_end.dart';
+import 'onboarding_four.dart';
 
 class OnboardingFive extends StatelessWidget {
   const OnboardingFive({super.key});
@@ -17,7 +18,6 @@ class OnboardingFive extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: [
           Positioned.fill(

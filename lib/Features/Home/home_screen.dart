@@ -13,8 +13,11 @@ import 'cubit/home_screen_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? args;
-  const HomeScreen({super.key, this.args});
+  final String? loginType;
+  final String? initialBrowseGenre;
 
+  const HomeScreen(
+      {super.key, this.args, this.loginType, this.initialBrowseGenre});
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }

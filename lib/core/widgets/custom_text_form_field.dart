@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_project/core/theme/appStyles.dart';
 import '../theme/appColors.dart';
 
-typedef onValidator =  String? Function(String?)?;
+typedef onValidator = String? Function(String?)?;
+
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final Color? prefixIconColor;
@@ -17,6 +18,8 @@ class CustomTextFormField extends StatelessWidget {
   final VoidCallback? onToggleVisibility;
   final TextInputType? keyboardType;
   final onValidator? validatorFunc;
+  final void Function()? onTap;
+  final FocusNode? focusNode;
 
   const CustomTextFormField({
     super.key,
@@ -31,7 +34,10 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.isPassword = false,
     this.onToggleVisibility,
-    this.keyboardType, this.validatorFunc
+    this.keyboardType,
+    this.validatorFunc,
+    this.onTap,
+    this.focusNode
   });
 
   @override
@@ -40,19 +46,21 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: isPassword,
       controller: controller,
       onChanged: onChanged,
+      onTap: onTap,
+      focusNode: focusNode,
       validator: validatorFunc,
-
-      style: hintStyle??AppStyles.reg16White,
+      cursorColor: AppColors.secondColor,
+      style: hintStyle ?? AppStyles.reg16White,
       keyboardType: keyboardType ?? TextInputType.text,
       decoration: InputDecoration(
         filled: true,
-        fillColor: fillColor??AppColors.grayDarkColor,
+        fillColor: fillColor ?? AppColors.grayDarkColor,
         hintText: hintText,
-        hintStyle: hintStyle??AppStyles.reg16White,
+        hintStyle: hintStyle ?? AppStyles.reg16White,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        prefixIconColor: prefixIconColor??AppColors.whiteColor,
-        suffixIconColor: suffixIconColor??AppColors.whiteColor,
+        prefixIconColor: prefixIconColor ?? AppColors.whiteColor,
+        suffixIconColor: suffixIconColor ?? AppColors.whiteColor,
 
         enabledBorder: buildBorderDecoration(),
         focusedBorder: buildBorderDecoration(),
@@ -61,12 +69,11 @@ class CustomTextFormField extends StatelessWidget {
       ),
     );
   }
-  OutlineInputBorder buildBorderDecoration(){
+
+  OutlineInputBorder buildBorderDecoration() {
     return OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: BorderSide(
-            color: AppColors.grayDarkColor
-        )
+      borderRadius: BorderRadius.circular(15),
+      borderSide: BorderSide(color: AppColors.grayDarkColor),
     );
   }
 }
