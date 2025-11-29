@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:movie_project/Features/Home/tabs/profile_tap/resetPassword.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/update_profile.dart';
 import 'package:movie_project/Features/auth/forget_pass.dart';
 import 'package:movie_project/Features/auth/register_screen.dart';
@@ -11,13 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Features/Home/home_screen.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:movie_project/Features/Home/tabs/profile_tap/resetPassword.dart';
-import 'api/my_bloc_observer.dart';
-import 'firebase_options.dart';
-import 'l10n/app_localizations.dart';
-import 'Features/onBoarding/onboarding_one.dart';
-import 'package:movie_project/Features/auth/register_screen.dart';
 import 'Features/auth/loginScreen.dart';
 import 'Features/onBoarding/onboarding_one.dart';
 import 'core/routing/routeNames.dart';
@@ -29,8 +23,24 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  Bloc.observer = MyBlocObserver();
-  runApp(const MovieApp());
+  final prefs = await SharedPreferences.getInstance();
+  final hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
+  final token = prefs.getString('authToken');
+  final loginType = prefs.getString('loginType');
+
+  Widget startScreen;
+  if (!hasSeenOnboarding) {
+    startScreen = OnboardingOne();
+  } else if (token != null && loginType != null) {
+    startScreen = HomeScreen(args: token, loginType: loginType);
+  } else {
+    startScreen = LoginScreen();
+  }
+  runApp(
+      ChangeNotifierProvider(create: (context) => LangProvider(),
+        child: MovieApp(startScreen: startScreen),
+      )
+  );
 }
 
 class MovieApp extends StatelessWidget {
