@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/constants/appAssets.dart';
 import '../../core/theme/appColors.dart';
 import '../../core/theme/appStyles.dart';
@@ -18,14 +19,11 @@ class ForgetPasswordScreen extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
         title: Text(
           AppLocalizations.of(context)!.forget_password,
           style: AppStyles.reg16Yellow,
         ),
-        centerTitle: true,
         leading: InkWell(
           onTap: () => Navigator.pop(context),
           child: Icon(

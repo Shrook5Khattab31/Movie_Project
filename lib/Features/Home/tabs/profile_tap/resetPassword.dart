@@ -19,7 +19,6 @@ class ResetPassword extends StatefulWidget {
 
 class _ResetPasswordState extends State<ResetPassword> {
   late var args;
-  //var formKey = GlobalKey<FormState>();
   bool isNotVisible = true;
   bool isNotVisible2 = true;
   bool isNotVisible3 = true;
@@ -42,7 +41,6 @@ class _ResetPasswordState extends State<ResetPassword> {
           AppLocalizations.of(context)!.reset_password,
           style: AppStyles.reg16Yellow,
         ),
-        centerTitle: true,
         leading: InkWell(
           onTap: () => Navigator.pop(context),
           child: Icon(Icons.arrow_back_sharp, color: AppColors.secondColor),
@@ -73,7 +71,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 hintStyle: AppStyles.reg16White,
                 validatorFunc: (text) {
                   if (text == null || text.trim().isEmpty) {
-                    return "Old password shouldn't be null";
+                    return AppLocalizations.of(context)!.oldPasswordNull;
                   }
                   return null;
                 },
@@ -100,11 +98,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                     r'^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[!@#\$&*~]).{8,}$',
                   );
                   if (text == null || text.trim().isEmpty) {
-                    return "New password shouldn't be null";
+                    return AppLocalizations.of(context)!.newPasswordNull;
                   } else if (text.length < 8) {
-                    return "Password should at least 8 characters";
+                    return AppLocalizations.of(context)!.passwordMinLength;
                   } else if (!regex.hasMatch(text)) {
-                    return "Password should contains at least one upper letter,\n one lower letter, \n one digit and \none special character";
+                    return AppLocalizations.of(context)!.passwordRequirements;
                   }
                   return null;
                 },
@@ -128,10 +126,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                 hintStyle: AppStyles.reg16White,
                 validatorFunc: (text) {
                   if (text == null || text.trim().isEmpty) {
-                    return "Password shouldn't be null";
+                    return AppLocalizations.of(context)!.passwordNull;
                   }
                   if (text != newPassController.text) {
-                    return "Password doesn't much";
+                    return AppLocalizations.of(context)!.passwordMismatch;
                   }
                   return null;
                 },
@@ -160,7 +158,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     try {
       CustomDialog.showLoading(
         context: context,
-        text: "Loading ...",
+        text: AppLocalizations.of(context)!.loading,
       );
       var response = await ApiService().resetPassword(
         oldPassword: oldPassController.text,
@@ -171,9 +169,9 @@ class _ResetPasswordState extends State<ResetPassword> {
         CustomDialog.hideLoading(context: context);
         CustomDialog.showMessage(
           context: context,
-          title: "Success",
-          message: "Password updated successfully",
-          posActionName: "Ok",
+          title: AppLocalizations.of(context)!.success,
+          message: AppLocalizations.of(context)!.passwordUpdated,
+          posActionName: AppLocalizations.of(context)!.ok,
           posActionClick: () => Navigator.pop(context),
         );
       }
@@ -184,31 +182,31 @@ class _ResetPasswordState extends State<ResetPassword> {
           e.type == DioExceptionType.connectionTimeout) {
         CustomDialog.showMessage(
           context: context,
-          title: "Error",
-          message: "Network error, please try again!",
-          posActionName: "Ok",
+          title: AppLocalizations.of(context)!.error,
+          message: AppLocalizations.of(context)!.networkError,
+          posActionName: AppLocalizations.of(context)!.ok,
         );
-      } else if (e.response!.statusCode == 400) {
+      } else if (e.response?.statusCode == 400) {
         CustomDialog.showMessage(
           context: context,
-          title: "Error",
-          message: "Old password doesn't much!",
-          posActionName: "Ok",
+          title: AppLocalizations.of(context)!.error,
+          message: AppLocalizations.of(context)!.oldPasswordMismatch,
+          posActionName: AppLocalizations.of(context)!.ok,
         );
       } else {
         CustomDialog.showMessage(
           context: context,
-          title: "Error",
-          message: "something went Wrong!",
-          posActionName: "Ok",
+          title: AppLocalizations.of(context)!.error,
+          message: AppLocalizations.of(context)!.somethingWrong,
+          posActionName: AppLocalizations.of(context)!.ok,
         );
       }
     } catch (e) {
       CustomDialog.showMessage(
         context: context,
-        title: "Error",
-        message: "Unexpected error!",
-        posActionName: "Ok",
+        title: AppLocalizations.of(context)!.error,
+        message: AppLocalizations.of(context)!.unexpectedError,
+        posActionName: AppLocalizations.of(context)!.ok,
       );
     }
   }

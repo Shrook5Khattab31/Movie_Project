@@ -1,4 +1,4 @@
-import 'Data.dart';
+import '../MovieDetailsModel/Data.dart';
 import 'meta.dart';
 
 /// status : "ok"

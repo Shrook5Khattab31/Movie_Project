@@ -45,7 +45,7 @@
 
   "next": "Next",
   "back": "Back",
-  "watch_list": "Watch List  ",
+  "watch_list": "Watch List",
   "history": "History",
   "edit_profile": "Edit Profile",
   "exit": "Exit",
@@ -63,7 +63,7 @@
   "see_more": "See More",
   "screen_shots": "Screen Shots",
   "search": "Search",
-  "similar": "Similar ",
+  "similar": "Similar",
   "summary": "Summary",
   "cast": "Cast",
   "adventure": "Adventure",
@@ -71,9 +71,34 @@
   "biography": "Biography",
   "wish_list":"Wish List",
   "delete_acc":"Delete Account",
-  "update_date": "Update Data"
+  "update_date": "Update Data",
+  "no_movies_found": "No movies found matching your search",
+  "recentSearches": "Recent searches",
+  "noGenre": "No Genre",
 
+  "errorLoadingMovie": "Error loading movie",
+  "noMovieData": "No movie data available",
+  "noSummary": "No Summary Available",
+  "character": "Character :",
+  "noCast": "No cast available",
+  "errorLoadingProfile": "Error loading profile",
+  "googleUser": "Google User",
 
-
-
+  "oldPasswordNull": "Old password shouldn't be null",
+  "newPasswordNull": "New password shouldn't be null",
+  "passwordMinLength": "Password should at least 8 characters",
+  "passwordRequirements": "Password should contains at least one upper letter,\n one lower letter, \n one digit and \none special character",
+  "passwordNull": "Password shouldn't be null",
+  "passwordMismatch": "Password doesn't match",
+  "passwordUpdated": "Password updated successfully",
+  "success": "Success",
+  "networkError": "Network error, please try again!",
+  "oldPasswordMismatch": "Old password doesn't match!",
+  "somethingWrong": "Something went Wrong!",
+  "unexpectedError": "Unexpected error!",
+  "loginSuccessfully": "Login Successfully",
+    "networkError": "Network error, please try again!",
+    "userNotFound": "User is not found!, please try again",
+      "registerSuccessfully": "Register successfully",
+      "invalidPhone": "Please make sure the phone number starts with +20 and contains 11 number"
 }

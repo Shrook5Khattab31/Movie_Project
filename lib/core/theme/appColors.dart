@@ -12,6 +12,4 @@ class AppColors{
   static const Color primaryColorWithObesity = Color(0xB5121312);
   static const Color primaryColorWithObesity80 = Color(0xCC121312);
   static const Color primaryColorWithObesity60 = Color(0x99121312);
-
-
 }

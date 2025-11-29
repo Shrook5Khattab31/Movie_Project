@@ -1,5 +1,5 @@
+import '../MoviesModel/Torrents.dart';
 import 'Cast.dart';
-import 'Torrents.dart';
 
 class Movie {
   Movie({
@@ -46,7 +46,6 @@ class Movie {
     titleLong = json['title_long'];
     slug = json['slug'];
 
-    // 🔥 تأمين Numeric Fields
     year = (json['year'] as num?)?.toInt();
     rating = (json['rating'] as num?)?.toDouble();
     runtime = (json['runtime'] as num?)?.toInt();
