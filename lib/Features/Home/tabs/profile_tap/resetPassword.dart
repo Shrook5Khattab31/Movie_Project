@@ -186,7 +186,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           message: AppLocalizations.of(context)!.networkError,
           posActionName: AppLocalizations.of(context)!.ok,
         );
-      } else if (e.response!.statusCode == 400) {
+      } else if (e.response?.statusCode == 400) {
         CustomDialog.showMessage(
           context: context,
           title: AppLocalizations.of(context)!.error,
