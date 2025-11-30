@@ -151,7 +151,7 @@ class ApiService {
   Future<Response> resetPassword({
     required String oldPassword,
     required String newPassword,
-    required String token
+    required String   token
 }) async{
     try{
       var response = await dio.patch(ApiEndPoints.resetPassword,

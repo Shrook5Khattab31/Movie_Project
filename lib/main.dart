@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/resetPassword.dart';
 import 'package:movie_project/Features/Home/tabs/profile_tap/update_profile.dart';
@@ -14,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Features/Home/home_screen.dart';
 import 'Features/auth/loginScreen.dart';
 import 'Features/onBoarding/onboarding_one.dart';
+import 'api/my_bloc_observer.dart';
 import 'core/routing/routeNames.dart';
 import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
@@ -36,6 +38,7 @@ void main() async {
   } else {
     startScreen = LoginScreen();
   }
+  Bloc.observer = MyBlocObserver();
   runApp(
       ChangeNotifierProvider(create: (context) => LangProvider(),
         child: MovieApp(startScreen: startScreen),
