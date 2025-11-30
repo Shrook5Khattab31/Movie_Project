@@ -1,0 +1,275 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:movie_project/core/constants/appAssets.dart';
+import 'package:movie_project/core/routing/routeNames.dart';
+import 'package:movie_project/core/utils/custom_toast.dart';
+import 'package:movie_project/core/widgets/custom_elevated_btn.dart';
+import 'package:movie_project/core/widgets/custom_text_button.dart';
+import 'package:movie_project/core/widgets/custom_text_form_field.dart';
+
+import '../../../../api/api_service.dart';
+import '../../../../core/theme/appColors.dart';
+import '../../../../core/theme/appStyles.dart';
+import '../../../../core/utils/custom_dialog.dart';
+import '../../../../l10n/app_localizations.dart';
+
+class UpdateProfile extends StatefulWidget {
+  UpdateProfile({super.key});
+
+  @override
+  State<UpdateProfile> createState() => _UpdateProfileState();
+}
+
+class _UpdateProfileState extends State<UpdateProfile> {
+  final apiService = ApiService();
+  final List<String> avatars = [
+    AppImages.avatar1,
+    AppImages.avatar2,
+    AppImages.avatar3,
+    AppImages.avatar4,
+    AppImages.avatar5,
+    AppImages.avatar6,
+    AppImages.avatar7,
+    AppImages.avatar8,
+    AppImages.avatar9,
+  ];
+  bool isInitialized = false;
+  String selectedAvatar = AppImages.avatar1;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as String;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+      backgroundColor: AppColors.primaryColor,
+      appBar: AppBar(
+        title: Text(
+          AppLocalizations.of(context)!.pick_avatar,
+          style: AppStyles.reg16Yellow,
+        ),
+        centerTitle: true,
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back_sharp, color: AppColors.secondColor),
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+        child: FutureBuilder<Map<String, dynamic>>(
+          future: apiService.getProfile(args),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting &&
+                !isInitialized) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError || !snapshot.hasData) {
+              return Center(child: Text(
+                  AppLocalizations.of(context)!.errorLoadingProfile));
+            }
+            final data = snapshot.data!;
+            if (!isInitialized) {
+              emailController.text = data['email'] ?? '';
+              phoneController.text = data['phone'] ?? '';
+              int avatarId = data['avaterId'] ?? 1;
+              int index = (avatarId >= 1 && avatarId <= avatars.length)
+                  ? avatarId - 1
+                  : 0;
+              selectedAvatar = avatars[index];
+              isInitialized = true;
+            }
+            return Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: height * 0.03),
+                  GestureDetector(
+                    onTap: () => showAvatars(context),
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: height * 0.02),
+                      child: Image.asset(
+                        selectedAvatar,
+                        height: height * 0.16,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  CustomTextFormField(
+                    controller: emailController,
+                    prefixIcon: Icon(Icons.person),
+                    hintText: AppLocalizations.of(context)!.email,
+                    hintStyle: AppStyles.reg16White,
+                    validatorFunc: (text) {
+                      if (text == null || text.trim().isEmpty) {
+                        return "Please enter an Email";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: height * 0.015),
+                  CustomTextFormField(
+                    controller: phoneController,
+                    hintText: AppLocalizations.of(context)!.phone_number,
+                    hintStyle: AppStyles.reg16White,
+                    fillColor: AppColors.grayDarkColor,
+                    prefixIcon: Icon(Icons.phone),
+                    prefixIconColor: AppColors.whiteColor,
+                    keyboardType: TextInputType.phone,
+                  ),
+                  SizedBox(height: height * 0.015),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: CustomTextButton(
+                      text: AppLocalizations.of(context)!.reset_password,
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        AppRoutes.resetPassScreen,
+                        arguments: args,
+                      ),
+                      styleText: AppStyles.reg20White,
+                    ),
+                  ),
+                  Expanded(child: SizedBox()),
+                  CustomElevatedButton(
+                    text: AppLocalizations.of(context)!.delete_account,
+                    textStyle: AppStyles.reg20White,
+                    onPressed: () async {
+                      //todo delete account
+                      var result = await apiService.deleteAccount(token: args);
+                      if (result != null) {
+                        CustomToast.showToast(message: result);
+                        Future.delayed(
+                          Duration(milliseconds: 200),
+                          () => Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            AppRoutes.login,
+                            (route) => false,
+                          ),
+                        );
+                      } else {
+                        CustomToast.showToast(
+                          message: "Failed to delete account",
+                        );
+                      }
+                    },
+                    backgroundColor: AppColors.redColor,
+                  ),
+                  SizedBox(height: height * 0.01),
+                  CustomElevatedButton(
+                    text: AppLocalizations.of(context)!.update_data,
+                    textStyle: AppStyles.reg20Black,
+                    backgroundColor: AppColors.secondColor,
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        CustomDialog.showLoading(
+                          context: context,
+                          text: 'Loading...',
+                        );
+
+                        try {
+                          Response response = await apiService.updateProfile(
+                            email: emailController.text,
+                            avatarId: avatars.indexOf(selectedAvatar) + 1,
+                            token: args,
+                          );
+                          CustomDialog.hideLoading(context: context);
+                          if (response.data['message'] ==
+                              "Profile updated successfully") {
+                            CustomDialog.showMessage(
+                              context: context,
+                              title: "Success",
+                              message: 'Profile updated successfully',
+                              posActionName: 'ok',
+                              posActionClick: () => Navigator.pop(
+                                context,
+                                avatars.indexOf(selectedAvatar) + 1,
+                              ),
+                            );
+                          } else {
+                            CustomDialog.showMessage(
+                              context: context,
+                              title: "Error",
+                              message: response.data['message'].toString(),
+                              posActionName: "ok",
+                            );
+                          }
+                        } catch (e) {
+                          CustomDialog.hideLoading(context: context);
+                          CustomDialog.showMessage(
+                            context: context,
+                            title: "Error",
+                            message: 'Something went wrong',
+                          );
+                        }
+                      }
+                    },
+                  ),
+                  SizedBox(height: height * 0.03),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Future<void> showAvatars(BuildContext context) async {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+
+    await showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.transparentColor,
+      builder: (context) {
+        return Container(
+          height: height * 0.5,
+          padding: EdgeInsets.symmetric(
+            vertical: height * 0.02,
+            horizontal: width * 0.04,
+          ),
+          decoration: BoxDecoration(
+            color: AppColors.grayDarkColor,
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: GridView.builder(
+            itemCount: avatars.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: width * 0.02,
+              mainAxisSpacing: height * 0.02,
+            ),
+            itemBuilder: (context, index) {
+              bool isSelected = selectedAvatar == avatars[index];
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedAvatar = avatars[index];
+                  });
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: height * 0.01,
+                    horizontal: width * 0.02,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppColors.secondColor.withOpacity(0.5)
+                        : AppColors.transparentColor,
+                    border: Border.all(color: AppColors.secondColor),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Image.asset(avatars[index], fit: BoxFit.cover),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
