@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_project/Features/Home/home_screen.dart';
+import 'package:movie_project/Model/MoviesModel/MovieResponse.dart';
+import 'package:movie_project/api/api_service.dart';
 import 'package:movie_project/core/constants/appAssets.dart';
 import 'package:movie_project/core/routing/routeNames.dart';
 import 'package:movie_project/core/theme/appColors.dart';
@@ -11,14 +12,12 @@ import 'package:movie_project/core/widgets/custom_text_button.dart';
 import 'package:movie_project/l10n/app_localizations.dart';
 
 import '../../../../Model/MoviesModel/Movies.dart';
-import '../../../../di/di.dart';
 import '../../../moveDetails/movie_details_args.dart';
-import 'cubit/home_tab_states.dart';
-import 'cubit/home_tab_view_model.dart';
 
 class HomeTabScreen extends StatefulWidget{
   final String loginToken;
-  const HomeTabScreen({super.key,required this.loginToken,});
+  final List<Movies> moviesList;
+  const HomeTabScreen({super.key, required this.moviesList,required this.loginToken,});
 
   @override
   State<HomeTabScreen> createState() => _HomeTabScreenState();
@@ -27,177 +26,164 @@ class HomeTabScreen extends StatefulWidget{
 class _HomeTabScreenState extends State<HomeTabScreen> {
   int index=0;
   int genreIndex=0;
+  late Future<MovieResponse> moviesFuture;
   final Map<String, List<Movies>> categorizedMovies = {};
-  HomeTabViewModel viewModel =HomeTabViewModel(homeTabRepository: injectHomeTabRepository());
+  late List<Movies> moviesList=widget.moviesList;
   @override
   void initState() {
     super.initState();
-    viewModel.fetchMovies();
+    moviesFuture = ApiService.getAllMovies();
   }
   @override
   Widget build(BuildContext context) {
     var height= MediaQuery.of(context).size.height;
     var width= MediaQuery.of(context).size.width;
-    return BlocProvider(
-        create: (context) => viewModel,
-        child: BlocBuilder<HomeTabViewModel, HomeTabStates>(
-            builder: (context, state) {
-              if (state is HomeTabLoadingState) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (state is HomeErrorState) {
-                return Center(child: Text('Error: ${state.errorMessage}'));
-              }
-              if (state is HomeTabSuccessState) {
-                final moviesList = state.movies;
-                categorizedMovies.clear();
-                for (final movie in moviesList) {
-                  for (final genre in movie.genres ?? []) {
-                    categorizedMovies.putIfAbsent(genre, () => []);
-                    categorizedMovies[genre]!.add(movie);
-                  }
-                }
-                return ListView(
-                  children: [
-                    Container(
-                      height: height * 0.7,
+    return Scaffold(
+      backgroundColor: AppColors.primaryColor,
+      body: FutureBuilder<MovieResponse>(
+        future: moviesFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text(
+                '${AppLocalizations.of(context)!.error}: ${snapshot.error}'));
+          } else if (snapshot.data?.status != 'ok') {
+            return Center(child: Text(snapshot.data!.statusMessage!));
+          }
+
+          moviesList = snapshot.data!.data?.movies ?? [];
+
+          categorizedMovies.clear();
+          for (final movie in moviesList) {
+            for (final genre in movie.genres ?? []) {
+              categorizedMovies.putIfAbsent(genre, () => []);
+              categorizedMovies[genre]!.add(movie);
+            }
+          }
+          return ListView(
+            children: [
+              Container(
+                height: height*0.7,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColorWithObesity,
+                  image: DecorationImage(
+                    image: NetworkImage(moviesList[index].mediumCoverImage??"",),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: AlignmentGeometry.topCenter,
+                          end: AlignmentGeometry.bottomCenter,
+                          colors: [
+                            AppColors.primaryColorWithObesity,
+                            AppColors.primaryColor.withAlpha(233),
+                            AppColors.primaryColor
+                          ]
+                      )
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.detailsScreen,
+                        arguments: MovieDetailsArgs( movie: moviesList[index], token:widget.loginToken, movies:moviesList,)
+                      );
+                    },
+                    child: Container(
+                      height: height * 0.6,
                       decoration: BoxDecoration(
-                        color: AppColors.primaryColorWithObesity,
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            moviesList[index].mediumCoverImage ?? "",),
-                          fit: BoxFit.cover,
-                        ),
+                          image: DecorationImage(image: AssetImage(AppImages.availableMovies))
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: AlignmentGeometry.topCenter,
-                                end: AlignmentGeometry.bottomCenter,
-                                colors: [
-                                  AppColors.primaryColorWithObesity,
-                                  AppColors.primaryColor.withAlpha(233),
-                                  AppColors.primaryColor
-                                ]
-                            )
+                      child: CarouselSlider.builder(
+                        itemCount: moviesList.length,
+                        itemBuilder: (context, index, realIndex) => CustomMoviePoster(
+                          imageWidth: width * 0.54,
+                          imageHeight: height * 0.37,
+                          image: moviesList[index].mediumCoverImage ?? '',
+                          rating: moviesList[index].rating,
                         ),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                                AppRoutes.detailsScreen,
-                                arguments: MovieDetailsArgs(
-                                  movie: moviesList[index],
-                                  token: widget.loginToken,
-                                  movies: moviesList,)
-                            );
+                        options: CarouselOptions(
+                          aspectRatio: 4/3,
+                          autoPlay: true,
+                          pauseAutoPlayOnManualNavigate: false,
+                          enlargeCenterPage: true,
+                          viewportFraction: 0.45,
+                          enlargeFactor: 0.25,
+                          enableInfiniteScroll: true,
+                          autoPlayInterval: Duration(seconds: 7),
+                          autoPlayAnimationDuration: Duration(seconds: 1),
+                          onPageChanged: (newIndex, reason) {
+                            setState(() {index = newIndex;});
                           },
-                          child: Container(
-                            height: height * 0.6,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(image: AssetImage(
-                                    AppImages.availableMovies))
-                            ),
-                            child: CarouselSlider.builder(
-                              itemCount: moviesList.length,
-                              itemBuilder: (context, index, realIndex) =>
-                                  CustomMoviePoster(
-                                    imageWidth: width * 0.54,
-                                    imageHeight: height * 0.37,
-                                    image: moviesList[index].mediumCoverImage ??
-                                        '',
-                                    rating: moviesList[index].rating,
-                                  ),
-                              options: CarouselOptions(
-                                aspectRatio: 4 / 3,
-                                autoPlay: true,
-                                pauseAutoPlayOnManualNavigate: false,
-                                enlargeCenterPage: true,
-                                viewportFraction: 0.45,
-                                enlargeFactor: 0.25,
-                                enableInfiniteScroll: true,
-                                autoPlayInterval: Duration(seconds: 7),
-                                autoPlayAnimationDuration: Duration(seconds: 1),
-                                onPageChanged: (newIndex, reason) {
-                                  setState(() {
-                                    index = newIndex;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
                         ),
                       ),
                     ),
-                    ...categorizedMovies.entries.map((entry) {
-                      final category = entry.key;
-                      final filteredMovies = entry.value;
-                      return Column(
+                  ),
+                ),
+              ),
+              ...categorizedMovies.entries.map((entry) {
+                final category = entry.key;
+                final filteredMovies = entry.value;
+                return Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.02),
+                      child: Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: width * 0.02),
-                            child: Row(
-                              children: [
-                                Text(category, style: AppStyles.reg20White),
-                                const Spacer(),
-                                CustomTextButton(
-                                  text: AppLocalizations.of(context)!.see_more,
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (_) =>
-                                            HomeScreen(
-                                              args: widget.loginToken,
-                                              initialBrowseGenre: category,
-                                            ),
+                          Text(category, style: AppStyles.reg20White),
+                          const Spacer(),
+                          CustomTextButton(
+                            text: AppLocalizations.of(context)!.see_more,
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      HomeScreen(
+                                        args: widget.loginToken,
+                                        initialBrowseGenre: category,
                                       ),
-                                    );
-                                  },
-                                  styleText: AppStyles.reg16Yellow,
                                 ),
-                                Icon(Icons.arrow_forward,
-                                    color: AppColors.secondColor, size: 12),
-                              ],
-                            ),
+                              );
+                            },
+                            styleText: AppStyles.reg16Yellow,
                           ),
-                          SizedBox(
-                            height: height * 0.25,
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: filteredMovies.length,
-                              itemBuilder: (context, i) {
-                                final movie = filteredMovies[i];
-                                return InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed(
-                                        AppRoutes.detailsScreen,
-                                        arguments: MovieDetailsArgs(
-                                            movies: moviesList,
-                                            movie: movie,
-                                            token: widget.loginToken));
-                                  },
-                                  child: CustomMoviePoster(
-                                    imageWidth: width * 0.33,
-                                    imageHeight: height * 0.23,
-                                    image: movie.mediumCoverImage ?? '',
-                                    rating: movie.rating,
-                                  ),
-                                );
-                              },
-                              separatorBuilder: (context, i) =>
-                                  SizedBox(width: width * 0.02),
-                            ),
-                          ),
+                          Icon(Icons.arrow_forward, color: AppColors.secondColor, size: 12),
                         ],
-                      );
-                    }),
-                    SizedBox(height: height * 0.06),
+                      ),
+                    ),
+                    SizedBox(
+                      height: height * 0.25,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: filteredMovies.length,
+                        itemBuilder: (context, i) {
+                          final movie = filteredMovies[i];
+                          return InkWell(
+                            onTap: (){
+                              Navigator.of(context).pushNamed(
+                                  AppRoutes.detailsScreen,
+                                  arguments: MovieDetailsArgs( movies:moviesList, movie: movie, token:widget.loginToken));},
+                            child: CustomMoviePoster(
+                              imageWidth: width * 0.33,
+                              imageHeight: height * 0.23,
+                              image: movie.mediumCoverImage ?? '',
+                              rating: movie.rating,
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, i) => SizedBox(width: width * 0.02),
+                      ),
+                    ),
                   ],
                 );
-              }
-              return SizedBox();
-            },
-        ),
+              }),
+              SizedBox(height: height * 0.06),
+            ],
+          );
+        },
+      ),
     );
   }
 }

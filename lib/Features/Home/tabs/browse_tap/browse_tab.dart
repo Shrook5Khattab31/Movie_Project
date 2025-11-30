@@ -42,6 +42,8 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+
+
     return SafeArea(
       child: FutureBuilder<MovieResponse>(
         future: moviesFuture,
@@ -143,10 +145,10 @@ class _BrowseTabScreenState extends State<BrowseTabScreen> {
                     );
                   },
                 ),
-              )
-          ],
-            );
-          }
+              ),
+            ],
+          );
+        },
       ),
     );
   }
